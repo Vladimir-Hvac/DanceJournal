@@ -1,3 +1,4 @@
 # DanceJournal
 Project for keeping records of students at a dance school
 +1
++3
