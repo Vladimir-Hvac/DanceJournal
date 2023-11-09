@@ -1,20 +1,23 @@
-<mxfile host="app.diagrams.net" modified="2023-11-09T16:35:14.414Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="1nNbKXoSxPrUuorcU2jL" version="22.1.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-09T16:37:42.239Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="Qd0QdSghr80wF5A33H-G" version="22.1.0" type="github">
   <diagram name="Страница — 1" id="-huWrvzhIRPL-7FePhcu">
-    <mxGraphModel dx="1244" dy="1136" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="948" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="211ug2n4QtESpDDz7pXh-1" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+        <mxCell id="211ug2n4QtESpDDz7pXh-1" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="80" y="100" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="211ug2n4QtESpDDz7pXh-2" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+        <mxCell id="211ug2n4QtESpDDz7pXh-2" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="80" y="230" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="211ug2n4QtESpDDz7pXh-3" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+        <mxCell id="211ug2n4QtESpDDz7pXh-3" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="80" y="360" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="211ug2n4QtESpDDz7pXh-4" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+        <mxCell id="211ug2n4QtESpDDz7pXh-4" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="80" y="490" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qdEnkMJBV1Y_F-VeBBrM-1" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="294" y="110" width="120" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
