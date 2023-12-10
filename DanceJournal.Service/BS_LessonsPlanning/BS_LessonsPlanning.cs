@@ -8,7 +8,7 @@ using System.Xml.XPath;
 
 namespace DanceJournal.Service.BS_LessonsPlanning
 {
-    public class BS_LessonsPlanning
+    public class BS_LessonsPlanning : ILessonPlanning
     {
         private readonly IRepository _repo;
 
