@@ -27,7 +27,7 @@ namespace DanceJournal.Service.BS_LessonsPlanning
                 var room = await _repo.GetRoom(l.RoomId);
                 var level = await _repo.GetLevel(l.LevelId);
                 
-                lessons.Add(new LP_Lesson(l.Id,type.Id,room.Id,l.Date,l.Start,l.Finish,level.Title)); 
+                lessons.Add(new LP_Lesson(l.Id,type.Id,room.Id,l.Date,l.Start,l.Finish,level.Id)); 
             }
 
             return lessons;
@@ -41,7 +41,7 @@ namespace DanceJournal.Service.BS_LessonsPlanning
             var room = await _repo.GetRoom(l.RoomId);
             var level = await _repo.GetLevel(l.LevelId);
                 
-            return new LP_Lesson(l.Id,type.Id,room.Id,l.Date,l.Start,l.Finish,level.Title); 
+            return new LP_Lesson(l.Id,type.Id,room.Id,l.Date,l.Start,l.Finish,level.Id); 
         }
 
         public async Task AddLesson(LP_Lesson lesson)
@@ -50,7 +50,6 @@ namespace DanceJournal.Service.BS_LessonsPlanning
             {
                 var e = new RepositoryLesson
                 {
-                    Id = Guid.NewGuid(),
                     LessonTypeId = lesson.TypeId,
                     RoomId = lesson.RoomId,
                     Date = lesson.Date,
@@ -69,7 +68,6 @@ namespace DanceJournal.Service.BS_LessonsPlanning
             {
                 var e = new RepositoryLesson
                 {
-                    Id = lesson.Id,
                     LessonTypeId = lesson.TypeId,
                     RoomId = lesson.RoomId,
                     Date = lesson.Date,
