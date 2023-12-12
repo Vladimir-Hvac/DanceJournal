@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DanceJournal.Service.BS_NotificationManagement
+namespace DanceJournal.Service.BS_NotificationManagement.Contracts
 {
-    internal class Class1
+    public class NotificationDTO
     {
     }
 }
