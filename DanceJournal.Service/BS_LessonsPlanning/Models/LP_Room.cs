@@ -1,1 +1,1 @@
-public record LP_Room (Guid Id,string Name);
+public record LP_Room(int Id, string Name);

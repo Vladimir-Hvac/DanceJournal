@@ -13,6 +13,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
+builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Scoped);
 
 var app = builder.Build();
 
