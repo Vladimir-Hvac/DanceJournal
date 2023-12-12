@@ -33,7 +33,7 @@ namespace DanceJournal.Service.BS_LessonsPlanning
             return lessons;
         }
 
-        public async Task<LP_Lesson> GetLesson(Guid Id)
+        public async Task<LP_Lesson> GetLesson(int Id)
         {
             var l = await _repo.GetLesson(Id);
             
@@ -81,7 +81,7 @@ namespace DanceJournal.Service.BS_LessonsPlanning
                 await _repo.UpdateLesson(e);
             }
         }
-        public async Task RemoveLesson(Guid id)
+        public async Task RemoveLesson(int id)
         {
             await _repo.RemoveLesson(id);
         }
