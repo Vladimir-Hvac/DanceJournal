@@ -1,0 +1,1 @@
+public record LP_Room (Guid Id,string Name);
