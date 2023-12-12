@@ -9,14 +9,14 @@ using System.Reflection.Emit;
 
 public class DanceJournalDbContext : DbContext
 {
-    public DanceJournalDbContext(DbContextOptions<DanceJournalDbContext> options)
-        : base(options)
-    {
-        var databaseCreator = this.GetService<IRelationalDatabaseCreator>();
-        databaseCreator.CreateTables();
-        //Database.EnsureDeleted();
-        //Database.EnsureCreated();
-    }
+    //public DanceJournalDbContext(DbContextOptions<DanceJournalDbContext> options)
+    //    : base(options)
+    //{
+    //    var databaseCreator = this.GetService<IRelationalDatabaseCreator>();
+    //    databaseCreator.CreateTables();
+    //    //Database.EnsureDeleted();
+    //    //Database.EnsureCreated();
+    //}
 
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<LessonType> LessonTypes { get; set; }
@@ -30,7 +30,7 @@ public class DanceJournalDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var configuration = new ConfigurationBuilder().AddJsonFile("libsettings.json").Build();
+        var configuration = new ConfigurationBuilder().AddJsonFile("ISsettings.json").Build();
 
         var connectionString = configuration?.GetConnectionString("DefaultConnection");
         if (connectionString != null)
