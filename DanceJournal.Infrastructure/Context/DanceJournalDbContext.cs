@@ -7,9 +7,9 @@ using System;
 using System.Data;
 using System.Reflection.Emit;
 
-public class RepositoryDbContext : DbContext
+public class DanceJournalDbContext : DbContext
 {
-    public RepositoryDbContext(DbContextOptions<RepositoryDbContext> options)
+    public DanceJournalDbContext(DbContextOptions<DanceJournalDbContext> options)
         : base(options)
     {
         var databaseCreator = this.GetService<IRelationalDatabaseCreator>();
