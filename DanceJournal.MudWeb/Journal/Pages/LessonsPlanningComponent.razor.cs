@@ -12,8 +12,8 @@ partial class LessonsPlanningComponent
 
     protected override async Task OnInitializedAsync()
     {
-        DjDbContext.Users.Add(new User() { Name = "Peter" });
-        DjDbContext.SaveChanges();
+        //DjDbContext.Users.Add(new User() { Name = "Peter" });
+        //DjDbContext.SaveChanges();
         Elements = new List<ELement>()
         {
             new ELement()
