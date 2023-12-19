@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-07T18:47:05.910Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0" etag="WgFjorD09U-CbVx8re14" version="22.1.7" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-19T17:23:41.517Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="as8IisrHo6WHth2yCEgz" version="22.1.11" type="github">
   <diagram name="Страница — 1" id="-huWrvzhIRPL-7FePhcu">
-    <mxGraphModel dx="5119" dy="3152" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4869" dy="5129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -472,7 +472,7 @@
         <mxCell id="38tsDACRDi0O5EKiQqHK-222" value="Notification" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="470" y="1060" width="190" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="38tsDACRDi0O5EKiQqHK-223" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.078;entryY=0.524;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="38tsDACRDi0O5EKiQqHK-222">
+        <mxCell id="38tsDACRDi0O5EKiQqHK-223" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.078;entryY=0.524;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="38tsDACRDi0O5EKiQqHK-222" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="390" y="1097" />
@@ -620,61 +620,61 @@
         <mxCell id="9_qUnA52sR5yyOnQKoZE-42" value="Include" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="30" y="3300" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-1" value="Получилось" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-1" value="Получилось" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="2400" y="-640" width="250" height="250" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-2" value="Возможности для улучшения" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-2" value="Возможности для улучшения" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="2650" y="-640" width="250" height="250" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-3" value="Вопросы" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-3" value="Вопросы" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="2400" y="-390" width="250" height="250" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-4" value="Предложения" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-4" value="Предложения" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="2650" y="-390" width="250" height="250" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-6" value="Определиться с разбиением на сервисы" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-6" value="Определиться с разбиением на сервисы" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2415" y="-600" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-7" value="Распределить сервисы между членами команды" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-7" value="Распределить сервисы между членами команды" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2415" y="-500" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-8" value="Зафиксировали верхнеуровневые задачи в бэклоге" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-8" value="Зафиксировали верхнеуровневые задачи в бэклоге" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2415" y="-550" width="110" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-9" value="Добились регулярных созвонов" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-9" value="Добились регулярных созвонов" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2415" y="-450" width="110" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-13" value="Правильность архитектуры (бизнес сервисы на микросервисы или монолит)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-13" value="Правильность архитектуры (бизнес сервисы на микросервисы или монолит)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2410" y="-360" width="100" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-14" value="Определиться с инфраструктурными решениями (pg, Rabbit, ClickHouse где разворачивать???)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-14" value="Определиться с инфраструктурными решениями (pg, Rabbit, ClickHouse где разворачивать???)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2410" y="-270" width="110" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-15" value="Как организовать контракты между сервисами" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-15" value="Как организовать контракты между сервисами" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2530" y="-360" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-16" value="Организация солюшена. Сервис - проект или Сервис - папка" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-16" value="Организация солюшена. Сервис - проект или Сервис - папка" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2530" y="-310" width="100" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-17" value="Подготовка CI/CD" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-17" value="Подготовка CI/CD" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2660" y="-584" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-18" value="Тестирование(Unit/Integration)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-18" value="Тестирование(Unit/Integration)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2660" y="-520" width="130" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-19" value="Вести отчетность по выполнению задач" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-19" value="Вести отчетность по выполнению задач" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2660" y="-450" width="130" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-20" value="Код ревью" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-20" value="Код ревью" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2780" y="-584" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-22" value="Ретро доска от 07.12.2023" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-22" value="Ретро доска от 07.12.2023" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="2540" y="-750" width="190" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-25" value="Смена скрам-мастера (Валерий)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-25" value="Смена скрам-мастера (Валерий)" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="2670" y="-360" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-26" value="" style="endArrow=none;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=3;" edge="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-26" value="" style="endArrow=none;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=3;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="-1480" y="1780" as="sourcePoint" />
             <mxPoint x="1610" y="1600" as="targetPoint" />
@@ -704,8 +704,149 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="vef54IJBFnu6u2v6ev3W-27" value="MVP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="vef54IJBFnu6u2v6ev3W-27" value="MVP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-1510" y="1660" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-1" value="Дублировать уведомление на почту" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="1780" width="147" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-7" value="UseCase 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1470" y="5200" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-8" value="Получить список пришедших(непрочитанных) уведомлений" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1470" y="5260" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-9" value="&lt;p&gt;&lt;strong&gt;Участники:&lt;/strong&gt; Пользователь, система (SuD);&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Предусловие:&lt;/strong&gt; Пользователь вошел в ЛК;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;Пользователь нажимает на уведомления;&lt;/p&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1470" y="5320" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-10" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. Пользователь нажимает на уведомления;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. Система отображает пришедшие (непрочитанные) уведомления;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1470" y="5470" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-11" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;2.а. Система обнаруживает что нет ни одного уведомления для пользователя:&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt; .а. Система выводит сообщение, что нет уведомлений.&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2.б. Система обнаруживает что дата приглашения просрочилась:&lt;br style=&quot;border-color: var(--border-color);&quot; class=&quot;softbreak&quot;&gt;&lt;/span&gt; &lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;.а. Система не выводит это сообщение.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1470" y="5680" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-13" value="UseCase 2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5200" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-14" value="Прочитать уведомление" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5260" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-15" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;Пользователь, система (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;Пользователь получил список уведомлений (UseCase1);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;Пользователь нажимает на уведомление;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5320" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-16" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. Пользователь нажимает на уведомление;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. Система отображает форму содержания уведомления;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5470" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-17" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5680" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-19" value="UseCase 2.1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5860" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-20" value="Закрыть содержание уведомления" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5920" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-21" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;Пользователь, система (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;Пользователь прочитал уведомление (UseCase2);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;Пользователь нажимает закрыть содержание уведомления;&lt;/div&gt;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="5980" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-22" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. Пользователь нажимает закрыть содержание уведомления;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. Система закрывает форму содержания уведомления, переходит к UseCase1;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="6130" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-23" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-1010" y="6340" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-24" value="&lt;span style=&quot;font-size: 28px;&quot;&gt;BS_NotificationManagement&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-1450" y="5050" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-26" value="UseCase 3" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-563" y="5200" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-27" value="Отметить уведомление как прочитанное" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-563" y="5260" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-28" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;Пользователь, система (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;Пользователь прочитал уведомление (UseCase2);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;Пользователь нажимает отметить как прочитанное;&lt;/div&gt;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-563" y="5320" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-29" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. Пользователь нажимает отметить как прочитанное;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. Система помечает сообщение как прочитанное, закрывает форму содержания уведомления, переходит к UseCase1;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-563" y="5470" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-30" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-563" y="5680" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-32" value="UseCase 4" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-85" y="5200" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-33" value="Принять уведомление приглашения на мероприятие" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-85" y="5260" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-34" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;Пользователь, система (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;Пользователь прочитал уведомление (UseCase2);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;Пользователь нажимает принять приглашение;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-85" y="5320" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-35" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. Пользователь нажимает принять приглашение;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. Система помечает сообщение как прочитанное, закрывает форму содержания уведомления, создает запланированное мероприятие в расписании пользователя, переходит к UseCase1;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-85" y="5470" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-36" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;br style=&quot;border-color: var(--border-color);&quot; class=&quot;softbreak&quot;&gt;2.a Система обнаруживает, что количество принятых приглашений удовлетворено:&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt; а. Система удаляет лишние отправленные приглашения у пользователей, которые не успели приглашение принять&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-85" y="5680" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-38" value="UseCase 5" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="5200" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-39" value="Отклонить уведомление приглашения на мероприятие" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="5260" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-40" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;Пользователь, система (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;Пользователь прочитал уведомление (UseCase2);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;Пользователь нажимает отклонить приглашение;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="380" y="5320" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-41" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. Пользователь нажимает отклонить приглашение;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. Система помечает сообщение как прочитанное, закрывает форму содержания уведомления, переходит к UseCase1;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="380" y="5470" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-42" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;br style=&quot;border-color: var(--border-color);&quot; class=&quot;softbreak&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="380" y="5680" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-44" value="UseCase 6" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="5200" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-45" value="Отправить уведомление приглашения на мероприятие" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="5260" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-46" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;Пользователь, система (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;Пользователь прочитал уведомление (UseCase2);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;Пользователь нажимает отправить приглашение на мероприятие;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="5320" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-47" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. Пользователь нажимает отправить приглашение на мероприятие;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. Система открывает форму приглашения на мероприятие:&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt; Поля для заполнения:&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;  - мероприятие&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;  - получатель(получатели)&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;  - количество необходимых пользователей на посещение мероприятия;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt; В полях для заполнения Система предоставляет выбор из  списка применяя Политику предоставления содержимого мероприятий и получателей(UseCase 6.1 и UseCase 6.2).&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;3. Пользователь заполняет поля и подтверждает отправку приглашения.&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;4. Система подтверждает, что все поля заполнены правильно;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;5. Система закрывает форму приглашения на мероприятие, отправляет уведомление и информирует пользователя об успешной отправке;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="5470" width="360" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-48" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;4.а. Система обнаруживает, что поля заполнены некорректно:&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt; .а. Система указывает на некорректность заполненных данных;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt; .б. Пользователь повторяет шаг 3 или завершает данный UseCase;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;5. Система обнаруживает, что при отправке приглашения произошел сбой:&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt; .а. Система информирует пользователя о сбое и просит повторить попытку позднее и завершает данный UseCase;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="5760" width="360" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-50" value="UseCase 6.1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="6000" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-51" value="Отклонить уведомление приглашения на мероприятие" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="6060" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-52" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;NotificationService, политика (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;не определено;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;не определено;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="800" y="6120" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-53" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. NotificationService запрашивает доступный список занятий предоставляя информацию о пользователе и информацию о занятиях;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. П&lt;/span&gt;олитика подбирает занятия назначенные на пользователя и возвращает получившийся список;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="800" y="6270" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-54" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;br style=&quot;border-color: var(--border-color);&quot; class=&quot;softbreak&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="800" y="6480" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-56" value="UseCase 6.2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="6000" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-57" value="Политика предоставления содержимого пользователей при формировании приглашения на мероприятие" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="6060" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-58" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Участники:&lt;/strong&gt;&amp;nbsp;NotificationService, политика (SuD);&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Предусловие:&lt;/strong&gt;&amp;nbsp;не определено;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color);&quot;&gt;Триггер:&lt;/strong&gt;&amp;nbsp;не определено;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;p style=&quot;&quot;&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="6120" width="360" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-59" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Шаги:&lt;/strong&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;1. NotificationService запрашивает доступный список получателей предоставляя информацию о мероприятии и информацию о пользователях;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;2. П&lt;/span&gt;олитика подбирает получателей с тем же уровнем мероприятия или выше и возвращает получившийся список;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="6270" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iFCg-4eQbttdBaNR3C_s-60" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;strong style=&quot;border-color: var(--border-color); background-color: transparent;&quot;&gt;Расширения:&lt;/strong&gt;&lt;br style=&quot;border-color: var(--border-color);&quot; class=&quot;softbreak&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="6480" width="360" height="130" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
