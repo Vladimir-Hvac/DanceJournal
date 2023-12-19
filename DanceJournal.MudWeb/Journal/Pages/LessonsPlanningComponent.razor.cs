@@ -8,22 +8,19 @@ partial class LessonsPlanningComponent
 {
     [Inject]
     public DanceJournalDbContext DjDbContext { get; set; }
-    private IEnumerable<ELement>? Elements;
+    private IEnumerable<Lesson>? Lessons;
 
     protected override async Task OnInitializedAsync()
     {
         //DjDbContext.Users.Add(new User() { Name = "Peter" });
         //DjDbContext.SaveChanges();
-        Elements = new List<ELement>()
+        Lessons = new List<Lesson>()
         {
-            new ELement()
+            new Lesson
             {
-                Number = 1,
-                Molar = "1587.7",
-                Name = "Name",
-                Position = "115",
-                Sign = "H"
+                  
             }
         };
+        
     }
 }
