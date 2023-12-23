@@ -11,15 +11,16 @@ namespace DanceJournal.Service.BS_NotificationManagement
 {
     public interface INotificationService
     {
+        event EventHandler OnNotificationReceived;
         Task<List<NotificationDTO>> GetNotReadNotifications(int userId);
         NotificationDTO ReadNotification(int notificationId);
-        bool MarkAsRead(int notificationId);
+        bool MarkAsRead(int notificationId); // уйдет в ReadNotification
         bool AcceptInvitation(int notificationId);
         bool DeclineInvitation(int notificationId);
 
 
-        List<EventDTO> ProvideEvents(int userId);
-        List<UserDTO> ProvideRecipients(int eventId);
+        List<EventDTO> ProvideEvents(int userId); //
+        List<UserDTO> ProvideRecipients(int eventId); // Приглашаются люди с равным или большим уровнем, который указан в уровне урока
         bool SentInvitation(int eventId, List<int> recipientsIds);
     }
 
@@ -27,9 +28,24 @@ namespace DanceJournal.Service.BS_NotificationManagement
     {
         private readonly INotificationRepository _notificationRepository;
 
+        public EventHandler OnNotificationReceived => throw new NotImplementedException();
+
         public NotificationService(INotificationRepository notificationRepository)
         {
             _notificationRepository = notificationRepository;
+        }
+
+        event EventHandler INotificationService.OnNotificationReceived
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public async Task<List<NotificationDTO>> GetNotReadNotifications(int userId)
@@ -99,6 +115,20 @@ namespace DanceJournal.Service.BS_NotificationManagement
                 IsAccepted = invitationNotificationStatus.IsAccepted,
             };
             return notificationDTO;
+        }
+    }
+
+    class Client
+    {
+        private INotificationService notificationService;
+        public Client()
+        {
+            notificationService.OnNotificationReceived += DoSmth;
+        }
+
+        public async void DoSmth(object sender, EventArgs eventArgs)
+        {
+            List<NotificationDTO> notif = await notificationService.GetNotReadNotifications(1);
         }
     }
 }
