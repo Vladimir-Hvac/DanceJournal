@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace DanceJournal.Service.BS_NotificationManagement.Entities
 {
-    public class Notification
+    public class Invitation
     {
         public int Id { get; set; }
-        public string Body { get; set; } = string.Empty;
-        public bool IsDeleted { get; set; }
+        public bool IsAccepted { get; set; }
     }
 }

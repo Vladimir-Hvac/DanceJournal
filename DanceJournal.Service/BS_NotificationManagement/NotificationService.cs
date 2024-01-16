@@ -13,7 +13,7 @@ namespace DanceJournal.Service.BS_NotificationManagement
     {
         event EventHandler OnNotificationReceived;
         Task<List<NotificationDTO>> GetNotReadNotifications(int userId);
-        NotificationDTO ReadNotification(int notificationId);
+        Task<NotificationDTO?> ReadNotification(int notificationId);
         bool MarkAsRead(int notificationId); // уйдет в ReadNotification
         bool AcceptInvitation(int notificationId);
         bool DeclineInvitation(int notificationId);
@@ -51,10 +51,17 @@ namespace DanceJournal.Service.BS_NotificationManagement
         public async Task<List<NotificationDTO>> GetNotReadNotifications(int userId)
         {
             List<NotificationDTO> result = new();
-            List<InvitationNotificationStatus> invitationNotificationStatuses = await _notificationRepository.GetAllInvitationNotificationStatuses();
-            invitationNotificationStatuses = invitationNotificationStatuses.Where(x => x.ReceiverId.Equals(userId) && !x.IsRead).ToList();
+            try
+            {
+                List<InvitationNotificationStatus> invitationNotificationStatuses = await _notificationRepository.GetAllInvitationNotificationStatuses();
+                invitationNotificationStatuses = invitationNotificationStatuses.Where(x => x.ReceiverId.Equals(userId) && !x.IsRead).ToList();
 
-            result.AddRange(MapNotificationDTOs(invitationNotificationStatuses));
+                result.AddRange(MapNotificationDTOs(invitationNotificationStatuses));
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
 
             return result;
         }
@@ -84,9 +91,21 @@ namespace DanceJournal.Service.BS_NotificationManagement
             throw new NotImplementedException();
         }
 
-        public NotificationDTO ReadNotification(int notificationId)
+        public async Task<NotificationDTO?> ReadNotification(int notificationId)
         {
-            throw new NotImplementedException();
+            NotificationDTO? result = null;
+            List<InvitationNotificationStatus> invitationNotificationStatuses = await _notificationRepository.GetAllInvitationNotificationStatuses();
+
+            InvitationNotificationStatus? foundInvitationNotificationStatus = invitationNotificationStatuses.FirstOrDefault(x => x.Notification != null && x.Notification.Id.Equals(notificationId));
+
+            if (foundInvitationNotificationStatus != null)
+            {
+                foundInvitationNotificationStatus.IsRead = true;
+                bool updateResult = await _notificationRepository.UpdateInvitationNotificationStatus(foundInvitationNotificationStatus);
+                result = MapNotificationDTO(foundInvitationNotificationStatus);
+            }
+
+            return result;
         }
 
         public bool SentInvitation(int eventId, List<int> recipientsIds)
@@ -111,10 +130,25 @@ namespace DanceJournal.Service.BS_NotificationManagement
             NotificationDTO notificationDTO = new()
             {
                 IsRead = invitationNotificationStatus.IsRead,
-                Body = invitationNotificationStatus.Notification.Body,
-                IsAccepted = invitationNotificationStatus.IsAccepted,
+                Body = invitationNotificationStatus.Notification is null ? string.Empty : invitationNotificationStatus.Notification.Body,
+                InvitationDTO = MapInvitationDTO(invitationNotificationStatus.Invitation) 
             };
             return notificationDTO;
+        }
+        private static InvitationDTO? MapInvitationDTO(Invitation? invitation)
+        {
+            InvitationDTO? invitationDTO = null;
+
+            if(invitation is not null)
+            {
+                invitationDTO = new()
+                {
+                    Id = invitation.Id,
+                    IsAccepted = invitation.IsAccepted,
+                };
+            }
+
+            return invitationDTO;
         }
     }
 

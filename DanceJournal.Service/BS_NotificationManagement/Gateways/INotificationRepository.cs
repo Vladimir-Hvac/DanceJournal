@@ -7,5 +7,7 @@ namespace DanceJournal.Service.BS_NotificationManagement.Gateways
         Task<List<NotificationReadingStatus>> GetAllNotificationReadingStatuses();
 
         Task<List<InvitationNotificationStatus>> GetAllInvitationNotificationStatuses();
+
+        Task<bool> UpdateInvitationNotificationStatus(InvitationNotificationStatus invitationNotificationStatus);
     }
 }

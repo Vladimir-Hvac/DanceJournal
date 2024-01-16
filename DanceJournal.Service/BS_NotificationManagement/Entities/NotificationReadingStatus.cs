@@ -12,6 +12,6 @@ namespace DanceJournal.Service.BS_NotificationManagement.Entities
         public int ReceiverId { get; set; }
         public bool IsRead { get; set; }
 
-        public Notification Notification { get; set; }
+        public Notification? Notification { get; set; }
     }
 }

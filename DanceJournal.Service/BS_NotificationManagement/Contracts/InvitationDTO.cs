@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace DanceJournal.Service.BS_NotificationManagement.Contracts
 {
-    public class NotificationDTO
+    public class InvitationDTO
     {
-        public bool IsRead { get; set; }
-        public string Body { get; set; } = string.Empty;
-
-        public InvitationDTO? InvitationDTO { get; set; }
+        public int Id { get; set; }
+        public bool IsAccepted { get; set; }
     }
 }
