@@ -8,19 +8,8 @@ partial class LessonsPlanningComponent
 {
     [Inject]
     public DanceJournalDbContext DjDbContext { get; set; }
-    private IEnumerable<Lesson>? Lessons;
+    private IEnumerable<LessonTypeDto>? LessonTypes;
+    private string _searchString;
 
-    protected override async Task OnInitializedAsync()
-    {
-        //DjDbContext.Users.Add(new User() { Name = "Peter" });
-        //DjDbContext.SaveChanges();
-        Lessons = new List<Lesson>()
-        {
-            new Lesson
-            {
-                  
-            }
-        };
-        
-    }
+    protected override async Task OnInitializedAsync() { }
 }

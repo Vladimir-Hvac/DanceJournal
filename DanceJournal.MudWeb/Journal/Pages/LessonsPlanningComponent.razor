@@ -1,15 +1,24 @@
 ﻿@using DanceJournal.MudWeb.Journal.Pages
 
-@* <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
-        <MudDataGrid Items="@Elements">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Lessons Type</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            <MudSpacer/>
+            <MudButton >-</MudButton>
+        </ToolBarContent>
+        <MudDataGrid Items="@LessonTypes">
             <Columns>
-                <Column T="ELement" Field="Number"/>
-                <Column T="ELement" Field="Sign" />
+                <Column T="LessonTypeDto" Field="Name" />
+                <Column T="LessonTypeDto" Field="Price" />
+                <Column T="LessonTypeDto" Field="Type" />
             </Columns>
         </MudDataGrid>
     </MudGrid>
-</MudContainer> *@
+</MudContainer>
 @* 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
@@ -28,7 +37,9 @@
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                <MudDatePicker></MudDatePicker>
+            </MudPaper>
         </MudItem>
         <MudItem xs="12" sm="6" md="4">
             <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
