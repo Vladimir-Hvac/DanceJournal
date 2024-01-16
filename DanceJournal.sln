@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.Web", "DanceJournal.Web\DanceJournal.Web.csproj", "{A5C2668D-8602-4A1C-9035-52F5218F4ED3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.Service", "DanceJournal.Service\DanceJournal.Service.csproj", "{F7B69709-4DDF-4E02-AA31-8F817B5FCAD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceJournal.Infrastructure", "DanceJournal.Infrastructure\DanceJournal.Infrastructure.csproj", "{778AD7D1-FA21-4482-8519-DEA9AF3070EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.Infrastructure", "DanceJournal.Infrastructure\DanceJournal.Infrastructure.csproj", "{778AD7D1-FA21-4482-8519-DEA9AF3070EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceJournal.MudWeb", "DanceJournal.MudWeb\DanceJournal.MudWeb.csproj", "{54BDA889-1125-4DFA-95A6-192359335832}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5C2668D-8602-4A1C-9035-52F5218F4ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5C2668D-8602-4A1C-9035-52F5218F4ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5C2668D-8602-4A1C-9035-52F5218F4ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5C2668D-8602-4A1C-9035-52F5218F4ED3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7B69709-4DDF-4E02-AA31-8F817B5FCAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7B69709-4DDF-4E02-AA31-8F817B5FCAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7B69709-4DDF-4E02-AA31-8F817B5FCAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{778AD7D1-FA21-4482-8519-DEA9AF3070EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{778AD7D1-FA21-4482-8519-DEA9AF3070EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{778AD7D1-FA21-4482-8519-DEA9AF3070EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54BDA889-1125-4DFA-95A6-192359335832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54BDA889-1125-4DFA-95A6-192359335832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54BDA889-1125-4DFA-95A6-192359335832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54BDA889-1125-4DFA-95A6-192359335832}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
