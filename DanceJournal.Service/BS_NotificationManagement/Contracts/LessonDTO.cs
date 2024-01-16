@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DanceJournal.Service.BS_NotificationManagement.Contracts
 {
-    public class EventDTO
+    public class LessonDTO
     {
     }
 }

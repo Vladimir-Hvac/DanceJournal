@@ -10,6 +10,9 @@ namespace DanceJournal.Service.BS_NotificationManagement.Entities
     {
         public int Id { get; set; }
         public string Body { get; set; } = string.Empty;
+        public int CreatorId { get; set; }
+
+        public DateTime EntryDateTime { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

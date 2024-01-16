@@ -4,10 +4,10 @@ namespace DanceJournal.Service.BS_NotificationManagement.Gateways
 {
     public interface INotificationRepository
     {
-        Task<List<NotificationReadingStatus>> GetAllNotificationReadingStatuses();
-
         Task<List<InvitationNotificationStatus>> GetAllInvitationNotificationStatuses();
 
         Task<bool> UpdateInvitationNotificationStatus(InvitationNotificationStatus invitationNotificationStatus);
+
+        Task<Invitation?> GetInvitation(int invitationId);
     }
 }
