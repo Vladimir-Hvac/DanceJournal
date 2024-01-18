@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.Service", "Dan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.Infrastructure", "DanceJournal.Infrastructure\DanceJournal.Infrastructure.csproj", "{778AD7D1-FA21-4482-8519-DEA9AF3070EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceJournal.MudWeb", "DanceJournal.MudWeb\DanceJournal.MudWeb.csproj", "{54BDA889-1125-4DFA-95A6-192359335832}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.MudWeb", "DanceJournal.MudWeb\DanceJournal.MudWeb.csproj", "{54BDA889-1125-4DFA-95A6-192359335832}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

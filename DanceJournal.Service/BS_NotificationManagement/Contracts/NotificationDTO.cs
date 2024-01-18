@@ -8,5 +8,10 @@ namespace DanceJournal.Service.BS_NotificationManagement.Contracts
 {
     public class NotificationDTO
     {
+        public int Id { get; set; }
+        public bool IsRead { get; set; }
+        public string Body { get; set; } = string.Empty;
+
+        public InvitationDTO? InvitationDTO { get; set; }
     }
 }
