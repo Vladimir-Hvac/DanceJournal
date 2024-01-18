@@ -1,0 +1,36 @@
+﻿
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+            <MudTable T="User" Items="@_users">
+                <HeaderContent>
+                    <MudTh>Id</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>Surname</MudTh>
+                    <MudTh>Age</MudTh>
+                    <MudTh>Gender</MudTh>
+                    <MudTh>Email</MudTh>
+                    <MudTh>Phone Number</MudTh>
+                    <MudTh>Level</MudTh>
+                    <MudTh>Role</MudTh>
+                    <MudTh>Subscription</MudTh>
+                    <MudTh>Salary</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.Id</MudTd>
+                        <MudTd>@context.Name</MudTd>
+                        <MudTd>@context.Surname</MudTd>
+                        <MudTd>@context.Age</MudTd>
+                        <MudTd>@context.Gender</MudTd>
+                        <MudTd>@context.Email</MudTd>
+                        <MudTd>@context.PhoneNumber</MudTd>
+                        <MudTd>@context.Level.Title</MudTd>
+                        <MudTd>@context.Role.Name</MudTd>
+                        <MudTd>@context.Subscription.SubscriptionType.Name</MudTd>
+                        <MudTd>@context.Salary</MudTd>
+                    </RowTemplate>
+                </MudTable>
+
+            </MudItem>
+        </MudGrid>
+    </MudContainer>

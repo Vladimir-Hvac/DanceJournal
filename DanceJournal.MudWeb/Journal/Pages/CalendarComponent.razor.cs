@@ -1,9 +1,15 @@
 ﻿using Heron.MudCalendar;
+using Microsoft.AspNetCore.Components;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
     partial class CalendarComponent
     {
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
+        private List<Lesson>? Lessons;
+
         private List<CalendarItem> _events =
             new()
             {
@@ -11,14 +17,10 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 {
                     Start = DateTime.Today.AddHours(10),
                     End = DateTime.Today.AddHours(11),
-                    Text = "Event today"
+                    Text = "Танго"
                 },
-                new CalendarItem
-                {
-                    Start = DateTime.Today.AddDays(1).AddHours(11),
-                    End = DateTime.Today.AddDays(1).AddHours(12.5),
-                    Text = "Event tomorrow"
-                }
             };
+
+        private void OnClick() { }
     }
 }

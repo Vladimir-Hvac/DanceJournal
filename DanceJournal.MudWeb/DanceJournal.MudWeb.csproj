@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Journal\Services\" />
+    <Folder Include="Journal\Resources\" />
   </ItemGroup>
 
 </Project>
