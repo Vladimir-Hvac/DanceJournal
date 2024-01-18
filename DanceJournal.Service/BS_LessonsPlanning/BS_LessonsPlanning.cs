@@ -5,100 +5,79 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.XPath;
+using DanceJournal.Infrastructure.Repository;
 
 namespace DanceJournal.Service.BS_LessonsPlanning
 {
     public class BS_LessonsPlanning : ILessonPlanning
     {
-        private readonly IRepository _repo;
+        private readonly IDanceJournalRepository _repository;
 
-        public BS_LessonsPlanning(IRepository repo)
+        public BS_LessonsPlanning(IDanceJournalRepository repository)
         {
-            _repo = repo;
+            _repository = repository;
         }
 
-        public async Task<IEnumerable<LP_Lesson>> GetAllLessons()
+        public async Task BookRoom(Lesson lesson, Room room)
         {
-            var lessons = new List<LP_Lesson>();
-            var repo_lessons = await _repo.GetAllLessons();
-
-            foreach (var l in repo_lessons)
+            if(room == null)
             {
-                var type = await _repo.GetLessonType(l.LessonTypeId);
-                var room = await _repo.GetRoom(l.RoomId);
-                var level = await _repo.GetLevel(l.LevelId);
-
-                lessons.Add(
-                    new LP_Lesson(l.Id, type.Id, room.Id, l.Date, l.Start, l.Finish, level.Id)
-                );
+                lesson.RoomId = 0;
+                await UpdateLesson(lesson);
             }
-
-            return lessons;
-        }
-
-        public async Task<LP_Lesson> GetLesson(int Id)
-        {
-            var l = await _repo.GetLesson(Id);
-
-            var type = await _repo.GetLessonType(l.LessonTypeId);
-            var room = await _repo.GetRoom(l.RoomId);
-            var level = await _repo.GetLevel(l.LevelId);
-
-            return new LP_Lesson(l.Id, type.Id, room.Id, l.Date, l.Start, l.Finish, level.Id);
-        }
-
-        public async Task AddLesson(LP_Lesson lesson)
-        {
-            if (await _repo.GetLesson(lesson.Id) == null)
-            {
-                var e = new Lesson
-                {
-                    LessonTypeId = lesson.TypeId,
-                    RoomId = lesson.RoomId,
-                    Date = lesson.Date,
-                    Start = lesson.Start,
-                    Finish = lesson.Finish,
-                    LevelId = lesson.Level
-                };
-
-                await _repo.AddLesson(e);
+            else
+            {   
+                lesson.RoomId = room.Id;
+                await UpdateLesson(lesson); 
             }
         }
 
-        public async Task UpdateLesson(LP_Lesson lesson)
+        public async Task AddLesson(Lesson lesson)
         {
-            if (await _repo.GetLesson(lesson.Id) != null)
-            {
-                var e = new Lesson
-                {
-                    LessonTypeId = lesson.TypeId,
-                    RoomId = lesson.RoomId,
-                    Date = lesson.Date,
-                    Start = lesson.Start,
-                    Finish = lesson.Finish,
-                    LevelId = lesson.Level
-                };
-
-                await _repo.UpdateLesson(e);
-            }
+            await _repository.AddEntityAsync(lesson);
         }
 
-        public async Task RemoveLesson(int id)
+        public async Task RemoveLesson(Lesson lesson)
         {
-            await _repo.RemoveLesson(id);
+            await _repository.RemoveEntityAsync(lesson);
         }
 
-        public async Task<IEnumerable<LP_Room>> GetAllRooms()
+        public IEnumerable<Lesson> GetAllLessons()
         {
-            var repo_rooms = await _repo.GetAllRooms();
-            List<LP_Room>? rooms = new List<LP_Room>();
+            var result = _repository.GetAllEntitiesByType<Lesson>();
 
-            foreach (var room in repo_rooms)
-            {
-                rooms.Add(new(room.Id, room.Name));
-            }
+            if(result != null)
+                return result;
+            else
+                throw new Exception("Lessons not found.");
+        }
 
-            return rooms;
+        public IEnumerable<Room> GetAllRooms()
+        {
+            var result = _repository.GetAllEntitiesByType<Room>();
+
+            if (result != null)
+                return result;
+            else
+                throw new Exception("Rooms not found.");
+        }
+
+        public Lesson GetLesson(Lesson lesson)
+        {
+            var result = _repository.GetEntityOrDefault(lesson);
+
+            if (result != null)
+                return result;
+            else
+                throw new Exception("Lesson not found.");
+        }
+
+        public Task UpdateLesson(Lesson lesson)
+        {
+            if(_repository.GetEntityOrDefault(lesson) != null)
+                return _repository.UpdateEntityAsync(lesson);
+            else
+                return AddLesson(lesson);
         }
     }
 }
