@@ -1,6 +1,6 @@
 namespace DanceJournal.MudWeb.Journal.Models
 {
-    public class Lesson
+    public class LessonsDTO
     {
         public int Id { get; set; }
         public int LessonTypeId { get; set; }
@@ -17,9 +17,7 @@ namespace DanceJournal.MudWeb.Journal.Models
 
         public Room Room { get; set; }
 
-
         public Level Level { get; set; }
         public ICollection<LessonUser> LessonUsers { get; set; }
-    }    
+    }
 }
-

@@ -1,6 +1,7 @@
 using DanceJournal.MudWeb.Data;
 using DanceJournal.MudWeb.Journal.Pages;
 using DanceJournal.Service.BS_LessonsPlanning;
+using DanceJournal.Service.BS_NotificationManagement;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
@@ -17,6 +18,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
 builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Scoped);
 builder.Services.AddScoped<ILessonPlanning, BS_LessonsPlanning>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 var app = builder.Build();
 
