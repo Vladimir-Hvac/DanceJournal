@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace DanceJournal.Service.BS_NotificationManagement.Contracts
 {
-    public class UserAuthDataDTO
+    public class LessonDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Salary { get; set; }
-
-
-
     }
 }
