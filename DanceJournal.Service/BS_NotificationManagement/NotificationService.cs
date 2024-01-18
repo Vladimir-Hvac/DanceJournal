@@ -14,7 +14,6 @@ namespace DanceJournal.Service.BS_NotificationManagement
         event EventHandler OnNotificationReceived;
         Task<List<NotificationDTO>> GetNotReadNotifications(int userId);
         Task<NotificationDTO?> ReadNotification(int notificationId);
-        Task<bool> MarkAsRead(int notificationId); // уйдет в ReadNotification
         Task<bool> AcceptInvitation(int invitationId, int notificationId, int userId);
         Task<bool> DeclineInvitation(int invitationId, int notificationId, int userId);
 
@@ -101,11 +100,6 @@ namespace DanceJournal.Service.BS_NotificationManagement
         }
 
         public async Task<bool> DeclineInvitation(int invitationId, int notificationId, int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> MarkAsRead(int notificationId)
         {
             throw new NotImplementedException();
         }
