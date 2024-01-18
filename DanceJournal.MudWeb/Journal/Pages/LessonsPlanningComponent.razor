@@ -1,0 +1,76 @@
+﻿@using DanceJournal.MudWeb.Journal.Pages
+@* @using MudBlazor.Examples.Data.Models *@
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+
+            <MudDataGrid T="LessonTypeDto" Items="@LessonTypes" ReadOnly="@_readOnly" 
+                EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+                         Filterable="true" QuickFilter="@_quickFilter"
+                         StartedEditingItem="@StartedEditingItem" 
+                         CanceledEditingItem="@CanceledEditingItem" 
+                         CommittedItemChanges="@CommittedItemChanges">
+                <ToolBarContent>
+                    <MudIconButton Size="@Size.Medium" Icon="@Icons.Material.Outlined.Add" />
+                    <MudSpacer />
+                    <MudText Typo="Typo.h6">Lessons Type</MudText>
+                    <MudSpacer />
+                    <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                    AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                </ToolBarContent>
+                <Columns>
+                    <PropertyColumn Property="x=>x.Name" Field="Name" />
+                    <PropertyColumn Property="x=>x.Price" Field="Price" />
+                    <PropertyColumn Property="x=>x.Type" Field="Type" />
+                    <TemplateColumn CellClass="d-flex justify-end">
+                        <CellTemplate>
+                            <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+            </MudDataGrid>
+
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
+
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 100%"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
