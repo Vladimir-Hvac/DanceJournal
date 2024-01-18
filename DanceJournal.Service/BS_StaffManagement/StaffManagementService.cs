@@ -1,39 +1,31 @@
 ﻿using DanceJournal.Service.BS_StaffManagement.Abstractions;
-using Microsoft.EntityFrameworkCore;
+using DanceJournal.Infrastructure.Repository;
 
 namespace DanceJournal.Service.BS_StaffManagement
 {
     public class StaffManagementService :IStaffManagement
     {
-        private DanceJournalDbContext _dbContext;
-        private readonly int _roleForStaff;
+        private DanceJournalRepository _repository;
 
-        public StaffManagementService(DanceJournalDbContext dbContext)
+        public StaffManagementService( DanceJournalRepository repository)
         {
-            _dbContext = dbContext;
-            _roleForStaff = 3;
+            _repository = repository;
         }
+        
         public async Task<List<User>> GetAllStaffAsync()
         {
-            var staffUsers =await _dbContext.Users.Where(item=>item.RoleId == _roleForStaff).ToListAsync();
+            List<User> staffUsers = await _repository.GetAllStaffAsync();
             return staffUsers;
         }
         public async Task<User> GetStaffByIdAsync(int userId)
         {
-            var staffUser = await _dbContext.Users.Where(item => item.RoleId == _roleForStaff & item.Id == userId).FirstAsync();
-            if (staffUser == null)
-            {
-                throw new Exception("По переданному id не найден пользователь");
-            }
+             User staffUser = await _repository.GetStaffByIdAsync(userId);
              return staffUser;
 
         }
         public async Task<User> ChangeLevelUserAsync(int userId, int levelId)
         {
-            var userStaff = await GetStaffByIdAsync(userId);
-            userStaff.LevelId = levelId;
-            _dbContext.Entry(userStaff).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            User userStaff = await _repository.ChangeLevelUserAsync(userId, levelId);
             return userStaff;
 
 

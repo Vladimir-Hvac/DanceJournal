@@ -12,5 +12,8 @@
             where T : class;
         Task UpdateEntityAsync<T>(T entity)
             where T : class;
+        public Task<User> GetStaffByIdAsync(int userId);
+        public Task<List<User>> GetAllStaffAsync();
+        public Task<User> ChangeLevelUserAsync(int userId, int levelId)
     }
 }

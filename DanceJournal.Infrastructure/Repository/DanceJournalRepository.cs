@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DanceJournal.Infrastructure.Repository
 {
@@ -12,7 +6,7 @@ namespace DanceJournal.Infrastructure.Repository
     {
         private DanceJournalDbContext _dbContext;
         private bool _disposedValue;
-
+        private int _roleForStaff = 3;
         public DanceJournalRepository(DanceJournalDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -228,6 +222,37 @@ namespace DanceJournal.Infrastructure.Repository
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+        
+        // Хуйня, чтобы взять  стафф по id
+        public async Task<User> GetStaffByIdAsync(int userId)
+        {
+            var staffUser = await _dbContext.Users.Where(item => item.RoleId == _roleForStaff & item.Id == userId).FirstAsync();
+            if (staffUser == null)
+            {
+                throw new Exception("По переданному id не найден пользователь");
+            }
+            return staffUser;
+        }
+
+        // Хуйня, чтобы взять весь стафф
+        public async Task<List<User>> GetAllStaffAsync()
+        {
+            var staffUsers = await _dbContext.Users.Where(item => item.RoleId == _roleForStaff).ToListAsync();
+            return staffUsers;
+        }
+
+        // Метод для смены статуса у сотрудника
+        public async Task<User> ChangeLevelUserAsync(int userId, int levelId)
+        {
+
+            var userStaff = await GetStaffByIdAsync(userId);
+            userStaff.LevelId = levelId;
+            _dbContext.Entry(userStaff).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+            return userStaff;
+
+
         }
     }
 }
