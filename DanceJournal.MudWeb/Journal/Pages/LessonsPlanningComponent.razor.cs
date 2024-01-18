@@ -1,46 +1,20 @@
-﻿using DanceJournal.Service.BS_NotificationManagement;
+﻿using DanceJournal.MudWeb.Journal.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 namespace DanceJournal.MudWeb.Journal.Pages;
 
-public partial class LessonsPlanningComponent
 {
     [Inject]
     public DanceJournalDbContext DjDbContext { get; set; }
-
-    [Inject]
-    public INotificationService NotificationService { get; set; }
-
-    [Inject]
-    public ILessonPlanning LessonPlanning { get; set; }
-    private List<LessonTypeDto>? LessonTypes;
-    private List<LessonDTO>? Lessons;
-    private string _searchString;
-    private bool _isCellEditMode;
-    private bool _readOnly;
 
     protected override async Task OnInitializedAsync()
     {
         //DjDbContext.Users.Add(new User() { Name = "Peter" });
         //DjDbContext.SaveChanges();
-        LessonTypes = new List<LessonTypeDto>();
-        LessonTypes.Add(
-            new LessonTypeDto()
+        {
             {
-                Name = "name",
-                Type = "type",
-                Price = 1200
             }
-        );
-        LessonTypes.Add(
-            new LessonTypeDto()
-            {
-                Name = "Gena",
-                Type = "type",
-                Price = 1200
-            }
-        );
-    }
 
     private void StartedEditingItem(LessonTypeDto lessonType) { }
 
@@ -65,4 +39,5 @@ public partial class LessonsPlanningComponent
 
             return false;
         };
+    }
 }
