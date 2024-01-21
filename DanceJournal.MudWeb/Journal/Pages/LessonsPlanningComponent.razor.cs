@@ -1,4 +1,6 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
+using DanceJournal.Service.BS_NotificationManagement;
+using DanceJournal.Service.BS_NotificationManagement.Gateways;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +8,16 @@ namespace DanceJournal.MudWeb.Journal.Pages
 {
     partial class LessonsPlanningComponent
     {
+        [Inject]
+        public INotificationRepository NotificationRepository { get; set; }
+
+        /// Не должно быть в Preesentation. Только в Services
+
+        [Inject]
+        public INotificationService NotificationService { get; set; }
+
+        [Inject]
+        public ILessonPlanning LessonPlanning { get; set; }
         private List<Lesson>? Lessons;
         private string _searchString;
         private bool _isCellEditMode;
