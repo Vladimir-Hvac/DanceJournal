@@ -1,6 +1,6 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
-using DanceJournal.Service.BS_NotificationManagement;
-using DanceJournal.Service.BS_NotificationManagement.Gateways;
+using DanceJournal.Services.BS_NotificationManagement;
+using DanceJournal.Services.BS_NotificationManagement.Gateways;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 

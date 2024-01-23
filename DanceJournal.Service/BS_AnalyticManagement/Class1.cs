@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DanceJournal.Service.BS_AnalyticManagement
+namespace DanceJournal.Services.BS_AnalyticManagement
 {
-    internal class Class1
-    {
-    }
+    internal class Class1 { }
 }

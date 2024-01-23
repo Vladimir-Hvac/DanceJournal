@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DanceJournal.Service.BS_NotificationManagement.Entities
+namespace DanceJournal.Services.BS_NotificationManagement.Entities
 {
     public class Invitation
     {

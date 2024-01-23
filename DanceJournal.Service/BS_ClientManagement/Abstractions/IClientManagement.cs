@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DanceJournal.Service.BS_ClientManagement.Abstractions
+namespace DanceJournal.Services.BS_ClientManagement.Abstractions
 {
     public interface IClientManagement
     {
         public Task<List<User>> GetAllClientsAsync();
         public Task<User> GetClientByIdAsync(int userId);
-       // public Task<User> CreateClientAsync();
-       // public Task<User> UpdateClientAsync();
+        // public Task<User> CreateClientAsync();
+        // public Task<User> UpdateClientAsync();
         //public Task<bool> DeleteClientAsync();
-
-
     }
 }

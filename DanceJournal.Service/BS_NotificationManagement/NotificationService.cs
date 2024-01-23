@@ -1,13 +1,13 @@
-﻿using DanceJournal.Service.BS_NotificationManagement.Contracts;
-using DanceJournal.Service.BS_NotificationManagement.Entities;
-using DanceJournal.Service.BS_NotificationManagement.Gateways;
+﻿using DanceJournal.Services.BS_NotificationManagement.Contracts;
+using DanceJournal.Services.BS_NotificationManagement.Entities;
+using DanceJournal.Services.BS_NotificationManagement.Gateways;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DanceJournal.Service.BS_NotificationManagement
+namespace DanceJournal.Services.BS_NotificationManagement
 {
     public interface INotificationService
     {
@@ -26,7 +26,6 @@ namespace DanceJournal.Service.BS_NotificationManagement
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository; // выбрать 1 из вариантов
-        private readonly DanceJournalDbContext _danceJournalDbContext; // выбрать 1 из вариантов
 
         public EventHandler OnNotificationReceived => throw new NotImplementedException();
 

@@ -1,4 +1,5 @@
-﻿using DanceJournal.Service.BS_NotificationManagement.Entities;
+﻿using DanceJournal.Services.BS_NotificationManagement.Entities;
+using DanceJournal.Services.BS_NotificationManagement.Gateways;
 using System;
 using System.Collections.Generic;
 using System.Linq;
