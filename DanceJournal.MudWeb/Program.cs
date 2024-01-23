@@ -19,7 +19,6 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
 builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Scoped);
-builder.Services.AddScoped<IDanceJournalRepository, DanceJournalRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<ILessonPlanning, BS_LessonsPlanning>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
