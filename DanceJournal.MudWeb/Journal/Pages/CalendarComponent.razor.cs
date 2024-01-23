@@ -6,20 +6,36 @@ namespace DanceJournal.MudWeb.Journal.Pages
 {
     partial class CalendarComponent
     {
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
-        private List<Lesson>? Lessons;
+        private List<CalendarItem> _events = new List<CalendarItem>();
 
-        private List<CalendarItem> _events =
-            new()
-            {
-                new CalendarItem
+        public List<Lesson> Lessons { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            Lessons = new List<Lesson>();
+            Lessons.Add(
+                new Lesson()
                 {
-                    Start = DateTime.Today.AddHours(10),
-                    End = DateTime.Today.AddHours(11),
-                    Text = "Танго"
-                },
-            };
+                    Date = DateTime.Now,
+                    LessonType = new LessonType() { Name = "Танго", Price = 1200 },
+                    Level = new Level() { Coefficient = 0.5, Title = "F" },
+                    Room = new Room() { Name = "Танц зал 1" },
+                    Start = new DateTime(2024, 01, 24, 16, 00, 00),
+                    Finish = new DateTime(2024, 01, 24, 18, 00, 00),
+                }
+            );
+
+            foreach (var lesson in Lessons)
+            {
+                CalendarItem calendarItem = new CalendarItem()
+                {
+                    Start = lesson.Start,
+                    End = lesson.Finish,
+                    Text = lesson.LessonType.Name
+                };
+                _events.Add(calendarItem);
+            }
+        }
 
         private void OnClick() { }
     }
