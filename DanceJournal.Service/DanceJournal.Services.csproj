@@ -7,6 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DanceJournal.Infrastructure\DanceJournal.Infrastructure.csproj" />
+    <ProjectReference Include="..\DanceJournal.Domain\DanceJournal.Domain.csproj" />
   </ItemGroup>
 </Project>

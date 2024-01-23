@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DanceJournal.Service.BS_NotificationManagement.Contracts
+namespace DanceJournal.Services.BS_NotificationManagement.Contracts
 {
-    public class UserDTO
-    {
-    }
+    public class UserDTO { }
 }

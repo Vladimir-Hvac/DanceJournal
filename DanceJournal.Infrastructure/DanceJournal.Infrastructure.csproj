@@ -41,7 +41,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\DanceJournal.Service\DanceJournal.Service.csproj" />
+    <ProjectReference Include="..\DanceJournal.Domain\DanceJournal.Domain.csproj" />
+    <ProjectReference Include="..\DanceJournal.Service\DanceJournal.Services.csproj" />
   </ItemGroup>
   
   <ItemGroup>

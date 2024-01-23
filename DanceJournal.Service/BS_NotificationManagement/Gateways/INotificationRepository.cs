@@ -1,6 +1,6 @@
-﻿using DanceJournal.Service.BS_NotificationManagement.Entities;
+﻿using DanceJournal.Services.BS_NotificationManagement.Entities;
 
-namespace DanceJournal.Service.BS_NotificationManagement.Gateways
+namespace DanceJournal.Services.BS_NotificationManagement.Gateways
 {
     public interface INotificationRepository
     {

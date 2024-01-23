@@ -5,30 +5,29 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.XPath;
-using DanceJournal.Infrastructure.Repository;
 
-namespace DanceJournal.Service.BS_LessonsPlanning
+namespace DanceJournal.Services.BS_LessonsPlanning
 {
     public class BS_LessonsPlanning : ILessonPlanning
     {
-        private readonly IDanceJournalRepository _repository;
+        private readonly ILessonPlanningRepository _repository;
 
-        public BS_LessonsPlanning(IDanceJournalRepository repository)
+        public BS_LessonsPlanning(ILessonPlanningRepository repository)
         {
             _repository = repository;
         }
 
         public async Task BookRoom(Lesson lesson, Room room)
         {
-            if(room == null)
+            if (room == null)
             {
                 lesson.RoomId = 0;
                 await UpdateLesson(lesson);
             }
             else
-            {   
+            {
                 lesson.RoomId = room.Id;
-                await UpdateLesson(lesson); 
+                await UpdateLesson(lesson);
             }
         }
 
@@ -46,7 +45,7 @@ namespace DanceJournal.Service.BS_LessonsPlanning
         {
             var result = _repository.GetAllEntitiesByType<Lesson>();
 
-            if(result != null)
+            if (result != null)
                 return result;
             else
                 throw new Exception("Lessons not found.");
@@ -74,7 +73,7 @@ namespace DanceJournal.Service.BS_LessonsPlanning
 
         public Task UpdateLesson(Lesson lesson)
         {
-            if(_repository.GetEntityOrDefault(lesson) != null)
+            if (_repository.GetEntityOrDefault(lesson) != null)
                 return _repository.UpdateEntityAsync(lesson);
             else
                 return AddLesson(lesson);
