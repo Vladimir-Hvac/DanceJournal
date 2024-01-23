@@ -9,9 +9,10 @@ namespace DanceJournal.MudWeb.Journal.Models
 
         public DataMapping(DanceJournalDbContext dbContext)
         {
-            _dbContext = dbContext;
-            MappDbToDto();
-            //JsonMapping();
+            //_dbContext = dbContext;
+            _dbContext = null;
+            //MappDbToDto();
+            JsonMapping();
             //SaveToDb();
         }
 
@@ -76,6 +77,51 @@ namespace DanceJournal.MudWeb.Journal.Models
             LevelsDTO = JsonConvert.DeserializeObject<List<Level>>(
                 File.ReadAllText("Journal/Resources/levels.json")
             );
+        }
+
+        internal string GetLessonTypeName(int Id)
+        {
+            return LessonTypesDTO.FirstOrDefault(x => x.Id == Id).Name;
+        }
+
+        internal string GetRoomName(int id)
+        {
+            return RoomsDTO.FirstOrDefault(x => x.Id == id).Name;
+        }
+
+        internal string GetLevelTitle(int id)
+        {
+            return LevelsDTO.FirstOrDefault(x => x.Id == id).Title;
+        }
+
+        internal LessonType GetLessonType(int Id)
+        {
+            return LessonTypesDTO.FirstOrDefault(x => x.Id == Id);
+        }
+
+        internal Room GetRoom(int id)
+        {
+            return RoomsDTO.FirstOrDefault(x => x.Id == id);
+        }
+
+        internal Level GetLevel(int id)
+        {
+            return LevelsDTO.FirstOrDefault(x => x.Id == id);
+        }
+
+        internal Subscription GetSubscription(int subscriptionId)
+        {
+            return SubscriptionsDTO.FirstOrDefault(x => x.Id == subscriptionId);
+        }
+
+        internal Role GetRole(int roleId)
+        {
+            return RolesDTO.FirstOrDefault(x => x.Id == roleId);
+        }
+
+        internal SubscriptionType GetSubscriptionType(int subscriptionTypeId)
+        {
+            return SubscriptionTypesDTO.FirstOrDefault(x => x.Id == subscriptionTypeId);
         }
     }
 }

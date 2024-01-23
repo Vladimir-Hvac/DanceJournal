@@ -23,7 +23,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 {
                     Start = lesson.Start,
                     End = lesson.Finish,
-                    Text = lesson.LessonType.Name
+                    Text = _dataMapping.GetLessonTypeName(lesson.LessonTypeId),
                 };
                 _events.Add(calendarItem);
             }
