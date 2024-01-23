@@ -1,4 +1,5 @@
-﻿using Heron.MudCalendar;
+﻿using DanceJournal.MudWeb.Journal.Models;
+using Heron.MudCalendar;
 using Microsoft.AspNetCore.Components;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -8,22 +9,13 @@ namespace DanceJournal.MudWeb.Journal.Pages
     {
         private List<CalendarItem> _events = new List<CalendarItem>();
 
+        [Inject]
+        public DataMapping _dataMapping { get; set; }
         public List<Lesson> Lessons { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Lessons = new List<Lesson>();
-            Lessons.Add(
-                new Lesson()
-                {
-                    Date = DateTime.Now,
-                    LessonType = new LessonType() { Name = "Танго", Price = 1200 },
-                    Level = new Level() { Coefficient = 0.5, Title = "F" },
-                    Room = new Room() { Name = "Танц зал 1" },
-                    Start = new DateTime(2024, 01, 24, 16, 00, 00),
-                    Finish = new DateTime(2024, 01, 24, 18, 00, 00),
-                }
-            );
+            Lessons = _dataMapping.LessonsDTO;
 
             foreach (var lesson in Lessons)
             {

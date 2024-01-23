@@ -5,5 +5,5 @@ public class SubscriptionType
     public int ContDay { get; set; }
     public double Price { get; set; }
 
-    public ICollection<Subscription> Subscriptions { get; set; }
+    //public ICollection<Subscription> Subscriptions { get; set; }
 }

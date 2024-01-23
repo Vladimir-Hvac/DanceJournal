@@ -8,7 +8,6 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Inject]
         public DataMapping _dataMapping { get; set; }
 
-        private List<LessonType>? LessonTypes;
         private List<Lesson>? Lessons;
         private string _searchString;
         private bool _isCellEditMode;
