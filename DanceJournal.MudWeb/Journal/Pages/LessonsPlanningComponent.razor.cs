@@ -1,60 +1,58 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DanceJournal.MudWeb.Journal.Models;
+using DanceJournal.Services.BS_NotificationManagement;
+using DanceJournal.Services.BS_NotificationManagement.Gateways;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
-namespace DanceJournal.MudWeb.Journal.Pages;
-
-public partial class LessonsPlanningComponent
+namespace DanceJournal.MudWeb.Journal.Pages
 {
-    [Inject]
-    public DanceJournalDbContext DjDbContext { get; set; }
-    private List<LessonTypeDto>? LessonTypes;
-    private string _searchString;
-    private bool _isCellEditMode;
-    private bool _readOnly;
-
-    protected override async Task OnInitializedAsync()
+    partial class LessonsPlanningComponent
     {
-        //DjDbContext.Users.Add(new User() { Name = "Peter" });
-        //DjDbContext.SaveChanges();
-        LessonTypes = new List<LessonTypeDto>();
-        LessonTypes.Add(
-            new LessonTypeDto()
-            {
-                Name = "name",
-                Type = "type",
-                Price = 1200
-            }
-        );
-        LessonTypes.Add(
-            new LessonTypeDto()
-            {
-                Name = "Gena",
-                Type = "type",
-                Price = 1200
-            }
-        );
-    }
+        [Inject]
+        public INotificationRepository NotificationRepository { get; set; }
 
-    private void StartedEditingItem(LessonTypeDto lessonType) { }
+        /// Не должно быть в Preesentation. Только в Services
 
-    private void CanceledEditingItem(LessonTypeDto lessonType) { }
+        [Inject]
+        public INotificationService NotificationService { get; set; }
 
-    private void CommittedItemChanges(LessonTypeDto lessonType) { }
+        [Inject]
+        public ILessonPlanning LessonPlanning { get; set; }
+        private List<Lesson>? Lessons;
+        private string _searchString;
+        private bool _isCellEditMode;
+        private bool _readOnly;
 
-    private Func<LessonTypeDto, bool> _quickFilter =>
-        x =>
+        protected override async Task OnInitializedAsync()
         {
-            if (string.IsNullOrWhiteSpace(_searchString))
-                return true;
+            Lessons = new List<Lesson>();
+            Lessons.Add(
+                new Lesson()
+                {
+                    Date = DateTime.Now,
+                    LessonType = new LessonType() { Name = "Танго", Price = 1200 },
+                    Level = new Level() { Coefficient = 0.5, Title = "F" },
+                    Room = new Room() { Name = "Танц зал 1" },
+                }
+            );
+        }
 
-            if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
+        private void StartedEditingItem(Lesson lessonType) { }
 
-            if (x.Type.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
+        private void CanceledEditingItem(Lesson lessonType) { }
 
-            if ($"{x.Price}".Contains(_searchString))
-                return true;
+        private void CommittedItemChanges(Lesson lessonType) { }
 
-            return false;
-        };
+        private Func<Lesson, bool> _quickFilter =>
+            x =>
+            {
+                if (string.IsNullOrWhiteSpace(_searchString))
+                    return true;
+
+                if (x.LessonType.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+
+                return false;
+            };
+    }
 }

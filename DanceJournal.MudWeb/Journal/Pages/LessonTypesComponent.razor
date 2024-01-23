@@ -2,7 +2,7 @@
     <MudGrid>
         <MudItem xs="12" sm="6">
 
-            <MudDataGrid T="Lesson" Items="@Lessons" ReadOnly="@_readOnly"
+            <MudDataGrid T="LessonTypeDto" Items="@LessonTypes" ReadOnly="@_readOnly"
                          EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
                          Filterable="true" QuickFilter="@_quickFilter"
                          StartedEditingItem="@StartedEditingItem"
@@ -11,18 +11,15 @@
                 <ToolBarContent>
                     <MudIconButton Size="@Size.Medium" Icon="@Icons.Material.Outlined.Add" />
                     <MudSpacer />
-                    <MudText Typo="Typo.h6">Lessons </MudText>
+                    <MudText Typo="Typo.h6">Lessons Type</MudText>
                     <MudSpacer />
                     <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
                                   AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
                 </ToolBarContent>
                 <Columns>
-                    <PropertyColumn Property="x=>x.LessonType.Name" Field="Наименование занятия" />
-                    <PropertyColumn Property="x=>x.Level.Title" Field="Уровень" />
-                    <PropertyColumn Property="x=>x.Date" Field="Дата" />
-                    <PropertyColumn Property="x=>x.Room.Name" Field="Помещение" />
-                    <PropertyColumn Property="x=>x.User" Field="Тренер" />
-
+                    <PropertyColumn Property="x=>x.Name" Field="Name" />
+                    <PropertyColumn Property="x=>x.Price" Field="Price" />
+                    <PropertyColumn Property="x=>x.Type" Field="Type" />
                     <TemplateColumn CellClass="d-flex justify-end">
                         <CellTemplate>
                             <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />

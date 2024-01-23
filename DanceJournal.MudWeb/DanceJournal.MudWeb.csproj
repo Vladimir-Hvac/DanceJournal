@@ -7,16 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Heron.MudCalendar" Version="1.1.0" />
     <PackageReference Include="MudBlazor" Version="6.12.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DanceJournal.Infrastructure\DanceJournal.Infrastructure.csproj" />
-    <ProjectReference Include="..\DanceJournal.Service\DanceJournal.Service.csproj" />
+    <ProjectReference Include="..\DanceJournal.Service\DanceJournal.Services.csproj" />
+    <ProjectReference Include="..\DanceJournal.Domain\DanceJournal.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Journal\Services\" />
+    <Folder Include="Journal\Resources\" />
   </ItemGroup>
 
 </Project>
