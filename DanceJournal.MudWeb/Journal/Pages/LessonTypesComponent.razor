@@ -2,7 +2,7 @@
     <MudGrid>
         <MudItem xs="12" sm="6">
 
-            <MudDataGrid T="LessonTypeDto" Items="@LessonTypes" ReadOnly="@_readOnly"
+            <MudDataGrid T="LessonType" Items="@LessonTypes" ReadOnly="@_readOnly"
                          EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
                          Filterable="true" QuickFilter="@_quickFilter"
                          StartedEditingItem="@StartedEditingItem"

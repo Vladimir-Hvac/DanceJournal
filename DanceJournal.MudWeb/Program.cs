@@ -1,12 +1,10 @@
 using DanceJournal.Infrastructure.Repository.Implementation;
 using DanceJournal.MudWeb.Data;
-using DanceJournal.MudWeb.Journal.Pages;
+using DanceJournal.MudWeb.Journal.Models;
 using DanceJournal.Service.BS_NotificationManagement.Gateways;
 using DanceJournal.Services.BS_LessonsPlanning;
 using DanceJournal.Services.BS_NotificationManagement;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using MudBlazor.Services;
 
@@ -24,8 +22,11 @@ builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<ILessonPlanningRepository, LessonPlanningRepository>();
 builder.Services.AddScoped<ILessonPlanning, BS_LessonsPlanning>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<DataMapping>();
+builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Scoped);
 
 var app = builder.Build();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

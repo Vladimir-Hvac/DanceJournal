@@ -1,0 +1,27 @@
+[
+  {
+    "Id": 1,
+    "Title": "Level1",
+    "Coefficient": 1.1811439975004474
+  },
+  {
+    "Id": 2,
+    "Title": "Level2",
+    "Coefficient": 0.6071135483317915
+  },
+  {
+    "Id": 3,
+    "Title": "Level3",
+    "Coefficient": 0.9349000277319035
+  },
+  {
+    "Id": 4,
+    "Title": "Level4",
+    "Coefficient": 1.3911418183285067
+  },
+  {
+    "Id": 5,
+    "Title": "Level5",
+    "Coefficient": 0.7154388113481309
+  }
+]
