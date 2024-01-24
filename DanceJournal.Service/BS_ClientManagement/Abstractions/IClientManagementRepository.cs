@@ -1,6 +1,6 @@
 ﻿namespace DanceJournal.Services.BS_ClientManagement.Abstractions;
 
-public interface IClientManagentRepository
+public interface IClientManagementRepository
 {
     Task<User> GetEntityOrDefault(int userId,CancellationToken cancellationToken);
     Task<List<User>> GetAllEntity( CancellationToken cancellationToken);
