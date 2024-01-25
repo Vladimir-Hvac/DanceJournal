@@ -1,40 +1,30 @@
-﻿namespace DanceJournal.MudWeb.Journal.Pages
+﻿using DanceJournal.MudWeb.Journal.Models;
+using Microsoft.AspNetCore.Components;
+
+namespace DanceJournal.MudWeb.Journal.Pages
 {
     partial class LessonTypesComponent
     {
-        private List<LessonTypeDto>? LessonTypes;
+        [Inject]
+        public DataMapping _dataMapping { get; set; }
+
+        private List<LessonType>? LessonTypes;
         private string _searchString;
         private bool _isCellEditMode;
         private bool _readOnly;
 
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = new List<LessonTypeDto>();
-            LessonTypes.Add(
-                new LessonTypeDto()
-                {
-                    Name = "name",
-                    Type = "type",
-                    Price = 1200
-                }
-            );
-            LessonTypes.Add(
-                new LessonTypeDto()
-                {
-                    Name = "Gena",
-                    Type = "type",
-                    Price = 1200
-                }
-            );
+            LessonTypes = _dataMapping.LessonTypesDTO;
         }
 
-        private void StartedEditingItem(LessonTypeDto lessonType) { }
+        private void StartedEditingItem(LessonType lessonType) { }
 
-        private void CanceledEditingItem(LessonTypeDto lessonType) { }
+        private void CanceledEditingItem(LessonType lessonType) { }
 
-        private void CommittedItemChanges(LessonTypeDto lessonType) { }
+        private void CommittedItemChanges(LessonType lessonType) { }
 
-        private Func<LessonTypeDto, bool> _quickFilter =>
+        private Func<LessonType, bool> _quickFilter =>
             x =>
             {
                 if (string.IsNullOrWhiteSpace(_searchString))

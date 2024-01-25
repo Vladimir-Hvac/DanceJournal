@@ -41,59 +41,42 @@ public class DanceJournalDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .Entity<User>()
-            .HasOne(u => u.Role)
-            .WithMany(r => r.Users)
-            .HasForeignKey(u => u.RoleId);
+        modelBuilder.Entity<User>().HasOne(u => u.Role).WithMany().HasForeignKey(u => u.RoleId);
 
         modelBuilder
             .Entity<User>()
             .HasOne(u => u.Subscription)
-            .WithMany(s => s.Users)
+            .WithMany()
             .HasForeignKey(u => u.SubscriptionId);
 
         modelBuilder
             .Entity<Lesson>()
             .HasOne(l => l.LessonType)
-            .WithMany(lt => lt.Lessons)
+            .WithMany()
             .HasForeignKey(l => l.LessonTypeId);
 
-        modelBuilder
-            .Entity<Lesson>()
-            .HasOne(l => l.Room)
-            .WithMany(r => r.Lessons)
-            .HasForeignKey(l => l.RoomId);
+        modelBuilder.Entity<Lesson>().HasOne(l => l.Room).WithMany().HasForeignKey(l => l.RoomId);
+        modelBuilder.Entity<Lesson>().HasOne(l => l.Level).WithMany().HasForeignKey(l => l.LevelId);
 
         modelBuilder
             .Entity<LessonUser>()
             .HasOne(lu => lu.User)
-            .WithMany(lu => lu.LessonUsers)
+            .WithMany()
             .HasForeignKey(lu => lu.UserId);
 
         modelBuilder
             .Entity<LessonUser>()
             .HasOne(lu => lu.Lesson)
-            .WithMany(l => l.LessonUsers)
+            .WithMany()
             .HasForeignKey(lu => lu.LessonId);
 
         modelBuilder
             .Entity<Subscription>()
             .HasOne(s => s.SubscriptionType)
-            .WithMany(st => st.Subscriptions)
+            .WithMany()
             .HasForeignKey(s => s.SubscriptionTypeId);
 
-        modelBuilder
-            .Entity<Level>()
-            .HasMany(l => l.Users)
-            .WithOne(u => u.Level)
-            .HasForeignKey(u => u.LevelId);
-
-        modelBuilder
-            .Entity<Level>()
-            .HasMany(l => l.Lessons)
-            .WithOne(le => le.Level)
-            .HasForeignKey(le => le.LevelId);
+        modelBuilder.Entity<User>().HasOne(u => u.Level).WithMany().HasForeignKey(u => u.LevelId);
 
         base.OnModelCreating(modelBuilder);
     }
