@@ -1,4 +1,35 @@
-﻿//using DanceJournal.Infrastructure.Repository;
+﻿using DanceJournal.Services.BS_ClientManagement.Abstractions;
+using DanceJournal.Services.BS_StaffManagement.Abstractions;
+
+namespace DanceJournal.Services.StaffManagement
+{
+    public class StaffManagementService : IStaffManagement
+    {
+        private readonly IStaffManagentRepository _repository;
+
+        public StaffManagementService(IStaffManagentRepository repository)
+        {
+            _repository = repository;
+        }
+        public async Task<List<User>> GetAllStaffAsync(CancellationToken cancellationToken)
+        {
+            return await _repository.GetAllEntity(cancellationToken);
+        }
+        public async Task<User> GetStaffByIdAsync(int userId, CancellationToken cancellationToken)
+        {
+            return await _repository.GetEntityOrDefault(userId, cancellationToken);
+        }
+        public async Task<User> ChangeLevelUserAsync(int userId, int levelId, CancellationToken cancellationToken)
+        {
+            return await _repository.UpdateLevelEntity(userId,levelId, cancellationToken);
+        }
+    }
+}
+
+
+
+
+//using DanceJournal.Infrastructure.Repository;
 //using DanceJournal.Domain.BS_StaffManagement.Abstractions;
 
 //namespace DanceJournal.Domain.BS_StaffManagement

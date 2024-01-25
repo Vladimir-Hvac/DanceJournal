@@ -8,8 +8,8 @@ namespace DanceJournal.Services.BS_StaffManagement.Abstractions
 {
     public interface IStaffManagement
     {
-        public Task<List<User>> GetAllStaffAsync();
-        public Task<User> GetStaffByIdAsync(int userId);
-        public Task<User> ChangeLevelUserAsync(int userId, int levelId);
+        Task<List<User>> GetAllStaffAsync(CancellationToken cancellationToken);
+        Task<User> GetStaffByIdAsync(int userId, CancellationToken cancellationToken);
+        Task<User> ChangeLevelUserAsync(int userId, int levelId, CancellationToken cancellationToken);
     }
 }
