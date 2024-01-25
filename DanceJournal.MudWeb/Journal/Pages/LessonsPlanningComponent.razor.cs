@@ -1,23 +1,13 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
-using DanceJournal.Services.BS_NotificationManagement;
-using DanceJournal.Services.BS_NotificationManagement.Gateways;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
     partial class LessonsPlanningComponent
     {
         [Inject]
-        public INotificationRepository NotificationRepository { get; set; }
+        public DataMapping _dataMapping { get; set; }
 
-        /// Не должно быть в Preesentation. Только в Services
-
-        [Inject]
-        public INotificationService NotificationService { get; set; }
-
-        [Inject]
-        public ILessonPlanning LessonPlanning { get; set; }
         private List<Lesson>? Lessons;
         private string _searchString;
         private bool _isCellEditMode;
@@ -25,16 +15,13 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Lessons = new List<Lesson>();
-            Lessons.Add(
-                new Lesson()
-                {
-                    Date = DateTime.Now,
-                    LessonType = new LessonType() { Name = "Танго", Price = 1200 },
-                    Level = new Level() { Coefficient = 0.5, Title = "F" },
-                    Room = new Room() { Name = "Танц зал 1" },
-                }
-            );
+            Lessons = _dataMapping.LessonsDTO;
+            foreach (var lesson in Lessons)
+            {
+                lesson.LessonType = _dataMapping.GetLessonType(lesson.LessonTypeId);
+                lesson.Room = _dataMapping.GetRoom(lesson.RoomId);
+                lesson.Level = _dataMapping.GetLevel(lesson.LevelId);
+            }
         }
 
         private void StartedEditingItem(Lesson lessonType) { }

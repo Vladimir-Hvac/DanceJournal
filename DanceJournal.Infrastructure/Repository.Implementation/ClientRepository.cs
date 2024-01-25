@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DanceJournal.Infrastructure.Repository.Implementation
 {
-    public class ClientRepository: IClientManagentRepository
+    public class ClientRepository: IClientManagementRepository
     {
         private DanceJournalDbContext _dbContext;
         public ClientRepository(DanceJournalDbContext dbContext)

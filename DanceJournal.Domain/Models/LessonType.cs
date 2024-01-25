@@ -5,5 +5,5 @@ public class LessonType
     public double Price { get; set; }
     public string Type { get; set; }
 
-    public ICollection<Lesson> Lessons { get; set; }
+    //public ICollection<Lesson> Lessons { get; set; }
 }

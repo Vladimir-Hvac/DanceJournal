@@ -1,4 +1,5 @@
-﻿using Heron.MudCalendar;
+﻿using DanceJournal.MudWeb.Journal.Models;
+using Heron.MudCalendar;
 using Microsoft.AspNetCore.Components;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -6,20 +7,27 @@ namespace DanceJournal.MudWeb.Journal.Pages
 {
     partial class CalendarComponent
     {
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
-        private List<Lesson>? Lessons;
+        private List<CalendarItem> _events = new List<CalendarItem>();
 
-        private List<CalendarItem> _events =
-            new()
+        [Inject]
+        public DataMapping _dataMapping { get; set; }
+        public List<Lesson> Lessons { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            Lessons = _dataMapping.LessonsDTO;
+
+            foreach (var lesson in Lessons)
             {
-                new CalendarItem
+                CalendarItem calendarItem = new CalendarItem()
                 {
-                    Start = DateTime.Today.AddHours(10),
-                    End = DateTime.Today.AddHours(11),
-                    Text = "Танго"
-                },
-            };
+                    Start = lesson.Start,
+                    End = lesson.Finish,
+                    Text = _dataMapping.GetLessonTypeName(lesson.LessonTypeId),
+                };
+                _events.Add(calendarItem);
+            }
+        }
 
         private void OnClick() { }
     }

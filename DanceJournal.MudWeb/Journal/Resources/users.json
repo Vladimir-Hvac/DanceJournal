@@ -1,0 +1,67 @@
+[
+  {
+    "Id": 1,
+    "Name": "User1",
+    "Surname": "RandomSurname1",
+    "Age": 45,
+    "Gender": "Male",
+    "Email": "user1@example.com",
+    "PhoneNumber": "123-456-78900",
+    "LevelId": 2,
+    "RoleId": 2,
+    "SubscriptionId": 1,
+    "Salary": 51143.46593926708
+  },
+  {
+    "Id": 2,
+    "Name": "User2",
+    "Surname": "RandomSurname2",
+    "Age": 59,
+    "Gender": "Male",
+    "Email": "user2@example.com",
+    "PhoneNumber": "123-456-78901",
+    "LevelId": 4,
+    "RoleId": 4,
+    "SubscriptionId": 2,
+    "Salary": 51409.96577472489
+  },
+  {
+    "Id": 3,
+    "Name": "User3",
+    "Surname": "RandomSurname3",
+    "Age": 42,
+    "Gender": "Female",
+    "Email": "user3@example.com",
+    "PhoneNumber": "123-456-78902",
+    "LevelId": 2,
+    "RoleId": 3,
+    "SubscriptionId": 2,
+    "Salary": 42781.61919069221
+  },
+  {
+    "Id": 4,
+    "Name": "User4",
+    "Surname": "RandomSurname4",
+    "Age": 31,
+    "Gender": "Male",
+    "Email": "user4@example.com",
+    "PhoneNumber": "123-456-78903",
+    "LevelId": 3,
+    "RoleId": 1,
+    "SubscriptionId": 3,
+    "Salary": 81742.82660660398
+  },
+  {
+    "Id": 5,
+    "Name": "User5",
+    "Surname": "RandomSurname5",
+    "Age": 20,
+    "Gender": "Male",
+    "Email": "user5@example.com",
+    "PhoneNumber": "123-456-78904",
+    "LevelId": 3,
+    "RoleId": 3,
+    "SubscriptionId": 4,
+    "Salary": 45687.41951554831
+  }
+]
