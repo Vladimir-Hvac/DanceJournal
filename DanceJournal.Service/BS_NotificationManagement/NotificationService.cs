@@ -1,5 +1,5 @@
-﻿using DanceJournal.Services.BS_NotificationManagement.Contracts;
-using DanceJournal.Services.BS_NotificationManagement.Entities;
+﻿using DanceJournal.Domain.Models;
+using DanceJournal.Services.BS_NotificationManagement.Contracts;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
 
 namespace DanceJournal.Services.BS_NotificationManagement
@@ -21,9 +21,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
             remove { throw new NotImplementedException(); }
         }
 
-        public async Task<List<NotificationDTO>> GetNotReadNotifications(int userId)
+        public async Task<List<Notification>> GetNotReadNotifications(int userId)
         {
-            List<NotificationDTO> result = new();
+            List<Notification> result = new();
             try
             {
                 List<InvitationNotificationStatus> invitationNotificationStatuses =
@@ -90,19 +90,19 @@ namespace DanceJournal.Services.BS_NotificationManagement
             throw new NotImplementedException();
         }
 
-        public async Task<List<LessonDTO>> ProvideLessons(int userId)
+        public async Task<List<Lesson>> ProvideLessons(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<UserDTO>> ProvideRecipients(int eventId)
+        public Task<List<User>> ProvideRecipients(int eventId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<NotificationDTO?> ReadNotification(int notificationId)
+        public async Task<Notification?> ReadNotification(int notificationId)
         {
-            NotificationDTO? result = null;
+            Notification? result = null;
             List<InvitationNotificationStatus> invitationNotificationStatuses =
                 await _notificationRepository.GetAllInvitationNotificationStatuses();
 
@@ -118,7 +118,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     await _notificationRepository.UpdateInvitationNotificationStatus(
                         foundInvitationNotificationStatus
                     );
-                result = MapNotificationDTO(foundInvitationNotificationStatus);
+                result = MapNotification(foundInvitationNotificationStatus);
             }
 
             return result;
@@ -129,23 +129,23 @@ namespace DanceJournal.Services.BS_NotificationManagement
             throw new NotImplementedException();
         }
 
-        private static List<NotificationDTO> MapNotificationDTOs(
+        private static List<Notification> MapNotificationDTOs(
             List<InvitationNotificationStatus> invitationNotificationStatuses
         )
         {
-            List<NotificationDTO> result = new();
+            List<Notification> result = new();
             foreach (var notification in invitationNotificationStatuses)
             {
-                result.Add(MapNotificationDTO(notification));
+                result.Add(MapNotification(notification));
             }
             return result;
         }
 
-        private static NotificationDTO MapNotificationDTO(
+        private static Notification MapNotification(
             InvitationNotificationStatus invitationNotificationStatus
         )
         {
-            NotificationDTO notificationDTO =
+            Notification notification =
                 new()
                 {
                     Id = invitationNotificationStatus.NotificationId,
@@ -153,36 +153,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     Body = invitationNotificationStatus.Notification is null
                         ? string.Empty
                         : invitationNotificationStatus.Notification.Body,
-                    InvitationDTO = MapInvitationDTO(invitationNotificationStatus.Invitation)
+                    Invitation = invitationNotificationStatus.Invitation
                 };
-            return notificationDTO;
-        }
-
-        private static InvitationDTO? MapInvitationDTO(Invitation? invitation)
-        {
-            InvitationDTO? invitationDTO = null;
-
-            if (invitation is not null)
-            {
-                invitationDTO = new() { Id = invitation.Id, IsAccepted = invitation.IsAccepted, };
-            }
-
-            return invitationDTO;
-        }
-    }
-
-    class Client
-    {
-        private INotificationService notificationService;
-
-        public Client()
-        {
-            notificationService.OnNotificationReceived += DoSmth;
-        }
-
-        public async void DoSmth(object sender, EventArgs eventArgs)
-        {
-            List<NotificationDTO> notif = await notificationService.GetNotReadNotifications(1);
+            return notification;
         }
     }
 }
