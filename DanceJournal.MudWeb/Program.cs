@@ -3,6 +3,7 @@ using DanceJournal.MudWeb.Data;
 using DanceJournal.MudWeb.Journal.Models;
 using DanceJournal.Service.BS_NotificationManagement.Gateways;
 using DanceJournal.Services.BS_LessonsPlanning;
+using DanceJournal.Services.BS_LessonsPlanning.Interfaces;
 using DanceJournal.Services.BS_NotificationManagement;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
