@@ -63,9 +63,10 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
         {
             try
             {
-                var lesson = await GetLessonAsync(id, ct);
+                CancellationToken ct = new CancellationToken();
+                var lesson = await GetLessonAsync(id,ct);
                 _dbContext.Lessons.Remove(lesson);
-                await _dbContext.SaveChangesAsync(ct);
+                await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
