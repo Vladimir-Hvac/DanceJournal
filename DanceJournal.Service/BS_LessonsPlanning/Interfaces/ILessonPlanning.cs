@@ -1,25 +1,13 @@
 public interface ILessonPlanning
-{
-    //Получить список всех занятий
-    public IEnumerable<Lesson> GetAllLessons();
+{ 
+    public Task<IEnumerable<Lesson>> GetAllLessonsAsync(CancellationToken ct);
 
-    //Получить информацию о занятии
-    public Lesson GetLesson(Lesson lesson);
+    public Task<Lesson> GetLessonAsync(int id,CancellationToken ct);
 
-    //Добавить занятие
-    public Task AddLesson(Lesson lesson);
-
-    //Редактировать занятие
-    public Task UpdateLesson(Lesson lesson);
-
-    //Удалить занятие
-    public Task RemoveLesson(Lesson lesson);
-
-    //Получить список всех залов
-    public IEnumerable<Room> GetAllRooms();
-
-    //Забронировать зал
-    //При отправке Room бронируется зал для урока
-    //При отправке Room = null, бронирование снимается, а в Lesson.RoomId заполняется 0
-    public Task BookRoom(Lesson lesson, Room room);
+    public Task CreateLessonAsync(Lesson lesson,CancellationToken ct);
+    public Task UpdateLessonAsync(Lesson lesson, CancellationToken ct);
+    public Task DeleteLesson(int id);
+    public Task<IEnumerable<Room>> GetAllRoomsAsync(CancellationToken ct);
+    public Task<Room> GetRoomAsync(int id, CancellationToken ct);
+    public Task BookRoom(int idLesson, int idRoom,CancellationToken ct);
 }
