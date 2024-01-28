@@ -9,15 +9,6 @@ using System.Reflection.Emit;
 
 public class DanceJournalDbContext : DbContext
 {
-    //public DanceJournalDbContext(DbContextOptions<DanceJournalDbContext> options)
-    //    : base(options)
-    //{
-    //    var databaseCreator = this.GetService<IRelationalDatabaseCreator>();
-    //    databaseCreator.CreateTables();
-    //    //Database.EnsureDeleted();
-    //    //Database.EnsureCreated();
-    //}
-
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<LessonType> LessonTypes { get; set; }
     public DbSet<Room> Rooms { get; set; }

@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Port=5432;Database=dancejournal;Username=admin;Password=pgadmin"
+    "DefaultConnection": "Host=localhost;Port=5432;Database=dance;Username=michael.jackson;Password=12!Annie@are@you@okay!12;"
   },
 
   "AllowedHosts": "*"
