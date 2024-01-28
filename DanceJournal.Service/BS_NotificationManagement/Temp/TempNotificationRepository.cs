@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DanceJournal.Services.BS_NotificationManagement.Contracts
+namespace DanceJournal.Services.BS_NotificationManagement.Temp
 {
-    public class LessonDTO { }
+    internal class TempNotificationRepository
+    {
+    }
 }

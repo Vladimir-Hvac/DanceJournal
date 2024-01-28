@@ -1,5 +1,4 @@
 ﻿using DanceJournal.Domain.Models;
-using DanceJournal.Services.BS_NotificationManagement.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

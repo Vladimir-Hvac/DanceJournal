@@ -1,5 +1,4 @@
 ﻿using DanceJournal.Domain.Models;
-using DanceJournal.Services.BS_NotificationManagement.Contracts;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
 
 namespace DanceJournal.Services.BS_NotificationManagement
@@ -45,49 +44,29 @@ namespace DanceJournal.Services.BS_NotificationManagement
         public async Task<bool> AcceptInvitation(int invitationId, int notificationId, int userId)
         {
             bool result = false;
-            bool isVisit = true;
-
-            Invitation? invitation = await _notificationRepository.GetInvitation(invitationId);
-            if (invitation is null)
+            try
             {
-                //TODO: Logging
-                return result;
+                result = await HandleInvitation(invitationId, notificationId, userId, true);
             }
-            List<InvitationNotificationStatus> invitationNotificationStatuses =
-                await _notificationRepository.GetAllInvitationNotificationStatuses();
-            InvitationNotificationStatus? foundInvitationNotificationStatus =
-                invitationNotificationStatuses.FirstOrDefault(
-                    x =>
-                        x.InvitationId.Equals(invitationId)
-                        && x.NotificationId.Equals(notificationId)
-                        && x.ReceiverId.Equals(userId)
-                );
-            if (foundInvitationNotificationStatus is null)
+            catch (Exception ex)
             {
-                //TODO: Logging
-                return result;
+                //TODO: Implement logging
             }
-
-            foundInvitationNotificationStatus.IsAccepted = true;
-            result = await _notificationRepository.UpdateInvitationNotificationStatus(
-                foundInvitationNotificationStatus
-            );
-            if (!result)
-            {
-                //TODO: Logging
-                return result;
-            }
-
-            int lessonId = invitation.LessonId;
-            /*
-                bool succeed = LessonPlanningService.SheduleLesson(userId, lessonId, isVisit);
-             */
             return result;
         }
 
         public async Task<bool> DeclineInvitation(int invitationId, int notificationId, int userId)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            try
+            {
+                result = await HandleInvitation(invitationId, notificationId, userId, false);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
+            return result;
         }
 
         public async Task<List<Lesson>> ProvideLessons(int userId)
@@ -156,6 +135,51 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     Invitation = invitationNotificationStatus.Invitation
                 };
             return notification;
+        }
+        private async Task<bool> HandleInvitation(int invitationId, int notificationId, int userId, bool goingToVisit)
+        {
+            bool result = false;
+            bool isVisit = goingToVisit;
+
+            Invitation? invitation = await _notificationRepository.GetInvitation(invitationId);
+            if (invitation is null)
+            {
+                //TODO: Logging
+                return result;
+            }
+            List<InvitationNotificationStatus> invitationNotificationStatuses =
+                await _notificationRepository.GetAllInvitationNotificationStatuses();
+            InvitationNotificationStatus? foundInvitationNotificationStatus =
+                invitationNotificationStatuses.FirstOrDefault(
+                    x =>
+                        x.InvitationId.Equals(invitationId)
+                        && x.NotificationId.Equals(notificationId)
+                        && x.ReceiverId.Equals(userId)
+                );
+            if (foundInvitationNotificationStatus is null)
+            {
+                //TODO: Logging
+                return result;
+            }
+
+            foundInvitationNotificationStatus.IsAccepted = isVisit;
+            result = await _notificationRepository.UpdateInvitationNotificationStatus(
+                foundInvitationNotificationStatus
+            );
+            if (!result)
+            {
+                //TODO: Logging
+                return result;
+            }
+            if(isVisit)
+            {
+                int lessonId = invitation.LessonId;
+                /*
+                    bool succeed = LessonPlanningService.SheduleLesson(userId, lessonId, isVisit);
+                 */
+            }
+
+            return result;
         }
     }
 }
