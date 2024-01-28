@@ -22,5 +22,5 @@ public class Lesson
 
     [ForeignKey("LevelId")]
     public Level Level { get; set; }
-    public ICollection<LessonUser> LessonUsers { get; set; }
+    //public ICollection<LessonUser> LessonUsers { get; set; }
 }
