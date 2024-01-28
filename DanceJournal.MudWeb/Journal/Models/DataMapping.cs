@@ -9,11 +9,8 @@ namespace DanceJournal.MudWeb.Journal.Models
 
         public DataMapping(DanceJournalDbContext dbContext)
         {
-            //_dbContext = dbContext;
-            _dbContext = null;
-            //MappDbToDto();
-            JsonMapping();
-            //SaveToDb();
+            _dbContext = dbContext;
+            MappDbToDto();
         }
 
         public List<Lesson> LessonsDTO { get; set; }
@@ -38,47 +35,9 @@ namespace DanceJournal.MudWeb.Journal.Models
             LevelsDTO = _dbContext.Levels.ToList();
         }
 
-        private void SaveToDb()
-        {
-            _dbContext.Lessons.AddRange(LessonsDTO);
-            _dbContext.LessonTypes.AddRange(LessonTypesDTO);
-            _dbContext.Rooms.AddRange(RoomsDTO);
-            _dbContext.Users.AddRange(UsersDTO);
-            _dbContext.Roles.AddRange(RolesDTO);
-            _dbContext.Subscriptions.AddRange(SubscriptionsDTO);
-            _dbContext.SubscriptionTypes.AddRange(SubscriptionTypesDTO);
-            _dbContext.Levels.AddRange(LevelsDTO);
-            _dbContext.SaveChanges();
-        }
+       
 
-        private void JsonMapping()
-        {
-            LessonsDTO = JsonConvert.DeserializeObject<List<Lesson>>(
-                File.ReadAllText("Journal/Resources/lessons.json")
-            );
-            LessonTypesDTO = JsonConvert.DeserializeObject<List<LessonType>>(
-                File.ReadAllText("Journal/Resources/lessonTypes.json")
-            );
-            RoomsDTO = JsonConvert.DeserializeObject<List<Room>>(
-                File.ReadAllText("Journal/Resources/rooms.json")
-            );
-            UsersDTO = JsonConvert.DeserializeObject<List<User>>(
-                File.ReadAllText("Journal/Resources/users.json")
-            );
-            RolesDTO = JsonConvert.DeserializeObject<List<Role>>(
-                File.ReadAllText("Journal/Resources/roles.json")
-            );
-            SubscriptionsDTO = JsonConvert.DeserializeObject<List<Subscription>>(
-                File.ReadAllText("Journal/Resources/subscriptions.json")
-            );
-            SubscriptionTypesDTO = JsonConvert.DeserializeObject<List<SubscriptionType>>(
-                File.ReadAllText("Journal/Resources/subscriptionTypes.json")
-            );
-            LevelsDTO = JsonConvert.DeserializeObject<List<Level>>(
-                File.ReadAllText("Journal/Resources/levels.json")
-            );
-        }
-
+       
         internal string GetLessonTypeName(int Id)
         {
             return LessonTypesDTO.FirstOrDefault(x => x.Id == Id).Name;

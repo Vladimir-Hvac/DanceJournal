@@ -6,7 +6,7 @@ public class User
     public string Surname { get; set; }
     public string FirstName { get; set; }
     public string SecondName { get; set; }
-    public DateOnly BirthDate { get; set; }
+    public DateTime BirthDate { get; set; }
     public bool IsDeleted { get; set; }
     public string Gender { get; set; }
     public string Email { get; set; }

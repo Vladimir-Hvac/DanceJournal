@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DanceJournal.Infrastructure.Migrations
 {
     [DbContext(typeof(DanceJournalDbContext))]
-    [Migration("20231212190058_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240128110351_initMigration")]
+    partial class initMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,10 +225,14 @@ namespace DanceJournal.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("integer");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -236,12 +240,11 @@ namespace DanceJournal.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("LevelId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -252,6 +255,10 @@ namespace DanceJournal.Infrastructure.Migrations
 
                     b.Property<double>("Salary")
                         .HasColumnType("double precision");
+
+                    b.Property<string>("SecondName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("integer");
@@ -274,25 +281,25 @@ namespace DanceJournal.Infrastructure.Migrations
             modelBuilder.Entity("Lesson", b =>
                 {
                     b.HasOne("LessonType", "LessonType")
-                        .WithMany("Lessons")
+                        .WithMany()
                         .HasForeignKey("LessonTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Level", "Level")
-                        .WithMany("Lessons")
+                        .WithMany()
                         .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Room", "Room")
-                        .WithMany("Lessons")
+                        .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("User", "User")
-                        .WithMany("Lessons")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -309,13 +316,13 @@ namespace DanceJournal.Infrastructure.Migrations
             modelBuilder.Entity("LessonUser", b =>
                 {
                     b.HasOne("Lesson", "Lesson")
-                        .WithMany("LessonUsers")
+                        .WithMany()
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("User", "User")
-                        .WithMany("LessonUsers")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -328,7 +335,7 @@ namespace DanceJournal.Infrastructure.Migrations
             modelBuilder.Entity("Subscription", b =>
                 {
                     b.HasOne("SubscriptionType", "SubscriptionType")
-                        .WithMany("Subscriptions")
+                        .WithMany()
                         .HasForeignKey("SubscriptionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -339,19 +346,19 @@ namespace DanceJournal.Infrastructure.Migrations
             modelBuilder.Entity("User", b =>
                 {
                     b.HasOne("Level", "Level")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Role", "Role")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Subscription", "Subscription")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -361,50 +368,6 @@ namespace DanceJournal.Infrastructure.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("Subscription");
-                });
-
-            modelBuilder.Entity("Lesson", b =>
-                {
-                    b.Navigation("LessonUsers");
-                });
-
-            modelBuilder.Entity("LessonType", b =>
-                {
-                    b.Navigation("Lessons");
-                });
-
-            modelBuilder.Entity("Level", b =>
-                {
-                    b.Navigation("Lessons");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Role", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Room", b =>
-                {
-                    b.Navigation("Lessons");
-                });
-
-            modelBuilder.Entity("Subscription", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("SubscriptionType", b =>
-                {
-                    b.Navigation("Subscriptions");
-                });
-
-            modelBuilder.Entity("User", b =>
-                {
-                    b.Navigation("LessonUsers");
-
-                    b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618
         }

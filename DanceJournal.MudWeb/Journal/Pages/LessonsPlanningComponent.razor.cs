@@ -16,12 +16,12 @@ namespace DanceJournal.MudWeb.Journal.Pages
         protected override async Task OnInitializedAsync()
         {
             Lessons = _dataMapping.LessonsDTO;
-            foreach (var lesson in Lessons)
+            /*foreach (var lesson in Lessons)
             {
                 lesson.LessonType = _dataMapping.GetLessonType(lesson.LessonTypeId);
                 lesson.Room = _dataMapping.GetRoom(lesson.RoomId);
                 lesson.Level = _dataMapping.GetLevel(lesson.LevelId);
-            }
+            }*/
         }
 
         private void StartedEditingItem(Lesson lessonType) { }
