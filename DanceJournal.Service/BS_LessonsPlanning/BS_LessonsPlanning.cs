@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.XPath;
+﻿using DanceJournal.Services.BS_LessonsPlanning.Interfaces;
 
 namespace DanceJournal.Services.BS_LessonsPlanning
 {
@@ -17,66 +11,67 @@ namespace DanceJournal.Services.BS_LessonsPlanning
             _repository = repository;
         }
 
-        public async Task BookRoom(Lesson lesson, Room room)
+        public async Task BookRoom(int idLesson, int idRoom,CancellationToken ct)
         {
-            if (room == null)
+            var lesson = await GetLessonAsync(idLesson, ct);
+            var room = await GetRoomAsync(idRoom, ct);
+
+            if (lesson != null && room != null)
             {
-                lesson.RoomId = 0;
-                await UpdateLesson(lesson);
+                lesson.Room = room;
+                await _repository.UpdateLessonAsync(lesson, ct);
             }
             else
             {
-                lesson.RoomId = room.Id;
-                await UpdateLesson(lesson);
+                throw new Exception("Не удалось забронировать зал для урока.");
             }
         }
 
-        public async Task AddLesson(Lesson lesson)
+        public async Task CreateLessonAsync(Lesson lesson, CancellationToken ct)
         {
-            await _repository.AddEntityAsync(lesson);
+            await _repository.CreateLessonAsync(lesson, ct);
         }
 
-        public async Task RemoveLesson(Lesson lesson)
+        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync(CancellationToken ct)
         {
-            await _repository.RemoveEntityAsync(lesson);
-        }
-
-        public IEnumerable<Lesson> GetAllLessons()
-        {
-            var result = _repository.GetAllEntitiesByType<Lesson>();
-
-            if (result != null)
-                return result;
+            var lessons = await _repository.GetAllLessonsAsync(ct);
+            if(lessons == null)
+                return Enumerable.Empty<Lesson>();
             else
-                throw new Exception("Lessons not found.");
+                return lessons;
         }
 
-        public IEnumerable<Room> GetAllRooms()
+        public async Task<Lesson> GetLessonAsync(int id, CancellationToken ct)
         {
-            var result = _repository.GetAllEntitiesByType<Room>();
-
-            if (result != null)
-                return result;
-            else
-                throw new Exception("Rooms not found.");
+            return await _repository.GetLessonAsync(id, ct);
         }
 
-        public Lesson GetLesson(Lesson lesson)
+        public async Task DeleteLesson(int id)
         {
-            var result = _repository.GetEntityOrDefault(lesson);
-
-            if (result != null)
-                return result;
-            else
-                throw new Exception("Lesson not found.");
+            await _repository.DeleteLesson(id);
         }
 
-        public Task UpdateLesson(Lesson lesson)
+        public async Task UpdateLessonAsync(Lesson lesson, CancellationToken ct)
         {
-            if (_repository.GetEntityOrDefault(lesson) != null)
-                return _repository.UpdateEntityAsync(lesson);
+            await _repository.UpdateLessonAsync(lesson, ct);
+        }
+
+        public async Task<IEnumerable<Room>> GetAllRooms(CancellationToken ct)
+        {
+            var rooms = await _repository.GetAllRoomsAsync(ct);
+            if (rooms == null)
+                return Enumerable.Empty<Room>();
             else
-                return AddLesson(lesson);
+                return rooms;
+        }
+        public async Task<Room> GetRoomAsync(int id, CancellationToken ct)
+        {
+            return await _repository.GetRoomAsync(id, ct);
+        }
+
+        public async Task<IEnumerable<Room>> GetAllRoomsAsync(CancellationToken ct)
+        {
+            return await _repository.GetAllRoomsAsync(ct);
         }
     }
 }
