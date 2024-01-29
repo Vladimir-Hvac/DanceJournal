@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DanceJournal.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
 using System.Data;
+using System.Net;
 using System.Reflection.Emit;
 
 public class DanceJournalDbContext : DbContext
@@ -18,6 +20,9 @@ public class DanceJournalDbContext : DbContext
     public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
     public DbSet<LessonUser> LessonUsers { get; set; }
     public DbSet<Level> Levels { get; set; }
+    public DbSet<InvitationNotificationStatus> InvitationNotificationStatuses { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<Invitation> Invitations { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -66,6 +71,36 @@ public class DanceJournalDbContext : DbContext
             .HasOne(s => s.SubscriptionType)
             .WithMany()
             .HasForeignKey(s => s.SubscriptionTypeId);
+
+        modelBuilder
+            .Entity<InvitationNotificationStatus>()
+            .HasOne(ins => ins.Notification)
+            .WithMany()
+            .HasForeignKey(ins => ins.NotificationId);
+
+        modelBuilder
+            .Entity<InvitationNotificationStatus>()
+            .HasOne(ins => ins.Invitation)
+            .WithMany()
+            .HasForeignKey(ins => ins.InvitationId);
+
+        modelBuilder
+            .Entity<InvitationNotificationStatus>()
+            .HasOne(ins => ins.User)
+            .WithMany()
+            .HasForeignKey(ins => ins.ReceiverId);
+
+        modelBuilder
+            .Entity<Notification>()
+            .HasOne(n => n.Creator)
+            .WithMany()
+            .HasForeignKey(n => n.CreatorId);
+
+        modelBuilder
+            .Entity<Invitation>()
+            .HasOne(n => n.Creator)
+            .WithMany()
+            .HasForeignKey(n => n.CreatorId);
 
         modelBuilder.Entity<User>().HasOne(u => u.Level).WithMany().HasForeignKey(u => u.LevelId);
 

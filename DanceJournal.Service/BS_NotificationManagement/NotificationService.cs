@@ -128,11 +128,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 new()
                 {
                     Id = invitationNotificationStatus.NotificationId,
-                    IsRead = invitationNotificationStatus.IsRead,
                     Body = invitationNotificationStatus.Notification is null
                         ? string.Empty
-                        : invitationNotificationStatus.Notification.Body,
-                    Invitation = invitationNotificationStatus.Invitation
+                        : invitationNotificationStatus.Notification.Body
                 };
             return notification;
         }
