@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DanceJournal.Services.BS_NotificationManagement.Entities
+﻿namespace DanceJournal.Domain.Models
 {
     public class InvitationNotificationStatus
     {
+        public int Id { get; set; }
         public int InvitationId { get; set; }
         public int NotificationId { get; set; }
         public int ReceiverId { get; set; }
@@ -16,5 +11,6 @@ namespace DanceJournal.Services.BS_NotificationManagement.Entities
 
         public Notification? Notification { get; set; }
         public Invitation? Invitation { get; set; }
+        public User? User { get; set; }
     }
 }

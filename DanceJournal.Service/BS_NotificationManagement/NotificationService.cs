@@ -1,28 +1,8 @@
-﻿using DanceJournal.Services.BS_NotificationManagement.Contracts;
-using DanceJournal.Services.BS_NotificationManagement.Entities;
+﻿using DanceJournal.Domain.Models;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanceJournal.Services.BS_NotificationManagement
 {
-    public interface INotificationService
-    {
-        event EventHandler OnNotificationReceived;
-        Task<List<NotificationDTO>> GetNotReadNotifications(int userId);
-        Task<NotificationDTO?> ReadNotification(int notificationId);
-        Task<bool> AcceptInvitation(int invitationId, int notificationId, int userId);
-        Task<bool> DeclineInvitation(int invitationId, int notificationId, int userId);
-
-        //Методы для отправления приглашения на занятие
-        Task<List<LessonDTO>> ProvideLessons(int userId); //
-        Task<List<UserDTO>> ProvideRecipients(int eventId); // Приглашаются люди с равным или большим уровнем, который указан в уровне урока
-        Task<bool> SentInvitation(int eventId, List<int> recipientsIds);
-    }
-
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository; // выбрать 1 из вариантов
@@ -40,9 +20,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
             remove { throw new NotImplementedException(); }
         }
 
-        public async Task<List<NotificationDTO>> GetNotReadNotifications(int userId)
+        public async Task<List<Notification>> GetNotReadNotifications(int userId)
         {
-            List<NotificationDTO> result = new();
+            List<Notification> result = new();
             try
             {
                 List<InvitationNotificationStatus> invitationNotificationStatuses =
@@ -64,7 +44,100 @@ namespace DanceJournal.Services.BS_NotificationManagement
         public async Task<bool> AcceptInvitation(int invitationId, int notificationId, int userId)
         {
             bool result = false;
-            bool isVisit = true;
+            try
+            {
+                result = await HandleInvitation(invitationId, notificationId, userId, true);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
+            return result;
+        }
+
+        public async Task<bool> DeclineInvitation(int invitationId, int notificationId, int userId)
+        {
+            bool result = false;
+            try
+            {
+                result = await HandleInvitation(invitationId, notificationId, userId, false);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
+            return result;
+        }
+
+        public async Task<List<Lesson>> ProvideLessons(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<User>> ProvideRecipients(int eventId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Notification?> ReadNotification(int notificationId)
+        {
+            Notification? result = null;
+            List<InvitationNotificationStatus> invitationNotificationStatuses =
+                await _notificationRepository.GetAllInvitationNotificationStatuses();
+
+            InvitationNotificationStatus? foundInvitationNotificationStatus =
+                invitationNotificationStatuses.FirstOrDefault(
+                    x => x.Notification != null && x.Notification.Id.Equals(notificationId)
+                );
+
+            if (foundInvitationNotificationStatus != null)
+            {
+                foundInvitationNotificationStatus.IsRead = true;
+                bool updateResult =
+                    await _notificationRepository.UpdateInvitationNotificationStatus(
+                        foundInvitationNotificationStatus
+                    );
+                result = MapNotification(foundInvitationNotificationStatus);
+            }
+
+            return result;
+        }
+
+        public async Task<bool> SentInvitation(int eventId, List<int> recipientsIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static List<Notification> MapNotificationDTOs(
+            List<InvitationNotificationStatus> invitationNotificationStatuses
+        )
+        {
+            List<Notification> result = new();
+            foreach (var notification in invitationNotificationStatuses)
+            {
+                result.Add(MapNotification(notification));
+            }
+            return result;
+        }
+
+        private static Notification MapNotification(
+            InvitationNotificationStatus invitationNotificationStatus
+        )
+        {
+            Notification notification =
+                new()
+                {
+                    Id = invitationNotificationStatus.NotificationId,
+                    Body = invitationNotificationStatus.Notification is null
+                        ? string.Empty
+                        : invitationNotificationStatus.Notification.Body
+                };
+            return notification;
+        }
+        private async Task<bool> HandleInvitation(int invitationId, int notificationId, int userId, bool goingToVisit)
+        {
+            bool result = false;
+            bool isVisit = goingToVisit;
 
             Invitation? invitation = await _notificationRepository.GetInvitation(invitationId);
             if (invitation is null)
@@ -87,7 +160,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 return result;
             }
 
-            foundInvitationNotificationStatus.IsAccepted = true;
+            foundInvitationNotificationStatus.IsAccepted = isVisit;
             result = await _notificationRepository.UpdateInvitationNotificationStatus(
                 foundInvitationNotificationStatus
             );
@@ -96,112 +169,15 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 //TODO: Logging
                 return result;
             }
-
-            int lessonId = invitation.LessonId;
-            /*
-                bool succeed = LessonPlanningService.SheduleLesson(userId, lessonId, isVisit);
-             */
-            return result;
-        }
-
-        public async Task<bool> DeclineInvitation(int invitationId, int notificationId, int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<LessonDTO>> ProvideLessons(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<UserDTO>> ProvideRecipients(int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<NotificationDTO?> ReadNotification(int notificationId)
-        {
-            NotificationDTO? result = null;
-            List<InvitationNotificationStatus> invitationNotificationStatuses =
-                await _notificationRepository.GetAllInvitationNotificationStatuses();
-
-            InvitationNotificationStatus? foundInvitationNotificationStatus =
-                invitationNotificationStatuses.FirstOrDefault(
-                    x => x.Notification != null && x.Notification.Id.Equals(notificationId)
-                );
-
-            if (foundInvitationNotificationStatus != null)
+            if(isVisit)
             {
-                foundInvitationNotificationStatus.IsRead = true;
-                bool updateResult =
-                    await _notificationRepository.UpdateInvitationNotificationStatus(
-                        foundInvitationNotificationStatus
-                    );
-                result = MapNotificationDTO(foundInvitationNotificationStatus);
+                int lessonId = invitation.LessonId;
+                /*
+                    bool succeed = LessonPlanningService.SheduleLesson(userId, lessonId, isVisit);
+                 */
             }
 
             return result;
-        }
-
-        public async Task<bool> SentInvitation(int eventId, List<int> recipientsIds)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<NotificationDTO> MapNotificationDTOs(
-            List<InvitationNotificationStatus> invitationNotificationStatuses
-        )
-        {
-            List<NotificationDTO> result = new();
-            foreach (var notification in invitationNotificationStatuses)
-            {
-                result.Add(MapNotificationDTO(notification));
-            }
-            return result;
-        }
-
-        private static NotificationDTO MapNotificationDTO(
-            InvitationNotificationStatus invitationNotificationStatus
-        )
-        {
-            NotificationDTO notificationDTO =
-                new()
-                {
-                    Id = invitationNotificationStatus.NotificationId,
-                    IsRead = invitationNotificationStatus.IsRead,
-                    Body = invitationNotificationStatus.Notification is null
-                        ? string.Empty
-                        : invitationNotificationStatus.Notification.Body,
-                    InvitationDTO = MapInvitationDTO(invitationNotificationStatus.Invitation)
-                };
-            return notificationDTO;
-        }
-
-        private static InvitationDTO? MapInvitationDTO(Invitation? invitation)
-        {
-            InvitationDTO? invitationDTO = null;
-
-            if (invitation is not null)
-            {
-                invitationDTO = new() { Id = invitation.Id, IsAccepted = invitation.IsAccepted, };
-            }
-
-            return invitationDTO;
-        }
-    }
-
-    class Client
-    {
-        private INotificationService notificationService;
-
-        public Client()
-        {
-            notificationService.OnNotificationReceived += DoSmth;
-        }
-
-        public async void DoSmth(object sender, EventArgs eventArgs)
-        {
-            List<NotificationDTO> notif = await notificationService.GetNotReadNotifications(1);
         }
     }
 }

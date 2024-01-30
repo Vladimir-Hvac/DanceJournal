@@ -1,4 +1,4 @@
-﻿using DanceJournal.Services.BS_NotificationManagement.Entities;
+﻿using DanceJournal.Domain.Models;
 
 namespace DanceJournal.Services.BS_NotificationManagement.Gateways
 {
