@@ -68,6 +68,7 @@ public class DanceJournalDbContext : DbContext
             .HasForeignKey(s => s.SubscriptionTypeId);
 
         modelBuilder.Entity<User>().HasOne(u => u.Level).WithMany().HasForeignKey(u => u.LevelId);
+        modelBuilder.Entity<User>().HasIndex(e => e.Email).IsUnique();
 
         base.OnModelCreating(modelBuilder);
     }

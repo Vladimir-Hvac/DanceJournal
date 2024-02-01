@@ -20,6 +20,12 @@
                     <PropertyColumn Property="x=>x.LessonType.Name" Field="Наименование занятия" />
                     <PropertyColumn Property="x=>x.Level.Title" Field="Уровень" />
                     <PropertyColumn Property="x=>x.Date" Field="Дата" />
+                    <PropertyColumn Property="x=>x.Start" Field="Дата" >
+                        <EditTemplate>
+                            <MudDatePicker @bind-Value="@context.Item.Start" />
+                            <MudTimePicker @bind-Value="@context.Item.Start" />
+                        </EditTemplate>
+                    </PropertyColumn>
                     <PropertyColumn Property="x=>x.Room.Name" Field="Помещение" />
                     <PropertyColumn Property="x=>x.User" Field="Тренер" />
 

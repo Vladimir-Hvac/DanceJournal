@@ -16,6 +16,9 @@ namespace DanceJournal.MudWeb.Journal.Pages
         protected override async Task OnInitializedAsync()
         {
             Lessons = _dataMapping.LessonsDTO;
+            var currentLessonType = _dataMapping.LessonTypesDTO.Where(
+                e => e.Name.Equals("Грязные танцы")
+            );
             /*foreach (var lesson in Lessons)
             {
                 lesson.LessonType = _dataMapping.GetLessonType(lesson.LessonTypeId);
