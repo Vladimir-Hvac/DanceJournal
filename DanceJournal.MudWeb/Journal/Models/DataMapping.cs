@@ -35,9 +35,6 @@ namespace DanceJournal.MudWeb.Journal.Models
             LevelsDTO = _dbContext.Levels.ToList();
         }
 
-       
-
-       
         internal string GetLessonTypeName(int Id)
         {
             return LessonTypesDTO.FirstOrDefault(x => x.Id == Id).Name;

@@ -1,5 +1,9 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-    <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Fetch data</MudNavLink>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Главная</MudNavLink>
+    <MudNavGroup Title="Управление" Icon="@Icons.Material.Filled.AdminPanelSettings" Expanded="true">
+        <MudNavLink Href="/lessontypes" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.TypeSpecimen">Типы занятий</MudNavLink>
+        <MudNavLink Href="/lessons" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Dataset">Занятия</MudNavLink>
+        <MudNavLink Href="/users" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.VerifiedUser">Пользователи</MudNavLink>
+    </MudNavGroup>    
+    <MudNavLink Href="/aboniments" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Payment">Абонименты</MudNavLink>
 </MudNavMenu>

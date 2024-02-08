@@ -1,6 +1,8 @@
-﻿<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+﻿@page "/lessontypes"
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
-        <MudItem xs="12" sm="6">
+        <MudItem xs="12" sm="12">
 
             <MudDataGrid T="LessonType" Items="@LessonTypes" ReadOnly="@_readOnly"
                          EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
@@ -21,9 +23,9 @@
                     <PropertyColumn Property="x=>x.Price" Field="Price" />
                     <PropertyColumn Property="x=>x.Type" Field="Type" >
                         <EditTemplate>
-                            <MudSelect @bind-Value="context.Item.Type" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense" >
-                                 <MudSelectItem T="string" Value="@("Групповое")">Групповое</MudSelectItem>
-                                 <MudSelectItem T="string" Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
+                            <MudSelect @bind-Value="_selectedType" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense">
+                                 <MudSelectItem Value="@("Групповое")">Групповое</MudSelectItem>
+                                 <MudSelectItem Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
                              </MudSelect>
                          </EditTemplate>
                      </PropertyColumn>
@@ -35,12 +37,16 @@
                 </Columns>
             </MudDataGrid>
         </MudItem>
-        <MudItem xs="12" sm="6">
+        <MudSpacer/>
+        <MudItem xs="12" sm="4">
 
             <MudForm >
                 <MudTextField Label="Наименование занятия" @bind-Value="@_name" />
                 <MudTextField Label="Цена, руб" @bind-Value="@_price" />
-                <MudTextField Label="Тип занятия" @bind-Value="@_type" />
+                 <MudSelect @bind-Value="_type" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense">
+                     <MudSelectItem Value="@("Групповое")">Групповое</MudSelectItem>
+                     <MudSelectItem Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
+                 </MudSelect>
                 <MudButton Type="Submit" OnClick="@AddLessonType">Submit</MudButton>
                 <MudButton Type="Submit">Cancel</MudButton>
             </MudForm>

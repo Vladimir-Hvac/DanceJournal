@@ -9,22 +9,21 @@ namespace DanceJournal.MudWeb.Journal.Pages
         public DataMapping _dataMapping { get; set; }
 
         private List<Lesson>? Lessons;
+        private List<LessonType>? LessonTypes;
+
         private string _searchString;
         private bool _isCellEditMode;
         private bool _readOnly;
+        private LessonType _selectedLessonsType;
 
         protected override async Task OnInitializedAsync()
         {
             Lessons = _dataMapping.LessonsDTO;
+            LessonTypes = _dataMapping.LessonTypesDTO;
+
             var currentLessonType = _dataMapping.LessonTypesDTO.Where(
                 e => e.Name.Equals("Грязные танцы")
             );
-            /*foreach (var lesson in Lessons)
-            {
-                lesson.LessonType = _dataMapping.GetLessonType(lesson.LessonTypeId);
-                lesson.Room = _dataMapping.GetRoom(lesson.RoomId);
-                lesson.Level = _dataMapping.GetLevel(lesson.LevelId);
-            }*/
         }
 
         private void StartedEditingItem(Lesson lessonType) { }

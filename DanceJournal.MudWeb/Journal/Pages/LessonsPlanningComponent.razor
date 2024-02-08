@@ -1,6 +1,8 @@
-﻿<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+﻿@page "/lessons"
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
-        <MudItem xs="12" sm="6">
+        <MudItem xs="12" sm="12">
 
             <MudDataGrid T="Lesson" Items="@Lessons" ReadOnly="@_readOnly"
                          EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
@@ -17,7 +19,16 @@
                                   AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
                 </ToolBarContent>
                 <Columns>
-                    <PropertyColumn Property="x=>x.LessonType.Name" Field="Наименование занятия" />
+                    <PropertyColumn Property="x=>x.LessonType.Name" Field="Наименование занятия" >
+                        <EditTemplate>
+                            <MudSelect @bind-Value="@_selectedLessonsType" Items="@LessonTypes" >
+                                @foreach (var item in LessonTypes)
+                                {
+                                    <MudSelectItem Value="@item">@item.Name</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </EditTemplate>
+                    </PropertyColumn>
                     <PropertyColumn Property="x=>x.Level.Title" Field="Уровень" />
                     <PropertyColumn Property="x=>x.Date" Field="Дата" />
                     <PropertyColumn Property="x=>x.Start" Field="Дата" >
