@@ -1,1 +1,24 @@
-﻿
+﻿<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+
+            <MudForm OnValidSubmit="@HandleValidSubmit">
+                <MudTextField Label="Фамилия" @bind-Value="@_surName" />
+                <MudTextField Label="Имя" @bind-Value="@_firstName" />
+                <MudTextField Label="Отчество" @bind-Value="@_secondName" />
+                <MudDatePicker Label="Дата рождения" @bind-Value="@_birthDate" />
+                <MudSelect Label="Пол" @bind-Value="@_gender">
+                    <MudSelectItem T="string">муж.</MudSelectItem>
+                    <MudSelectItem T="string">жен.</MudSelectItem>
+                    <!-- Add more gender options as needed -->
+                </MudSelect>
+                <MudTextField Label="Email" @bind-Value="@_email" />
+                <MudTextField Label="Телефон" @bind-Value="@_phoneNumber" />
+                <MudButton Type="Submit">Submit</MudButton>
+                <MudButton Type="Submit">Cancel</MudButton>
+            </MudForm>
+        </MudItem>
+    </MudGrid>
+
+</MudContainer>
+

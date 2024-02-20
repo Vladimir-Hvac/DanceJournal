@@ -16,7 +16,6 @@ StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configurat
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
 builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Scoped);
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
@@ -24,7 +23,7 @@ builder.Services.AddScoped<ILessonPlanningRepository, LessonPlanningRepository>(
 builder.Services.AddScoped<ILessonPlanning, BS_LessonsPlanning>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<DataMapping>();
-builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Scoped);
+builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Singleton);
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
