@@ -1,23 +1,17 @@
 ﻿using DanceJournal.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanceJournal.Services.BS_NotificationManagement
 {
     public interface INotificationService
     {
-        event EventHandler OnNotificationReceived;
-        Task<List<Notification>> GetNotReadNotifications(int userId);
+        Task<List<Notification>> GetNotReadNotifications(CurrentAuthUser currentAuthUser);
         Task<Notification?> ReadNotification(int notificationId);
-        Task<bool> AcceptInvitation(int invitationId, int notificationId, int userId);
-        Task<bool> DeclineInvitation(int invitationId, int notificationId, int userId);
+        Task<bool> AcceptInvitation(int invitationId, int notificationId, CurrentAuthUser currentAuthUser);
+        Task<bool> DeclineInvitation(int invitationId, int notificationId, CurrentAuthUser currentAuthUser);
 
         //Методы для отправления приглашения на занятие
-        Task<List<Lesson>> ProvideLessons(int userId); //
-        Task<List<User>> ProvideRecipients(int eventId); // Приглашаются люди с равным или большим уровнем, который указан в уровне урока
-        Task<bool> SentInvitation(int eventId, List<int> recipientsIds);
+        Task<List<Lesson>> ProvideLessons(CurrentAuthUser currentAuthUser); //
+        Task<List<User>> ProvideRecipients(int lessonId); // Приглашаются люди с равным или большим уровнем, который указан в уровне урока
+        Task<bool> SendInvitation(string body, int lessonId, List<int> recipientsIds, CurrentAuthUser currentAuthUser);
     }
 }
