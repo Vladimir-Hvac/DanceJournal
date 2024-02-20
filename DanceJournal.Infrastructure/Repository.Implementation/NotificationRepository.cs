@@ -68,7 +68,11 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             List<InvitationNotificationStatus> result = new();
             try
             {
-                result = await _dbContext.InvitationNotificationStatuses.ToListAsync();
+                result = await _dbContext.InvitationNotificationStatuses
+                    .Include(x => x.Notification)
+                    .Include(x => x.Invitation)
+                    .Include(x => x.User)
+                    .ToListAsync();
             }
             catch (Exception)
             {
