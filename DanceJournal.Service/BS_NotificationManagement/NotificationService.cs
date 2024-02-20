@@ -18,7 +18,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
             try
             {
                 User? user = await _notificationRepository.GetUser(currentAuthUser.UserEmail);
-                if(user is null)
+                if (user is null)
                 {
                     //TODO: Implement logging
                     return result;
@@ -28,7 +28,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     await _notificationRepository.GetAllInvitationNotificationStatuses();
                 invitationNotificationStatuses = invitationNotificationStatuses
                     .Where(x => x.ReceiverId.Equals(user.Id) && !x.IsRead)
-                    .Where(x => x.Invitation is null ||(x.Invitation != null && x.Invitation.IsSatisfied != true))
+                    .Where(x => x.Invitation is null || (x.Invitation != null && x.Invitation.IsSatisfied != true))
                     .ToList();
 
                 result.AddRange(MapNotificationDTOs(invitationNotificationStatuses));
@@ -119,11 +119,11 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 }
                 List<Lesson> allLessons = await _notificationRepository.GetAllLessons();
 
-                if(user.Role.Id.Equals(2))
+                if (user.Role.Id.Equals(2))
                 {
                     result = allLessons.Where(x => x.UserId.Equals(user.Id)).ToList();
                 }
-                else if(!user.Role.Id.Equals(1))
+                else if (!user.Role.Id.Equals(1))
                 {
                     result = allLessons;
                 }
@@ -142,13 +142,13 @@ namespace DanceJournal.Services.BS_NotificationManagement
             try
             {
                 Lesson? lesson = await _notificationRepository.GetLesson(lessonId);
-                if(lesson is null)
+                if (lesson is null)
                 {
                     //TODO: Implement logging
                     return result;
                 }
                 Level? level = lesson.Level;
-                if(level is null)
+                if (level is null)
                 {
                     //TODO: Implement logging
                     return result;
@@ -190,7 +190,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 };
 
                 int invitationId = await _notificationRepository.AddInvitation(invitation);
-                if(invitationId == -1)
+                if (invitationId == -1)
                 {
                     //TODO: Implement logging
                     return result;
@@ -253,9 +253,16 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 new()
                 {
                     Id = invitationNotificationStatus.NotificationId,
+                    Creator = invitationNotificationStatus.User is null
+                        ? null
+                        : invitationNotificationStatus.User,
                     Body = invitationNotificationStatus.Notification is null
                         ? string.Empty
-                        : invitationNotificationStatus.Notification.Body
+                        : invitationNotificationStatus.Notification.Body,
+                    Invitation = invitationNotificationStatus.Invitation is null
+                        ? null
+                        : invitationNotificationStatus.Invitation
+
                 };
             return notification;
         }
@@ -285,7 +292,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 return result;
             }
 
-            if (foundInvitationNotificationStatus.Invitation != null 
+            if (foundInvitationNotificationStatus.Invitation != null
                 && !foundInvitationNotificationStatus.Invitation.IsSatisfied)
             {
                 foundInvitationNotificationStatus.IsAccepted = isVisit;
@@ -298,9 +305,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     return result;
                 }
 
-                if(await IsInvitationSatisfied(invitationId))
+                if (await IsInvitationSatisfied(invitationId))
                 {
-                    Invitation? inv =  await _notificationRepository.GetInvitation(invitationId);
+                    Invitation? inv = await _notificationRepository.GetInvitation(invitationId);
                     if (inv is null)
                     {
                         //TODO: Logging
@@ -338,7 +345,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     .All(x => x.IsAccepted);
             }
             catch (Exception ex)
-            {                    
+            {
                 //TODO: Logging
             }
             return result;

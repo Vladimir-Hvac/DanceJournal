@@ -7,5 +7,6 @@
         public string Body { get; set; } = string.Empty;
 
         public User? Creator { get; set; }
+        public Invitation? Invitation { get; set; }
     }
 }
