@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DanceJournal.Infrastructure.Migrations
 {
     [DbContext(typeof(DanceJournalDbContext))]
-    [Migration("20240129191342_AddNotificationEntitiesMigration")]
-    partial class AddNotificationEntitiesMigration
+    [Migration("20240225160329_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,9 +97,14 @@ namespace DanceJournal.Infrastructure.Migrations
                     b.Property<int>("CreatorId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("InvitationId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
+
+                    b.HasIndex("InvitationId");
 
                     b.ToTable("Notifications");
                 });
@@ -305,8 +310,8 @@ namespace DanceJournal.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -347,11 +352,10 @@ namespace DanceJournal.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.HasIndex("LevelId");
 
@@ -408,7 +412,13 @@ namespace DanceJournal.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DanceJournal.Domain.Models.Invitation", "Invitation")
+                        .WithMany()
+                        .HasForeignKey("InvitationId");
+
                     b.Navigation("Creator");
+
+                    b.Navigation("Invitation");
                 });
 
             modelBuilder.Entity("Lesson", b =>

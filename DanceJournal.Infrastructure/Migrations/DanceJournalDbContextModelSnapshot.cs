@@ -94,9 +94,14 @@ namespace DanceJournal.Infrastructure.Migrations
                     b.Property<int>("CreatorId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("InvitationId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
+
+                    b.HasIndex("InvitationId");
 
                     b.ToTable("Notifications");
                 });
@@ -302,8 +307,8 @@ namespace DanceJournal.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -344,11 +349,10 @@ namespace DanceJournal.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.HasIndex("LevelId");
 
@@ -405,7 +409,13 @@ namespace DanceJournal.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DanceJournal.Domain.Models.Invitation", "Invitation")
+                        .WithMany()
+                        .HasForeignKey("InvitationId");
+
                     b.Navigation("Creator");
+
+                    b.Navigation("Invitation");
                 });
 
             modelBuilder.Entity("Lesson", b =>
