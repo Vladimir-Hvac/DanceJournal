@@ -6,13 +6,14 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
     public class LessonPlanningRepository : ILessonPlanningRepository
     {
         private DanceJournalDbContext _dbContext;
+
         public LessonPlanningRepository(DanceJournalDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         #region Lessons
-        public async Task<Lesson> GetLessonAsync(int id,CancellationToken ct)
+        public async Task<Lesson> GetLessonAsync(int id, CancellationToken ct)
         {
             var lesson = await _dbContext.Lessons.Where(i => i.Id == id).FirstOrDefaultAsync(ct);
             if (lesson == null)
@@ -37,7 +38,6 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                 await _dbContext.Lessons.AddAsync(lesson, ct);
                 await _dbContext.SaveChangesAsync(ct);
                 return lesson;
-
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             try
             {
                 CancellationToken ct = new CancellationToken();
-                var lesson = await GetLessonAsync(id,ct);
+                var lesson = await GetLessonAsync(id, ct);
                 _dbContext.Lessons.Remove(lesson);
                 await _dbContext.SaveChangesAsync();
             }
@@ -85,6 +85,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             else
                 return rooms;
         }
+
         public async Task<Room> GetRoomAsync(int id, CancellationToken ct)
         {
             var room = await _dbContext.Rooms.Where(i => i.Id == id).FirstOrDefaultAsync(ct);

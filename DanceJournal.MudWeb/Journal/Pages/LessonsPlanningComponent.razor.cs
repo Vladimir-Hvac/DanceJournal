@@ -8,7 +8,14 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Inject]
         public DataMapping _dataMapping { get; set; }
 
-        private List<Lesson>? Lessons;
+        [Inject]
+        public ILessonPlanning _lessonPlanning { get; set; }
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
+        private CancellationToken _cancellationToken;
+        private IEnumerable<Lesson>? Lessons;
         private List<LessonType>? LessonTypes;
 
         private string _searchString;
@@ -18,7 +25,8 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Lessons = _dataMapping.LessonsDTO;
+            Lessons = await _lessonPlanning.GetAllLessonsAsync(_cancellationToken);
+            //Lessons = _dataMapping.LessonsDTO;
             LessonTypes = _dataMapping.LessonTypesDTO;
 
             var currentLessonType = _dataMapping.LessonTypesDTO.Where(
@@ -26,11 +34,16 @@ namespace DanceJournal.MudWeb.Journal.Pages
             );
         }
 
-        private void StartedEditingItem(Lesson lessonType) { }
+        private void StartedEditingItem(Lesson lesson) { }
 
-        private void CanceledEditingItem(Lesson lessonType) { }
+        private void CanceledEditingItem(Lesson lesson) { }
 
-        private void CommittedItemChanges(Lesson lessonType) { }
+        private void CommittedItemChanges(Lesson lesson)
+        {
+            lesson.LessonType = _selectedLessonsType;
+            _lessonPlanning.UpdateLessonAsync(lesson, _cancellationToken);
+            NavigationManager.NavigateTo("/lessons", true);
+        }
 
         private Func<Lesson, bool> _quickFilter =>
             x =>
