@@ -90,7 +90,7 @@ namespace DanceJournal.Services.BS_LessonsPlanning
 
         public async Task CreateLessonTypeAsync(LessonType lessonType)
         {
-            await _repository.CreateLessonAsync(lessonType);
+            await _repository.CreateLessonTypeAsync(lessonType);
         }
 
         public async Task UpdateLessonTypeAsync(LessonType lessonType)

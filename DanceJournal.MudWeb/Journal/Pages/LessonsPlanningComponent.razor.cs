@@ -13,8 +13,6 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
-        private CancellationToken _cancellationToken;
         private IEnumerable<Lesson>? Lessons;
         private List<LessonType>? LessonTypes;
 
@@ -25,7 +23,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Lessons = await _lessonPlanning.GetAllLessonsAsync(_cancellationToken);
+            Lessons = await _lessonPlanning.GetAllLessonsAsync();
             //Lessons = _dataMapping.LessonsDTO;
             LessonTypes = _dataMapping.LessonTypesDTO;
 
@@ -41,7 +39,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
         private void CommittedItemChanges(Lesson lesson)
         {
             lesson.LessonType = _selectedLessonsType;
-            _lessonPlanning.UpdateLessonAsync(lesson, _cancellationToken);
+            _lessonPlanning.UpdateLessonAsync(lesson);
             NavigationManager.NavigateTo("/lessons", true);
         }
 
