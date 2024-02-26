@@ -11,15 +11,15 @@ namespace DanceJournal.Services.BS_LessonsPlanning
             _repository = repository;
         }
 
-        public async Task BookRoom(int idLesson, int idRoom,CancellationToken ct)
+        public async Task BookRoom(int idLesson, int idRoom)
         {
-            var lesson = await GetLessonAsync(idLesson, ct);
-            var room = await GetRoomAsync(idRoom, ct);
+            var lesson = await GetLessonAsync(idLesson);
+            var room = await GetRoomAsync(idRoom);
 
             if (lesson != null && room != null)
             {
                 lesson.Room = room;
-                await _repository.UpdateLessonAsync(lesson, ct);
+                await _repository.UpdateLessonAsync(lesson);
             }
             else
             {
@@ -27,23 +27,23 @@ namespace DanceJournal.Services.BS_LessonsPlanning
             }
         }
 
-        public async Task CreateLessonAsync(Lesson lesson, CancellationToken ct)
+        public async Task CreateLessonAsync(Lesson lesson)
         {
-            await _repository.CreateLessonAsync(lesson, ct);
+            await _repository.CreateLessonAsync(lesson);
         }
 
-        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync(CancellationToken ct)
+        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync()
         {
-            var lessons = await _repository.GetAllLessonsAsync(ct);
+            var lessons = await _repository.GetAllLessonsAsync();
             if(lessons == null)
                 return Enumerable.Empty<Lesson>();
             else
                 return lessons;
         }
 
-        public async Task<Lesson> GetLessonAsync(int id, CancellationToken ct)
+        public async Task<Lesson> GetLessonAsync(int id)
         {
-            return await _repository.GetLessonAsync(id, ct);
+            return await _repository.GetLessonAsync(id);
         }
 
         public async Task DeleteLesson(int id)
@@ -51,27 +51,56 @@ namespace DanceJournal.Services.BS_LessonsPlanning
             await _repository.DeleteLesson(id);
         }
 
-        public async Task UpdateLessonAsync(Lesson lesson, CancellationToken ct)
+        public async Task UpdateLessonAsync(Lesson lesson)
         {
-            await _repository.UpdateLessonAsync(lesson, ct);
+            await _repository.UpdateLessonAsync(lesson);
         }
 
-        public async Task<IEnumerable<Room>> GetAllRooms(CancellationToken ct)
+        public async Task<IEnumerable<Room>> GetAllRooms()
         {
-            var rooms = await _repository.GetAllRoomsAsync(ct);
+            var rooms = await _repository.GetAllRoomsAsync();
             if (rooms == null)
                 return Enumerable.Empty<Room>();
             else
                 return rooms;
         }
-        public async Task<Room> GetRoomAsync(int id, CancellationToken ct)
+        public async Task<Room> GetRoomAsync(int id)
         {
-            return await _repository.GetRoomAsync(id, ct);
+            return await _repository.GetRoomAsync(id);
         }
 
-        public async Task<IEnumerable<Room>> GetAllRoomsAsync(CancellationToken ct)
+        public async Task<IEnumerable<Room>> GetAllRoomsAsync()
         {
-            return await _repository.GetAllRoomsAsync(ct);
+            return await _repository.GetAllRoomsAsync();
+        }
+
+        public async Task<IEnumerable<LessonType>> GetAllLessonsTypesAsync()
+        {
+            var lessonTypes = await _repository.GetAllLessonTypesAsync();
+            if (lessonTypes == null)
+                return Enumerable.Empty<LessonType>();
+            else
+                return lessonTypes;
+        }
+
+        public async Task<LessonType> GetLessonTypeAsync(int id)
+        {
+            return await _repository.GetLessonTypeAsync(id);
+        }
+
+        public async Task CreateLessonTypeAsync(LessonType lessonType)
+        {
+            await _repository.CreateLessonTypeAsync(lessonType);
+        }
+
+        public async Task UpdateLessonTypeAsync(LessonType lessonType)
+        {
+            await _repository.UpdateLessonTypeAsync(lessonType);
+        }
+
+        public async Task DeleteLessonType(int id)
+        {
+            await _repository.DeleteLessonType(id);
         }
     }
 }
