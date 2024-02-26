@@ -37,19 +37,5 @@
                 </Columns>
             </MudDataGrid>
         </MudItem>
-        <MudSpacer/>
-        <MudItem xs="12" sm="4">
-
-            <MudForm >
-                <MudTextField Label="Наименование занятия" @bind-Value="@_name" />
-                <MudTextField Label="Цена, руб" @bind-Value="@_price" />
-                 <MudSelect @bind-Value="_type" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense">
-                     <MudSelectItem Value="@("Групповое")">Групповое</MudSelectItem>
-                     <MudSelectItem Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
-                 </MudSelect>
-                <MudButton Type="Submit" OnClick="@AddLessonType">Submit</MudButton>
-                <MudButton Type="Submit">Cancel</MudButton>
-            </MudForm>
-        </MudItem>
     </MudGrid>
 </MudContainer>
