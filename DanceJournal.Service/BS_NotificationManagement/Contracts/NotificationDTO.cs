@@ -4,6 +4,7 @@ namespace DanceJournal.Services.BS_NotificationManagement.Contracts
 {
     public class NotificationDTO
     {
+        public int Id { get; set; }
         public int ReceiverId { get; set; }
         public string Body { get; set; } = string.Empty;
         public DateOnly Date { get; set; } = new DateOnly();
