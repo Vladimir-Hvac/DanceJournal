@@ -1,13 +1,6 @@
 ﻿using DanceJournal.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
-using Npgsql;
-using System;
-using System.Data;
-using System.Net;
-using System.Reflection.Emit;
 
 public class DanceJournalDbContext : DbContext
 {
@@ -20,7 +13,12 @@ public class DanceJournalDbContext : DbContext
     public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
     public DbSet<LessonUser> LessonUsers { get; set; }
     public DbSet<Level> Levels { get; set; }
-    public DbSet<InvitationNotificationStatus> InvitationNotificationStatuses { get; set; }
+
+    public DbSet<NotificationInvitation> NotificationInvitations { get; set; }
+
+    public DbSet<NotificationStatus> NotificationStatuses { get; set; }
+
+    public DbSet<InvitationStatus> InvitationStatuses { get; set; }
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Invitation> Invitations { get; set; }
 
@@ -72,21 +70,50 @@ public class DanceJournalDbContext : DbContext
             .WithMany()
             .HasForeignKey(s => s.SubscriptionTypeId);
 
+        modelBuilder.Entity<NotificationInvitation>()
+            .HasKey(e => new { e.NotificationId, e.InvitationId });
+
         modelBuilder
-            .Entity<InvitationNotificationStatus>()
+            .Entity<NotificationInvitation>()
             .HasOne(ins => ins.Notification)
             .WithMany()
             .HasForeignKey(ins => ins.NotificationId);
 
         modelBuilder
-            .Entity<InvitationNotificationStatus>()
+            .Entity<NotificationInvitation>()
             .HasOne(ins => ins.Invitation)
             .WithMany()
             .HasForeignKey(ins => ins.InvitationId);
 
         modelBuilder
-            .Entity<InvitationNotificationStatus>()
-            .HasOne(ins => ins.User)
+            .Entity<NotificationStatus>()
+            .HasNoKey();
+
+        modelBuilder
+            .Entity<NotificationStatus>()
+            .HasOne(ins => ins.Notification)
+            .WithMany()
+            .HasForeignKey(ins => ins.NotificationId);
+
+        modelBuilder
+            .Entity<NotificationStatus>()
+            .HasOne(ins => ins.Receiver)
+            .WithMany()
+            .HasForeignKey(ins => ins.ReceiverId);
+
+        modelBuilder
+            .Entity<InvitationStatus>()
+            .HasNoKey();
+
+        modelBuilder
+            .Entity<InvitationStatus>()
+            .HasOne(ins => ins.Invitation)
+            .WithMany()
+            .HasForeignKey(ins => ins.InvitationId);
+
+        modelBuilder
+            .Entity<InvitationStatus>()
+            .HasOne(ins => ins.Receiver)
             .WithMany()
             .HasForeignKey(ins => ins.ReceiverId);
 

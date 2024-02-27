@@ -1,5 +1,7 @@
 ﻿using DanceJournal.Domain.Models;
+using DanceJournal.Services.BS_NotificationManagement.Contracts;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
+using DanceJournal.Services.BS_NotificationManagement.Mapping;
 
 namespace DanceJournal.Services.BS_NotificationManagement
 {
@@ -12,9 +14,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
             _notificationRepository = notificationRepository;
         }
 
-        public async Task<List<Notification>> GetNotReadNotifications(CurrentAuthUser currentAuthUser)
+        public async Task<List<NotificationDTO>> GetNotReadNotifications(CurrentAuthUser currentAuthUser)
         {
-            List<Notification> result = new();
+            List<NotificationDTO> result = new();
             try
             {
                 User? user = await _notificationRepository.GetUser(currentAuthUser.UserEmail);
@@ -24,14 +26,10 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     return result;
                 }
 
-                List<InvitationNotificationStatus> invitationNotificationStatuses =
-                    await _notificationRepository.GetAllInvitationNotificationStatuses();
-                invitationNotificationStatuses = invitationNotificationStatuses
-                    .Where(x => x.ReceiverId.Equals(user.Id) && !x.IsRead)
-                    .Where(x => x.Invitation is null || (x.Invitation != null && x.Invitation.IsSatisfied != true))
-                    .ToList();
 
-                result.AddRange(MapNotificationDTOs(invitationNotificationStatuses));
+                List<(NotificationStatus, InvitationStatus?)> notificInvStatuses = await _notificationRepository.GetNotReadNotificationStatusesByReceiver(user.Id);
+
+                result.AddRange(NotificationMapper.MapNotificationDTOs(notificInvStatuses));
             }
             catch (Exception ex)
             {
@@ -41,26 +39,30 @@ namespace DanceJournal.Services.BS_NotificationManagement
             return result;
         }
 
-        public async Task<Notification?> ReadNotification(int notificationId)
+        public async Task<NotificationDTO?> ReadNotification(int notificationId, int receiverId)
         {
-            Notification? result = null;
-            List<InvitationNotificationStatus> invitationNotificationStatuses =
-                await _notificationRepository.GetAllInvitationNotificationStatuses();
+            NotificationDTO? result = null;
 
-            InvitationNotificationStatus? foundInvitationNotificationStatus =
-                invitationNotificationStatuses.FirstOrDefault(
-                    x => x.Notification != null && x.Notification.Id.Equals(notificationId)
-                );
+            var notInv = await _notificationRepository.GetNotificationStatus(notificationId, receiverId);
 
-            if (foundInvitationNotificationStatus != null)
+            if (notInv is null)
             {
-                foundInvitationNotificationStatus.IsRead = true;
-                bool updateResult =
-                    await _notificationRepository.UpdateInvitationNotificationStatus(
-                        foundInvitationNotificationStatus
-                    );
-                result = MapNotification(foundInvitationNotificationStatus);
+                //TODO: Implement logging
+                return result;
             }
+
+            NotificationStatus notificationStatus = notInv.Value.Item1;
+            notificationStatus.IsRead = true;
+
+            bool updateResult = await _notificationRepository.UpdateNotificationStatus(notificationStatus);
+
+            if (!updateResult)
+            {
+                //TODO: Implement logging
+                return result;
+            }
+
+            result = NotificationMapper.MapNotificationDTO(notInv.Value.Item1, notInv.Value.Item2);
 
             return result;
         }
@@ -77,7 +79,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     return result;
                 }
 
-                result = await HandleInvitation(invitationId, notificationId, user.Id, true);
+                result = await HandleInvitation(invitationId, user.Id, true);
             }
             catch (Exception ex)
             {
@@ -97,7 +99,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     //TODO: Implement logging
                     return result;
                 }
-                result = await HandleInvitation(invitationId, notificationId, user.Id, false);
+                result = await HandleInvitation(invitationId, user.Id, false);
             }
             catch (Exception ex)
             {
@@ -208,21 +210,19 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     return result;
                 }
 
-                List<InvitationNotificationStatus> statusesToAdd = new();
+                List<(InvitationStatus, int)> statusesToAdd = new();
                 foreach (var recipientId in recipientsIds)
                 {
-                    InvitationNotificationStatus invitationNotificationStatus = new()
+                    InvitationStatus invitationStatus = new()
                     {
                         InvitationId = invitationId,
-                        NotificationId = notificationId,
                         ReceiverId = recipientId,
-                        IsAccepted = false,
-                        IsRead = false
+                        IsAccepted = false
                     };
-                    statusesToAdd.Add(invitationNotificationStatus);
+                    statusesToAdd.Add((invitationStatus, notificationId));
                 }
 
-                result = await _notificationRepository.AddInvitationNotificationStatuses(statusesToAdd);
+                result = await _notificationRepository.AddInvitationStatuses(statusesToAdd);
 
                 return result;
             }
@@ -233,40 +233,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
             return result;
         }
 
-        private static List<Notification> MapNotificationDTOs(
-            List<InvitationNotificationStatus> invitationNotificationStatuses
-        )
-        {
-            List<Notification> result = new();
-            foreach (var notification in invitationNotificationStatuses)
-            {
-                result.Add(MapNotification(notification));
-            }
-            return result;
-        }
-
-        private static Notification MapNotification(
-            InvitationNotificationStatus invitationNotificationStatus
-        )
-        {
-            Notification notification =
-                new()
-                {
-                    Id = invitationNotificationStatus.NotificationId,
-                    Creator = invitationNotificationStatus.User is null
-                        ? null
-                        : invitationNotificationStatus.User,
-                    Body = invitationNotificationStatus.Notification is null
-                        ? string.Empty
-                        : invitationNotificationStatus.Notification.Body,
-                    Invitation = invitationNotificationStatus.Invitation is null
-                        ? null
-                        : invitationNotificationStatus.Invitation
-
-                };
-            return notification;
-        }
-        private async Task<bool> HandleInvitation(int invitationId, int notificationId, int userId, bool goingToVisit)
+        private async Task<bool> HandleInvitation(int invitationId, int userId, bool goingToVisit)
         {
             bool result = false;
             bool isVisit = goingToVisit;
@@ -277,27 +244,19 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 //TODO: Logging
                 return result;
             }
-            List<InvitationNotificationStatus> invitationNotificationStatuses =
-                await _notificationRepository.GetAllInvitationNotificationStatuses();
-            InvitationNotificationStatus? foundInvitationNotificationStatus =
-                invitationNotificationStatuses.FirstOrDefault(
-                    x =>
-                        x.InvitationId.Equals(invitationId)
-                        && x.NotificationId.Equals(notificationId)
-                        && x.ReceiverId.Equals(userId)
-                );
-            if (foundInvitationNotificationStatus is null)
+            InvitationStatus? foundInvitationStatus = await _notificationRepository.GetInvitationStatus(invitationId, userId);
+            if (foundInvitationStatus is null)
             {
                 //TODO: Logging
                 return result;
             }
 
-            if (foundInvitationNotificationStatus.Invitation != null
-                && !foundInvitationNotificationStatus.Invitation.IsSatisfied)
+            if (foundInvitationStatus.Invitation != null
+                && !foundInvitationStatus.Invitation.IsSatisfied)
             {
-                foundInvitationNotificationStatus.IsAccepted = isVisit;
-                result = await _notificationRepository.UpdateInvitationNotificationStatus(
-                    foundInvitationNotificationStatus
+                foundInvitationStatus.IsAccepted = isVisit;
+                result = await _notificationRepository.UpdateInvitationStatus(
+                    foundInvitationStatus
                 );
                 if (!result)
                 {
@@ -338,9 +297,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
             bool result = false;
             try
             {
-                List<InvitationNotificationStatus> invitationNotificationStatuses =
-                    await _notificationRepository.GetAllInvitationNotificationStatuses();
-                result = invitationNotificationStatuses
+                List<InvitationStatus> invitationStatuses =
+                    await _notificationRepository.GetInvitationStatusesByInvitaionId(invitationId);
+                result = invitationStatuses
                     .Where(x => x.InvitationId.Equals(invitationId))
                     .All(x => x.IsAccepted);
             }

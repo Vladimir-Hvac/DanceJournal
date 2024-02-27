@@ -1,4 +1,14 @@
-﻿@using DanceJournal.Domain.Models;
+﻿@page "/notifications"
+@using DanceJournal.Domain.Models;
+@using DanceJournal.Services.BS_NotificationManagement.Contracts;
+
+
+<style>
+    .custom-button-size .mud-button-root {
+        font-size: 5px; /* Adjust the font size as needed */
+    }
+</style>
+
 
 @if(_render)
 {
@@ -9,16 +19,36 @@
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardContent>
-            <MudDataGrid T="Notification" Items="@_notifications">
-                <Columns>
-                    <TemplateColumn>
-                        <PropertyColumn Property="x => x.Body" Field=""/>
-                    </TemplateColumn>
-                </Columns>
-            </MudDataGrid>
+            <MudGrid>
+                <MudItem xs="2">
+                    <MudStack>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  12px;">Отправить уведомление</MudButton>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  12px;">Создать приглашение</MudButton>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  12px;">Новые</MudButton>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  12px;">Архив</MudButton>
+                    </MudStack>
+                </MudItem>
+                <MudItem xs="10">
+                    <MudStack>
+                        @foreach (var notification in _notifications)
+                        {
+                            <MudPaper Elevation="3">
+                                <MudGrid>
+                                    <MudItem xs="6">
+                                        <MudText>@notification.Date</MudText>
+                                    </MudItem>
+                                    <MudItem xs="6">
+                                        <MudText Align="Align.Right">@notification.Time</MudText>
+                                    </MudItem>
+                                    <MudItem xs="12">
+                                        <MudText>@notification.Body</MudText>
+                                    </MudItem>
+                                </MudGrid>
+                            </MudPaper>
+                        }
+                    </MudStack>
+                </MudItem>
+            </MudGrid>
         </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
-        </MudCardActions>
     </MudCard>
 }
