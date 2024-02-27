@@ -27,22 +27,32 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             return result;
         }
 
-        public async Task<bool> AddInvitationNotificationStatuses(List<InvitationNotificationStatus> invitationNotificationStatuses)
+        public async Task<bool> AddInvitationStatuses(List<(InvitationStatus, int notificationId)> invitationStatuses)
         {
             bool result = false;
-            using var transaction = await _dbContext.Database.BeginTransactionAsync();
             try
             {
-                await _dbContext.AddRangeAsync(invitationNotificationStatuses);
+                List<NotificationInvitation> notifInv = new();
+
+                foreach (var invStat in invitationStatuses)
+                {
+                    NotificationInvitation notificationInvitation = new()
+                    {
+                        InvitationId = invStat.Item1.InvitationId,
+                        NotificationId = invStat.notificationId
+                    };
+                    notifInv.Add(notificationInvitation);
+                }
+
+                await _dbContext.AddRangeAsync(invitationStatuses.Select(x => x.Item1));
+                await _dbContext.AddRangeAsync(notifInv);
+
                 await _dbContext.SaveChangesAsync();
-                await transaction.CommitAsync();
-                return true;
+                result = true;
             }
             catch (Exception)
             {
-                await transaction.RollbackAsync(); // Rollback the transaction if there was an error
-                                                   // Log the exception or handle it as needed
-
+                //TODO: Logging
             }
             return result;
         }
@@ -55,24 +65,6 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                 await _dbContext.AddAsync(notification);
                 await _dbContext.SaveChangesAsync();
                 result = notification.Id;
-            }
-            catch (Exception)
-            {
-                //TODO: Logging
-            }
-            return result;
-        }
-
-        public async Task<List<InvitationNotificationStatus>> GetAllInvitationNotificationStatuses()
-        {
-            List<InvitationNotificationStatus> result = new();
-            try
-            {
-                result = await _dbContext.InvitationNotificationStatuses
-                    .Include(x => x.Notification)
-                    .Include(x => x.Invitation)
-                    .Include(x => x.User)
-                    .ToListAsync();
             }
             catch (Exception)
             {
@@ -116,6 +108,37 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             {
                 result = await _dbContext.Invitations
                            .FirstOrDefaultAsync(i => i.Id == invitationId);
+            }
+            catch (Exception)
+            {
+                //TODO: Logging
+            }
+            return result;
+        }
+
+        public async Task<InvitationStatus?> GetInvitationStatus(int invitationId, int receiverId)
+        {
+            InvitationStatus? result = null;
+            try
+            {
+                result = await _dbContext.InvitationStatuses
+                           .FirstOrDefaultAsync(i => i.InvitationId.Equals(invitationId) && i.ReceiverId.Equals(receiverId));
+            }
+            catch (Exception)
+            {
+                //TODO: Logging
+            }
+            return result;
+        }
+
+        public async Task<List<InvitationStatus>> GetInvitationStatusesByInvitaionId(int invitationId)
+        {
+            List<InvitationStatus> result = new();
+            try
+            {
+                result = await _dbContext.InvitationStatuses
+                           .Where(i => i.InvitationId.Equals(invitationId))
+                           .ToListAsync();
             }
             catch (Exception)
             {
@@ -175,18 +198,19 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             return result;
         }
 
-        public async Task<bool> UpdateInvitationNotificationStatus(
-            InvitationNotificationStatus invitationNotificationStatus
+        public async Task<bool> UpdateInvitationStatus(
+            InvitationStatus invitationStatus
         )
         {
             bool result = false;
             try
             {
-                var foundItem = await _dbContext.InvitationNotificationStatuses
-                                             .FindAsync(invitationNotificationStatus.Id);
+                var foundItem = await _dbContext.InvitationStatuses
+                                             .FirstOrDefaultAsync(i => i.InvitationId.Equals(invitationStatus.InvitationId)
+                                                                    && i.ReceiverId.Equals(invitationStatus.ReceiverId));
                 if (foundItem != null)
                 {
-                    _dbContext.Entry(foundItem).CurrentValues.SetValues(invitationNotificationStatus);
+                    _dbContext.Entry(foundItem).CurrentValues.SetValues(invitationStatus);
                     await _dbContext.SaveChangesAsync();
                     result = true;
                 }
@@ -195,6 +219,88 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             {
                 //TODO: Logging
             }
+            return result;
+        }
+
+        public async Task<bool> UpdateNotificationStatus(NotificationStatus notificationStatus)
+        {
+            bool result = false;
+            try
+            {
+                var foundItem = await _dbContext.NotificationStatuses
+                                             .FirstOrDefaultAsync(i => i.NotificationId.Equals(notificationStatus.NotificationId)
+                                                                    && i.ReceiverId.Equals(notificationStatus.ReceiverId));
+                if (foundItem != null)
+                {
+                    _dbContext.Entry(foundItem).CurrentValues.SetValues(notificationStatus);
+                    await _dbContext.SaveChangesAsync();
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                //TODO: Logging
+            }
+            return result;
+        }
+        public async Task<(NotificationStatus, InvitationStatus?)?> GetNotificationStatus(int notificationId, int receiverId)
+        {
+            (NotificationStatus, InvitationStatus?)? res = null;
+            try
+            {
+                NotificationStatus? foundNotificationStatus = await _dbContext.NotificationStatuses
+                                                .FirstOrDefaultAsync(i => i.NotificationId.Equals(notificationId)
+                                                && i.ReceiverId.Equals(receiverId));
+                if (foundNotificationStatus != null)
+                {
+                    NotificationInvitation? notifInv = await _dbContext.NotificationInvitations.FirstOrDefaultAsync(i => i.NotificationId.Equals(notificationId));
+                    if (notifInv != null)
+                    {
+                        InvitationStatus? invitationStatus = await _dbContext.InvitationStatuses.FirstOrDefaultAsync(i => i.InvitationId.Equals(notifInv.InvitationId));
+                        res = (foundNotificationStatus, invitationStatus);
+                    }
+                }
+            }
+            catch
+            {
+                //TODO: Logging
+            }
+
+            return res;
+        }
+        public async Task<List<(NotificationStatus, InvitationStatus?)>> GetNotReadNotificationStatusesByReceiver(int receiverId)
+        {
+            List<(NotificationStatus, InvitationStatus?)> result = new();
+            try
+            {
+                List<NotificationStatus> notificationStatuses = await _dbContext.NotificationStatuses
+                                                                                .Where(n => n.ReceiverId.Equals(receiverId))
+                                                                                .Include(x => x.Notification)
+                                                                                .Include(x => x.Receiver)
+                                                                                .ToListAsync();
+                List<InvitationStatus> invitationStatuses = await _dbContext.InvitationStatuses
+                                                                            .Where(i => i.InvitationId.Equals(receiverId))
+                                                                            .Include(x => x.Invitation)
+                                                                            .Include(x => x.Receiver)
+                                                                            .ToListAsync();
+                List<NotificationInvitation> notificationInvitations = await _dbContext.NotificationInvitations.ToListAsync();
+
+                foreach (var notificationStatus in notificationStatuses)
+                {
+                    int? invId = notificationInvitations.FirstOrDefault(i => i.NotificationId.Equals(notificationStatus.NotificationId))?.InvitationId;
+                    if (invId != null)
+                    {
+                        InvitationStatus? invitationStatus = invitationStatuses.FirstOrDefault(i => i.InvitationId.Equals(invId));
+                        result.Add((notificationStatus, invitationStatus));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
             return result;
         }
     }

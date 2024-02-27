@@ -4,15 +4,26 @@ namespace DanceJournal.Services.BS_NotificationManagement.Gateways
 {
     public interface INotificationRepository
     {
-        Task<List<InvitationNotificationStatus>> GetAllInvitationNotificationStatuses();
+        Task<List<(NotificationStatus, InvitationStatus?)>> GetNotReadNotificationStatusesByReceiver(int receiverId);
+        Task<(NotificationStatus, InvitationStatus?)?> GetNotificationStatus(int notificationId, int receiverId);
+
+        Task<bool> UpdateNotificationStatus(
+            NotificationStatus notificationStatus
+        );
+        Task<bool> UpdateInvitationStatus(
+            InvitationStatus invitationStatus
+        );
+
+        Task<List<InvitationStatus>> GetInvitationStatusesByInvitaionId(int invitationId);
+        Task<InvitationStatus?> GetInvitationStatus(int invitationId, int receiverId);
+
+        Task<bool> AddInvitationStatuses(List<(InvitationStatus, int notificationId)> invitationStatuses);
+
+
 
         Task<List<Lesson>> GetAllLessons();
         Task<Lesson?> GetLesson(int lessonId);
 
-        Task<bool> AddInvitationNotificationStatuses(List<InvitationNotificationStatus> invitationNotificationStatuses);
-        Task<bool> UpdateInvitationNotificationStatus(
-            InvitationNotificationStatus invitationNotificationStatus
-        );
 
         Task<int> AddInvitation(Invitation invitation);
         Task<Invitation?> GetInvitation(int invitationId);

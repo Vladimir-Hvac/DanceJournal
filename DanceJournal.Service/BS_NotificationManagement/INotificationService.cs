@@ -1,11 +1,12 @@
 ﻿using DanceJournal.Domain.Models;
+using DanceJournal.Services.BS_NotificationManagement.Contracts;
 
 namespace DanceJournal.Services.BS_NotificationManagement
 {
     public interface INotificationService
     {
-        Task<List<Notification>> GetNotReadNotifications(CurrentAuthUser currentAuthUser);
-        Task<Notification?> ReadNotification(int notificationId);
+        Task<List<NotificationDTO>> GetNotReadNotifications(CurrentAuthUser currentAuthUser);
+        Task<NotificationDTO?> ReadNotification(int notificationId, int receiverId);
         Task<bool> AcceptInvitation(int invitationId, int notificationId, CurrentAuthUser currentAuthUser);
         Task<bool> DeclineInvitation(int invitationId, int notificationId, CurrentAuthUser currentAuthUser);
 
