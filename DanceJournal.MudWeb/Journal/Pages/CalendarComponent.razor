@@ -1,4 +1,30 @@
 ﻿@using Heron.MudCalendar
 
-<MudCalendar Items="_events" ItemClicked="@OnClick" Use24HourClock="true" />
+<MudTabs>
+    <MudTabPanel Text="Все занятия">
+        <MudCalendar Items="_allEvents" ItemClicked="OnClick"  Use24HourClock="true" />
+    </MudTabPanel>
+    <MudTabPanel Text="Мои занятия">
+        <MudCalendar Items="_myEvents" ItemClicked="OnClick" Use24HourClock="true" />
+    </MudTabPanel>
+</MudTabs>
+@if (_showEvents)
+{
+    <MudDrawer @bind-Open="@_showEvents" Anchor="@_anchor" Elevation="2" Variant="@DrawerVariant.Temporary">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Инфо</MudText>
+        </MudDrawerHeader>
+            <MudCard>
+                <MudCardContent>
+                    <MudText Typo="Typo.body1">Занятие: @_selectedLesson.LessonType.Name</MudText>
+                    <MudText Typo="Typo.body1">Стоимость: @_selectedLesson.LessonType.Price руб.</MudText>
+                    <MudText Typo="Typo.body1">Зал: @_selectedLesson.Room.Name</MudText>
+                    <MudText Typo="Typo.body1">Уровень: @_selectedLesson.Level.Title</MudText>
+                </MudCardContent>
+            </MudCard>
+            <MudDrawerContainer>
+                <MudButton Color="Color.Primary" OnClick="Subscribe">Записаться</MudButton>
+            </MudDrawerContainer>
+        </MudDrawer>
+}
 

@@ -1,5 +1,6 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
@@ -8,28 +9,20 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Inject]
         public DataMapping _dataMapping { get; set; }
 
+        [Inject]
+        public ILessonPlanning LessonPlanning { get; set; }
+
+        [Inject]
+        public IDialogService DialogService { get; set; }
+
         private List<LessonType>? LessonTypes;
         private string _searchString;
         private bool _isCellEditMode;
         private bool _readOnly;
 
-        private string _name;
-        private string _type;
-        private int _price;
-        private string _selectedType;
-
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = _dataMapping.LessonTypesDTO;
-        }
-
-        private void StartedEditingItem(LessonType lessonType) { }
-
-        private void CanceledEditingItem(LessonType lessonType) { }
-
-        private void CommittedItemChanges(LessonType lessonType)
-        {
-            lessonType.Type = _selectedType;
+            LessonTypes = LessonPlanning.GetAllLessonsTypesAsync().Result.ToList();
         }
 
         private Func<LessonType, bool> _quickFilter =>
@@ -50,18 +43,10 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 return false;
             };
 
-        private void AddLessonType()
+        private void UpdateLessonTypes(LessonType lessonType)
         {
-            LessonType lessonType = new LessonType()
-            {
-                Name = _name,
-                Type = _type,
-                Price = _price
-            };
-            LessonTypes?.Add(lessonType);
-            _name = string.Empty;
-            _type = string.Empty;
-            _price = 0;
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            DialogService.Show<LessonTypesDialog>("Simple Dialog", options);
         }
     }
 }
