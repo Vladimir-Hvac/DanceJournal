@@ -17,11 +17,14 @@
             <MudCard>
                 <MudCardContent>
                     <MudText Typo="Typo.body1">Занятие: @_selectedLesson.LessonType.Name</MudText>
-                    <MudText Typo="Typo.body1">Стоимость: @_selectedLesson.LessonType.Price</MudText>
+                    <MudText Typo="Typo.body1">Стоимость: @_selectedLesson.LessonType.Price руб.</MudText>
                     <MudText Typo="Typo.body1">Зал: @_selectedLesson.Room.Name</MudText>
                     <MudText Typo="Typo.body1">Уровень: @_selectedLesson.Level.Title</MudText>
                 </MudCardContent>
             </MudCard>
+            <MudDrawerContainer>
+                <MudButton Color="Color.Primary" OnClick="Subscribe">Записаться</MudButton>
+            </MudDrawerContainer>
         </MudDrawer>
 }
 

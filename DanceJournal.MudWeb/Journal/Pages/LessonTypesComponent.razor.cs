@@ -1,5 +1,6 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
@@ -8,6 +9,12 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Inject]
         public DataMapping _dataMapping { get; set; }
 
+        [Inject]
+        public ILessonPlanning LessonPlanning { get; set; }
+
+        [Inject]
+        public IDialogService DialogService { get; set; }
+
         private List<LessonType>? LessonTypes;
         private string _searchString;
         private bool _isCellEditMode;
@@ -15,14 +22,8 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = _dataMapping.LessonTypesDTO;
+            LessonTypes = LessonPlanning.GetAllLessonsTypesAsync().Result.ToList();
         }
-
-        private void StartedEditingItem(LessonType lessonType) { }
-
-        private void CanceledEditingItem(LessonType lessonType) { }
-
-        private void CommittedItemChanges(LessonType lessonType) { }
 
         private Func<LessonType, bool> _quickFilter =>
             x =>
@@ -41,5 +42,11 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
                 return false;
             };
+
+        private void UpdateLessonTypes(LessonType lessonType)
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            DialogService.Show<LessonTypesDialog>("Simple Dialog", options);
+        }
     }
 }

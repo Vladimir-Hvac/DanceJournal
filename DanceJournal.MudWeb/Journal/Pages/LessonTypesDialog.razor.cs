@@ -10,10 +10,14 @@ namespace DanceJournal.MudWeb.Journal.Pages
         private int _price;
         private string _selectedType;
         private List<LessonType>? LessonTypes;
+        private CancellationToken _cancellationToken;
+
+        [Inject]
+        private ILessonPlanning _lessonPlanning { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = new List<LessonType>();
+            LessonTypes = _lessonPlanning.GetAllLessonsTypesAsync().Result.ToList();
         }
 
         private void Submit()

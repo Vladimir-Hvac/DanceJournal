@@ -47,5 +47,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
             }
             return events;
         }
+
+        private void Subscribe() { }
     }
 }
