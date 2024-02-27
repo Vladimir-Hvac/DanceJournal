@@ -156,6 +156,97 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                 throw new Exception("Ошибка при удалении типа урока", ex);
             }
         }
+
+        #endregion
+
+        #region LessonUsers
+        public async Task<LessonUser> GetLessonUserAsync(int id)
+        {
+            var lessonUser = await _dbContext.LessonUsers.Where(i => i.Id == id).FirstOrDefaultAsync();
+            if (lessonUser == null)
+                throw new Exception("Ошибка при получении записи посещения урока.");
+            else
+                return lessonUser;
+        }
+
+        public async Task<IEnumerable<LessonUser>> GetAllLessonUsersAsync()
+        {
+            var lessonUsers = await _dbContext.LessonUsers.ToListAsync();
+            if (lessonUsers == null)
+                throw new Exception("Ошибка при получении всех записей посещения уроков.");
+            else
+                return lessonUsers;
+        }
+
+        public async Task<LessonUser> CreateLessonUserAsync(LessonUser lessonUser)
+        {
+            try
+            {
+                await _dbContext.LessonUsers.AddAsync(lessonUser);
+                await _dbContext.SaveChangesAsync();
+                return lessonUser;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Ошибка при создании типа урока.", e);
+            }
+        }
+
+        public async Task<LessonUser> UpdateLessonUserAsync(LessonUser lessonUser)
+        {
+            try
+            {
+                _dbContext.LessonUsers.Update(lessonUser).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+                return lessonUser;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при обновлении записи посещения урока", ex);
+            }
+        }
+
+        public async Task DeleteLessonUser(int id)
+        {
+            try
+            {
+                var lessonUser = await GetLessonUserAsync(id);
+                _dbContext.LessonUsers.Remove(lessonUser);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при удалении записи посещения урока", ex);
+            }
+        }
+
+        public async Task<LessonUser> GetLessonUserAsync(int userId, int lessonId)
+        {
+            var lessonUser = await _dbContext.LessonUsers.Where(i => i.UserId == userId && i.LessonId == lessonId ).FirstOrDefaultAsync();
+            if (lessonUser == null)
+                throw new Exception("Ошибка при получении записи посещения урока.");
+            else
+                return lessonUser;
+        }
+
+        public async Task<IEnumerable<LessonUser>> GetAllLessonUsersByUserAsync(int userId)
+        {
+            var lessonUsers = await _dbContext.LessonUsers.Where(i=>i.UserId == userId).ToListAsync();
+            if (lessonUsers == null)
+                throw new Exception("Ошибка при получении всех записей посещения уроков пользователя.");
+            else
+                return lessonUsers;
+        }
+
+        public async Task<IEnumerable<LessonUser>> GetAllLessonUsersByLessonAsync(int lessonId)
+        {
+            var lessonUsers = await _dbContext.LessonUsers.Where(i => i.LessonId == lessonId).ToListAsync();
+            if (lessonUsers == null)
+                throw new Exception("Ошибка при получении всех записей посещения урока.");
+            else
+                return lessonUsers;
+        }
+
         #endregion
     }
 }

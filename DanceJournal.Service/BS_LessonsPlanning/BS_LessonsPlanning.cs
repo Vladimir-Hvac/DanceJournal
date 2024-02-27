@@ -102,5 +102,57 @@ namespace DanceJournal.Services.BS_LessonsPlanning
         {
             await _repository.DeleteLessonType(id);
         }
+
+        public async Task<IEnumerable<LessonUser>> GetAllLessonsUsersAsync()
+        {
+            var lessonUsers = await _repository.GetAllLessonUsersAsync();
+            if (lessonUsers == null)
+                return Enumerable.Empty<LessonUser>();
+            else
+                return lessonUsers;
+        }
+
+        public async Task<LessonUser> GetLessonUserAsync(int id)
+        {
+            return await _repository.GetLessonUserAsync(id);
+        }
+
+        public async Task CreateLessonUserAsync(LessonUser lessonUser)
+        {
+            await _repository.CreateLessonUserAsync(lessonUser);
+        }
+
+        public async Task UpdateLessonUserAsync(LessonUser lessonUser)
+        {
+            await _repository.UpdateLessonUserAsync(lessonUser);
+        }
+
+        public async Task DeleteLessonUser(int id)
+        {
+            await _repository.DeleteLessonUser(id);
+        }
+
+        public async Task<IEnumerable<LessonUser>> GetAllLessonUsersByUserAsync(int userId)
+        {
+            var lessonUsers = await _repository.GetAllLessonUsersByUserAsync(userId);
+            if (lessonUsers == null)
+                return Enumerable.Empty<LessonUser>();
+            else
+                return lessonUsers;
+        }
+
+        public async Task<IEnumerable<LessonUser>> GetAllLessonUsersByLessonAsync(int lessonId)
+        {
+            var lessonUsers = await _repository.GetAllLessonUsersByLessonAsync(lessonId);
+            if (lessonUsers == null)
+                return Enumerable.Empty<LessonUser>();
+            else
+                return lessonUsers;
+        }
+
+        public async Task<LessonUser> GetLessonUserAsync(int userId, int lessonId)
+        {
+            return await _repository.GetLessonUserAsync(userId,lessonId);
+        }
     }
 }
