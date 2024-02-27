@@ -15,14 +15,14 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Inject]
         public IDialogService DialogService { get; set; }
 
-        private List<LessonType>? LessonTypes;
+        private IEnumerable<LessonType>? LessonTypes;
         private string _searchString;
         private bool _isCellEditMode;
         private bool _readOnly;
 
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = LessonPlanning.GetAllLessonsTypesAsync().Result.ToList();
+            LessonTypes = await LessonPlanning.GetAllLessonsTypesAsync();
         }
 
         private Func<LessonType, bool> _quickFilter =>
@@ -43,10 +43,10 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 return false;
             };
 
-        private void UpdateLessonTypes(LessonType lessonType)
-        {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
-            DialogService.Show<LessonTypesDialog>("Simple Dialog", options);
-        }
+        //private void UpdateLessonTypes(LessonType lessonType)
+        //{
+        //    var options = new DialogOptions { CloseOnEscapeKey = true };
+        //    DialogService.Show<LessonTypesDialog>("Simple Dialog", options);
+        //}
     }
 }
