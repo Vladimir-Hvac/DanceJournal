@@ -22,7 +22,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
 
             _notifications = await NotificationService.GetNotReadNotifications(currentAuthUser);
-            MultiplyElements();
+            //MultiplyElements();
             _render = true;
         }
 
