@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
-    partial class NotificationCard
+    partial class NotificationComponent
     {
         [Inject]
         public INotificationService NotificationService { get; set; }
@@ -13,9 +13,10 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Parameter]
         public int NotificationId { get; set; }
 
-
         private List<NotificationDTO> _notifications;
-        private NotificationDTO _notification;
+
+        private bool isReadingMode = false;
+
         private bool _render;
 
         protected override async Task OnInitializedAsync()
@@ -27,12 +28,15 @@ namespace DanceJournal.MudWeb.Journal.Pages
             };
 
 
-            _notification = await NotificationService.ReadNotification(NotificationId, currentAuthUser);
-            if (_notification is null)
-            {
-                _notification = new();
-            }
+            _notifications = await NotificationService.GetNotReadNotifications(currentAuthUser);
             _render = true;
+        }
+        private void OnNotificationClick(NotificationDTO notification)
+        {
+            // Handle the click event here
+            NotificationId = notification.Id;
+            isReadingMode = true;
+            StateHasChanged();
         }
     }
 }
