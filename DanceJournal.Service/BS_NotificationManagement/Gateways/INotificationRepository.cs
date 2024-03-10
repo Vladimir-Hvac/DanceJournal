@@ -5,6 +5,7 @@ namespace DanceJournal.Services.BS_NotificationManagement.Gateways
     public interface INotificationRepository
     {
         Task<List<(NotificationStatus, InvitationStatus?)>> GetNotReadNotificationStatusesByReceiver(int receiverId);
+        Task<List<(NotificationStatus, InvitationStatus?)>> GetReadNotificationStatusesByReceiver(int receiverId);
         Task<(NotificationStatus, InvitationStatus?)?> GetNotificationStatus(int notificationId, int receiverId);
 
         Task<bool> UpdateNotificationStatus(

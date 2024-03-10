@@ -13,9 +13,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Parameter]
         public int NotificationId { get; set; }
 
-
-        private List<NotificationDTO> _notifications;
-        private NotificationDTO _notification;
+        private NotificationDTO? _notification;
         private bool _render;
 
         protected override async Task OnInitializedAsync()
@@ -23,15 +21,12 @@ namespace DanceJournal.MudWeb.Journal.Pages
             CurrentAuthUser currentAuthUser = new CurrentAuthUser()
             {
                 UserName = "",
-                UserEmail = "CodeX@test.ru",
+                UserEmail = "DevZen@test.ru",
             };
 
 
             _notification = await NotificationService.ReadNotification(NotificationId, currentAuthUser);
-            if (_notification is null)
-            {
-                _notification = new();
-            }
+
             _render = true;
         }
     }

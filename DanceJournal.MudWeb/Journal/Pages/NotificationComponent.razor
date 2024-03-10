@@ -24,12 +24,12 @@
                     <MudStack>
                         <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;">Отправить уведомление</MudButton>
                         <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;">Создать приглашение</MudButton>
-                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;">Новые</MudButton>
-                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;">Архив</MudButton>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnNewNotificationsClick">Новые</MudButton>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnArchivedNotificationsClick">Архив</MudButton>
                     </MudStack>
                 </MudItem>
                 <MudItem xs="10">
-                    @if(!isReadingMode)
+                    @if(!_isReadingMode)
                     {
                         <MudStack Spacing="10">
                             @foreach (var notification in _notifications)
@@ -54,7 +54,14 @@
                     }
                     else
                     {
-                        <NotificationCard NotificationId="NotificationId"/>
+                        @if(_selectedNotification?.Invitation != null)
+                        {
+                            <InvitationCard NotificationId="NotificationId" />
+                        }
+                        else
+                        {
+                            <NotificationCard NotificationId="NotificationId" />
+                        }
                     }
                 </MudItem>
             </MudGrid>

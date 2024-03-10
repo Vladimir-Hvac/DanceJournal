@@ -1,5 +1,47 @@
-﻿<h3>InvitationCard</h3>
+﻿@using DanceJournal.Domain.Models;
+@using DanceJournal.Services.BS_NotificationManagement.Contracts;
 
-@code {
-
+@if (_render && _notification != null)
+{
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Уведомление</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudStack>
+                        <MudPaper Elevation="3">
+                            <MudGrid>
+                                <MudItem xs="6">
+                                    <MudText>@_notification.Date</MudText>
+                                    </MudItem>
+                                    <MudItem xs="6">
+                                        <MudText Align="Align.Right">@_notification.Time</MudText>
+                                    </MudItem>
+                                    <MudItem xs="12">
+                                        <MudText>@_notification.Body</MudText>
+                                    </MudItem>
+                                    <MudItem xs="12">
+                                        <MudText>@_invitation?.Lesson?.Date</MudText>
+                                    </MudItem>
+                                </MudGrid>
+                            </MudPaper>
+                        </MudStack>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudGrid>
+                            <MudItem xs="6">
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="font-size:  11px;">Принять</MudButton>
+                            </MudItem>
+                            <MudItem xs="6">
+                                <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="font-size:  11px;">Отклонить</MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
 }

@@ -13,30 +13,60 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Parameter]
         public int NotificationId { get; set; }
 
-        private List<NotificationDTO> _notifications;
+        private List<NotificationDTO> _notifications = new();
 
-        private bool isReadingMode = false;
+        private bool _isReadingMode = false;
+
+        private CurrentAuthUser? _currentAuthUser;
+
+        private NotificationDTO? _selectedNotification;
 
         private bool _render;
 
         protected override async Task OnInitializedAsync()
         {
-            CurrentAuthUser currentAuthUser = new CurrentAuthUser()
+            _currentAuthUser = new CurrentAuthUser()
             {
                 UserName = "",
-                UserEmail = "CodeX@test.ru",
+                UserEmail = "DevZen@test.ru",
             };
-
-
-            _notifications = await NotificationService.GetNotReadNotifications(currentAuthUser);
+            if (_currentAuthUser is null)
+            {
+                //TODO: inform user or something
+                return;
+            }
+            _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
             _render = true;
         }
         private void OnNotificationClick(NotificationDTO notification)
         {
             // Handle the click event here
             NotificationId = notification.Id;
-            isReadingMode = true;
+            _selectedNotification = notification;
+            _isReadingMode = true;
             StateHasChanged();
+        }
+        private async void OnNewNotificationsClick()
+        {
+            if (_currentAuthUser is null)
+            {
+                //TODO: inform user or something
+                return;
+            }
+            _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
+            _isReadingMode = false;
+            await InvokeAsync(StateHasChanged);
+        }
+        private async void OnArchivedNotificationsClick()
+        {
+            if (_currentAuthUser is null)
+            {
+                //TODO: inform user or something
+                return;
+            }
+            _notifications = await NotificationService.GetReadNotifications(_currentAuthUser);
+            _isReadingMode = false;
+            await InvokeAsync(StateHasChanged);
         }
     }
 }
