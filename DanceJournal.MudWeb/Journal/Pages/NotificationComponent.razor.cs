@@ -54,6 +54,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 return;
             }
             _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
+            _selectedNotification = null;
             _isReadingMode = false;
             await InvokeAsync(StateHasChanged);
         }
@@ -65,6 +66,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 return;
             }
             _notifications = await NotificationService.GetReadNotifications(_currentAuthUser);
+            _selectedNotification = null;
             _isReadingMode = false;
             await InvokeAsync(StateHasChanged);
         }

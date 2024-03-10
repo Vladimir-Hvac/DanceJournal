@@ -6,7 +6,7 @@
     <MudCard>
         <MudCardHeader>
             <CardHeaderContent>
-                <MudText Typo="Typo.h6">Уведомление</MudText>
+                <MudText Typo="Typo.h6">Приглашение</MudText>
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardContent>
@@ -22,10 +22,25 @@
                                         <MudText Align="Align.Right">@_notification.Time</MudText>
                                     </MudItem>
                                     <MudItem xs="12">
-                                        <MudText>@_notification.Body</MudText>
+                                        <MudPaper Elevation="12">
+                                            <MudText>@_notification.Body</MudText>
+                                        </MudPaper>
                                     </MudItem>
                                     <MudItem xs="12">
-                                        <MudText>@_invitation?.Lesson?.Date</MudText>
+                                        <MudPaper Elevation="12">
+                                            <MudStack Spacing="1">
+                                                <MudText>Информация об уроке:</MudText>
+                                                <MudSpacer />
+                                                <MudSpacer />
+                                                <MudText>Время: @_invitation?.Lesson?.Date</MudText>
+                                                <MudText>Тип урока: @_invitation?.Lesson?.LessonType.Name</MudText>
+                                                <MudText>Место: @_invitation?.Lesson?.Room.Name</MudText>
+                                                <MudText>Уровень: @_invitation?.Lesson?.Level.Title</MudText>
+                                                <MudText>Тренер: @_invitation?.Lesson?.User.Surname @_invitation?.Lesson?.User.FirstName</MudText>
+                                                <MudText>Начало урока: @_invitation?.Lesson?.Start</MudText>
+                                                <MudText>Окончание урока: @_invitation?.Lesson?.Finish</MudText>
+                                            </MudStack>
+                                        </MudPaper>
                                     </MudItem>
                                 </MudGrid>
                             </MudPaper>
@@ -33,11 +48,11 @@
                     </MudItem>
                     <MudItem xs="12">
                         <MudGrid>
-                            <MudItem xs="6">
-                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="font-size:  11px;">Принять</MudButton>
+                            <MudItem xs="1">
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnAcceptClick">Принять</MudButton>
                             </MudItem>
-                            <MudItem xs="6">
-                                <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="font-size:  11px;">Отклонить</MudButton>
+                            <MudItem xs="1">
+                                <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="font-size:  11px;" OnClick="OnDeclineClick">Отклонить</MudButton>
                             </MudItem>
                         </MudGrid>
                     </MudItem>
