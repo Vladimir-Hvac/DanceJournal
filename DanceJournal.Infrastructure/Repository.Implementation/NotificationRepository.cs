@@ -122,7 +122,10 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             try
             {
                 result = await _dbContext.InvitationStatuses
-                           .FirstOrDefaultAsync(i => i.InvitationId.Equals(invitationId) && i.ReceiverId.Equals(receiverId));
+                            .Where(i => i.InvitationId.Equals(invitationId) && i.ReceiverId.Equals(receiverId))
+                            .Include(x => x.Invitation)
+                            .Include(x => x.Receiver)
+                            .FirstOrDefaultAsync();
             }
             catch (Exception)
             {
@@ -138,6 +141,8 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             {
                 result = await _dbContext.InvitationStatuses
                            .Where(i => i.InvitationId.Equals(invitationId))
+                           .Include(x => x.Invitation)
+                           .Include(x => x.Receiver)
                            .ToListAsync();
             }
             catch (Exception)
@@ -215,7 +220,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                     result = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //TODO: Logging
             }
