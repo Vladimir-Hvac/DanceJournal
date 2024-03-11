@@ -5,6 +5,7 @@
         public int InvitationId { get; set; }
         public int ReceiverId { get; set; }
         public bool IsAccepted { get; set; }
+        public bool IsDeclined { get; set; }
 
         public Invitation? Invitation { get; set; }
         public User? Receiver { get; set; }

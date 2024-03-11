@@ -294,7 +294,17 @@ namespace DanceJournal.Services.BS_NotificationManagement
             if (foundInvitationStatus.Invitation != null
                 && !foundInvitationStatus.Invitation.IsSatisfied)
             {
-                foundInvitationStatus.IsAccepted = isVisit;
+                if (isVisit)
+                {
+                    foundInvitationStatus.IsAccepted = true;
+                    foundInvitationStatus.IsDeclined = false;
+                }
+                else
+                {
+                    foundInvitationStatus.IsAccepted = false;
+                    foundInvitationStatus.IsDeclined = true;
+                }
+
                 result = await _notificationRepository.UpdateInvitationStatus(
                     foundInvitationStatus
                 );
