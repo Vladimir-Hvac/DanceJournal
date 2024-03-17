@@ -50,29 +50,32 @@
                         <MudGrid>
                             @if(_invitation.IsAccepted == false && _invitation.IsDeclined == false)
                             {
-                                <MudItem xs="1">
-                                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnAcceptClick">Принять</MudButton>
+                                @if (_invitation.IsSatisfied)
+                                {
+                                    <MudItem xs="12">
+                                        <MudText Color="Color.Error">Приглашение отменено, так как приглашение приняло достаточное количество участников</MudText>
+                                    </MudItem>
+                                }
+                                else if (_invitation.IsOutdated)
+                                {
+                                    <MudItem xs="12">
+                                        <MudText Color="Color.Error">Приглашение просрочено</MudText>
                                 </MudItem>
-                                <MudItem xs="1">
-                                    <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="font-size:  11px;" OnClick="OnDeclineClick">Отклонить</MudButton>
-                                </MudItem>
+                                }
+                                else
+                                {
+                                    <MudItem xs="1">
+                                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnAcceptClick">Принять</MudButton>
+                                    </MudItem>
+                                    <MudItem xs="1">
+                                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="font-size:  11px;" OnClick="OnDeclineClick">Отклонить</MudButton>
+                                    </MudItem>
+                                }
                             }
                             else if (_invitation.IsAccepted)
                             {
                                 <MudItem xs="12">
                                     <MudText Color="Color.Success">Приглашение принято</MudText>
-                                </MudItem>
-                            }
-                            else if (_invitation.IsSatisfied)
-                            {
-                                <MudItem xs="12">
-                                    <MudText Color="Color.Error">Приглашение отменено, так как приглашение приняло достаточное количество участников</MudText>
-                                </MudItem>
-                            }
-                            else if (_invitation.IsOutdated)
-                            {
-                                <MudItem xs="12">
-                                    <MudText Color="Color.Error">Приглашение просрочено</MudText>
                                 </MudItem>
                             }
                             else
@@ -81,7 +84,6 @@
                                     <MudText Color="Color.Error">Приглашение отклонено</MudText>
                                 </MudItem>
                             }
-
                         </MudGrid>
                     </MudItem>
                 </MudGrid>
