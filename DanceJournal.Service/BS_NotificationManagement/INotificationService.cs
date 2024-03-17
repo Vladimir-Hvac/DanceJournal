@@ -6,7 +6,8 @@ namespace DanceJournal.Services.BS_NotificationManagement
     public interface INotificationService
     {
         Task<List<NotificationDTO>> GetNotReadNotifications(CurrentAuthUser currentAuthUser);
-        Task<NotificationDTO?> ReadNotification(int notificationId, int receiverId);
+        Task<List<NotificationDTO>> GetReadNotifications(CurrentAuthUser currentAuthUser);
+        Task<NotificationDTO?> ReadNotification(int notificationId, CurrentAuthUser currentAuthUser);
         Task<bool> AcceptInvitation(int invitationId, int notificationId, CurrentAuthUser currentAuthUser);
         Task<bool> DeclineInvitation(int invitationId, int notificationId, CurrentAuthUser currentAuthUser);
 

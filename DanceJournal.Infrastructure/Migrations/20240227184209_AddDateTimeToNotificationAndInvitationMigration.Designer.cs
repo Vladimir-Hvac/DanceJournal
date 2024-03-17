@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DanceJournal.Infrastructure.Migrations
 {
     [DbContext(typeof(DanceJournalDbContext))]
-    partial class DanceJournalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240227184209_AddDateTimeToNotificationAndInvitationMigration")]
+    partial class AddDateTimeToNotificationAndInvitationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,16 +58,13 @@ namespace DanceJournal.Infrastructure.Migrations
                     b.Property<int>("InvitationId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ReceiverId")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsDeclined")
-                        .HasColumnType("boolean");
+                    b.Property<int>("ReceiverId")
+                        .HasColumnType("integer");
 
-                    b.HasKey("InvitationId", "ReceiverId");
+                    b.HasIndex("InvitationId");
 
                     b.HasIndex("ReceiverId");
 
@@ -113,16 +113,16 @@ namespace DanceJournal.Infrastructure.Migrations
 
             modelBuilder.Entity("DanceJournal.Domain.Models.NotificationStatus", b =>
                 {
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("NotificationId")
                         .HasColumnType("integer");
 
                     b.Property<int>("ReceiverId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("NotificationId", "ReceiverId");
+                    b.HasIndex("NotificationId");
 
                     b.HasIndex("ReceiverId");
 

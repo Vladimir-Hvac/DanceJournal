@@ -39,30 +39,70 @@ namespace DanceJournal.Services.BS_NotificationManagement
             return result;
         }
 
-        public async Task<NotificationDTO?> ReadNotification(int notificationId, int receiverId)
+        public async Task<List<NotificationDTO>> GetReadNotifications(CurrentAuthUser currentAuthUser)
+        {
+            List<NotificationDTO> result = new();
+            try
+            {
+                User? user = await _notificationRepository.GetUser(currentAuthUser.UserEmail);
+                if (user is null)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
+
+
+                List<(NotificationStatus, InvitationStatus?)> notificInvStatuses = await _notificationRepository.GetReadNotificationStatusesByReceiver(user.Id);
+
+                result.AddRange(NotificationMapper.MapNotificationDTOs(notificInvStatuses));
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
+
+            return result;
+        }
+
+        public async Task<NotificationDTO?> ReadNotification(int notificationId, CurrentAuthUser currentAuthUser)
         {
             NotificationDTO? result = null;
+            try
+            {
+                User? user = await _notificationRepository.GetUser(currentAuthUser.UserEmail);
+                if (user is null)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
 
-            var notInv = await _notificationRepository.GetNotificationStatus(notificationId, receiverId);
+                var notInv = await _notificationRepository.GetNotificationStatus(notificationId, user.Id);
 
-            if (notInv is null)
+                if (notInv is null)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
+
+                NotificationStatus notificationStatus = notInv.Value.Item1;
+
+                //Temporary
+                //notificationStatus.IsRead = true;
+                //bool updateResult = await _notificationRepository.UpdateNotificationStatus(notificationStatus);
+
+                bool updateResult = true;
+                if (!updateResult)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
+
+                result = NotificationMapper.MapNotificationDTO(notInv.Value.Item1, notInv.Value.Item2);
+            }
+            catch (Exception ex)
             {
                 //TODO: Implement logging
-                return result;
             }
-
-            NotificationStatus notificationStatus = notInv.Value.Item1;
-            notificationStatus.IsRead = true;
-
-            bool updateResult = await _notificationRepository.UpdateNotificationStatus(notificationStatus);
-
-            if (!updateResult)
-            {
-                //TODO: Implement logging
-                return result;
-            }
-
-            result = NotificationMapper.MapNotificationDTO(notInv.Value.Item1, notInv.Value.Item2);
 
             return result;
         }
@@ -254,7 +294,17 @@ namespace DanceJournal.Services.BS_NotificationManagement
             if (foundInvitationStatus.Invitation != null
                 && !foundInvitationStatus.Invitation.IsSatisfied)
             {
-                foundInvitationStatus.IsAccepted = isVisit;
+                if (isVisit)
+                {
+                    foundInvitationStatus.IsAccepted = true;
+                    foundInvitationStatus.IsDeclined = false;
+                }
+                else
+                {
+                    foundInvitationStatus.IsAccepted = false;
+                    foundInvitationStatus.IsDeclined = true;
+                }
+
                 result = await _notificationRepository.UpdateInvitationStatus(
                     foundInvitationStatus
                 );

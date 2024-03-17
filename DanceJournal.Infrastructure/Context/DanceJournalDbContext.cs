@@ -87,7 +87,7 @@ public class DanceJournalDbContext : DbContext
 
         modelBuilder
             .Entity<NotificationStatus>()
-            .HasNoKey();
+            .HasKey(x => new { x.NotificationId, x.ReceiverId });
 
         modelBuilder
             .Entity<NotificationStatus>()
@@ -103,7 +103,7 @@ public class DanceJournalDbContext : DbContext
 
         modelBuilder
             .Entity<InvitationStatus>()
-            .HasNoKey();
+            .HasKey(x => new { x.InvitationId, x.ReceiverId });
 
         modelBuilder
             .Entity<InvitationStatus>()
@@ -128,6 +128,12 @@ public class DanceJournalDbContext : DbContext
             .HasOne(n => n.Creator)
             .WithMany()
             .HasForeignKey(n => n.CreatorId);
+
+        modelBuilder
+            .Entity<Invitation>()
+            .HasOne(n => n.Lesson)
+            .WithMany()
+            .HasForeignKey(n => n.LessonId);
 
         modelBuilder.Entity<User>().HasOne(u => u.Level).WithMany().HasForeignKey(u => u.LevelId);
         modelBuilder.Entity<User>().HasIndex(e => e.Email).IsUnique();
