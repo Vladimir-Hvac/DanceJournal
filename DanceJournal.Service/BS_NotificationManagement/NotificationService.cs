@@ -8,10 +8,12 @@ namespace DanceJournal.Services.BS_NotificationManagement
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository;
+        private readonly ILessonPlanning _lessonPlanning;
 
-        public NotificationService(INotificationRepository notificationRepository)
+        public NotificationService(INotificationRepository notificationRepository, ILessonPlanning lessonPlanning)
         {
             _notificationRepository = notificationRepository;
+            _lessonPlanning = lessonPlanning;
         }
 
         public async Task<List<NotificationDTO>> GetNotReadNotifications(CurrentAuthUser currentAuthUser)
@@ -334,9 +336,20 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 if (isVisit)
                 {
                     int lessonId = invitation.LessonId;
-                    /*
-                        bool succeed = LessonPlanningService.SheduleLesson(userId, lessonId, isVisit);
-                     */
+
+                    LessonUser lessonUser = new()
+                    {
+                        LessonId = lessonId,
+                        UserId = userId,
+                        IsVisit = true
+                    };
+
+                    await _lessonPlanning.CreateLessonUserAsync(lessonUser);
+                    if (lessonUser.Id == 0)
+                    {
+                        //TODO: Logging
+                        return false;
+                    }
                 }
             }
 
