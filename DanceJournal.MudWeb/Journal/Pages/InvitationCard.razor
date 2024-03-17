@@ -1,5 +1,92 @@
-﻿<h3>InvitationCard</h3>
+﻿@using DanceJournal.Domain.Models;
+@using DanceJournal.Services.BS_NotificationManagement.Contracts;
 
-@code {
-
+@if (_render && _notification != null)
+{
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Приглашение</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudStack>
+                        <MudPaper Elevation="3">
+                            <MudGrid>
+                                <MudItem xs="6">
+                                    <MudText>@_notification.Date</MudText>
+                                    </MudItem>
+                                    <MudItem xs="6">
+                                        <MudText Align="Align.Right">@_notification.Time</MudText>
+                                    </MudItem>
+                                    <MudItem xs="12">
+                                        <MudPaper Elevation="12">
+                                            <MudText>@_notification.Body</MudText>
+                                        </MudPaper>
+                                    </MudItem>
+                                    <MudItem xs="12">
+                                        <MudPaper Elevation="12">
+                                            <MudStack Spacing="1">
+                                                <MudText>Информация об уроке:</MudText>
+                                                <MudSpacer />
+                                                <MudSpacer />
+                                                <MudText>Время: @_invitation?.Lesson?.Date</MudText>
+                                                <MudText>Тип урока: @_invitation?.Lesson?.LessonType.Name</MudText>
+                                                <MudText>Место: @_invitation?.Lesson?.Room.Name</MudText>
+                                                <MudText>Уровень: @_invitation?.Lesson?.Level.Title</MudText>
+                                                <MudText>Тренер: @_invitation?.Lesson?.User.Surname @_invitation?.Lesson?.User.FirstName</MudText>
+                                                <MudText>Начало урока: @_invitation?.Lesson?.Start</MudText>
+                                                <MudText>Окончание урока: @_invitation?.Lesson?.Finish</MudText>
+                                            </MudStack>
+                                        </MudPaper>
+                                    </MudItem>
+                                </MudGrid>
+                            </MudPaper>
+                        </MudStack>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudGrid>
+                            @if(_invitation.IsAccepted == false && _invitation.IsDeclined == false)
+                            {
+                                @if (_invitation.IsSatisfied)
+                                {
+                                    <MudItem xs="12">
+                                        <MudText Color="Color.Error">Приглашение отменено, так как приглашение приняло достаточное количество участников</MudText>
+                                    </MudItem>
+                                }
+                                else if (_invitation.IsOutdated)
+                                {
+                                    <MudItem xs="12">
+                                        <MudText Color="Color.Error">Приглашение просрочено</MudText>
+                                </MudItem>
+                                }
+                                else
+                                {
+                                    <MudItem xs="1">
+                                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnAcceptClick">Принять</MudButton>
+                                    </MudItem>
+                                    <MudItem xs="1">
+                                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="font-size:  11px;" OnClick="OnDeclineClick">Отклонить</MudButton>
+                                    </MudItem>
+                                }
+                            }
+                            else if (_invitation.IsAccepted)
+                            {
+                                <MudItem xs="12">
+                                    <MudText Color="Color.Success">Приглашение принято</MudText>
+                                </MudItem>
+                            }
+                            else
+                            {
+                                <MudItem xs="12">
+                                    <MudText Color="Color.Error">Приглашение отклонено</MudText>
+                                </MudItem>
+                            }
+                        </MudGrid>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
 }

@@ -9,7 +9,7 @@
 </style>
 
 
-@if(_render)
+@if (_render && _notification != null)
 {
     <MudCard>
         <MudCardHeader>
@@ -35,16 +35,6 @@
                                 </MudGrid>
                             </MudPaper>
                     </MudStack>
-                </MudItem>
-                <MudItem xs="12">
-                    <MudGrid>
-                        <MudItem xs="6">
-                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="font-size:  11px;">Принять</MudButton>
-                        </MudItem>
-                        <MudItem xs="6">
-                            <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="font-size:  11px;">Отклонить</MudButton>
-                        </MudItem>
-                    </MudGrid>
                 </MudItem>
             </MudGrid>
         </MudCardContent>

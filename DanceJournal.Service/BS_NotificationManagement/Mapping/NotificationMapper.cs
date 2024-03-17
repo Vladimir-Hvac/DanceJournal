@@ -37,7 +37,7 @@ namespace DanceJournal.Services.BS_NotificationManagement.Mapping
             }
             if (invitationStatus != null && invitationStatus.Invitation != null)
             {
-                result.Invitation = invitationStatus.Invitation;
+                result.Invitation = InvitationMapper.MapInvitationDTO(invitationStatus);
             }
             return result;
         }
