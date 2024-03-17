@@ -10,5 +10,19 @@
 
         public User? Creator { get; set; }
         public Lesson? Lesson { get; set; }
+
+        public bool IsOutdated()
+        {
+            TimeSpan threshold = TimeSpan.FromHours(1);
+
+            DateTime start = Lesson != null ? Lesson.Start : DateTime.UtcNow;
+
+            TimeSpan difference = DateTime.UtcNow - start;
+
+            bool isOutdated = difference > threshold;
+
+            return isOutdated;
+        }
+
     }
 }

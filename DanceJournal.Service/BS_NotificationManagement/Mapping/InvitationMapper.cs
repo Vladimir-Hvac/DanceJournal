@@ -16,6 +16,8 @@ namespace DanceJournal.Services.BS_NotificationManagement.Mapping
             {
                 result.Id = invitationStatus.Invitation.Id;
                 result.Lesson = invitationStatus.Invitation.Lesson;
+                result.IsSatisfied = invitationStatus.Invitation.IsSatisfied;
+                result.IsOutdated = invitationStatus.Invitation.IsOutdated();
             }
 
             return result;
