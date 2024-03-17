@@ -21,7 +21,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
         public int NotificationId { get; set; }
 
         private NotificationDTO? _notification;
-        private Invitation? _invitation;
+        private InvitationDTO? _invitation;
         private CurrentAuthUser? _currentAuthUser;
         private Action<SnackbarOptions> _snackbarOptions;
 

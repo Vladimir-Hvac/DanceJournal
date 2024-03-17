@@ -13,9 +13,4 @@
   <ItemGroup>
     <ProjectReference Include="..\DanceJournal.Domain\DanceJournal.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="BS_NotificationManagement\Contracts\" />
-    <Folder Include="BS_NotificationManagement\Mapping\" />
-  </ItemGroup>
 </Project>

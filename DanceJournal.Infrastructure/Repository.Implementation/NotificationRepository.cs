@@ -265,7 +265,8 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                     if (notifInv != null)
                     {
                         InvitationStatus? invitationStatus = await _dbContext.InvitationStatuses
-                                                                            .Where(i => i.InvitationId.Equals(notifInv.InvitationId))
+                                                                            .Where(i => i.InvitationId.Equals(notifInv.InvitationId)
+                                                                            && i.ReceiverId.Equals(receiverId))
                                                                             .Include(x => x.Invitation)
                                                                             .Include(x => x.Receiver)
                                                                             .FirstOrDefaultAsync();

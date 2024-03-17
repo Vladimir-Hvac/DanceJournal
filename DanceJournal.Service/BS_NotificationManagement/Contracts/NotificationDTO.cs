@@ -1,6 +1,4 @@
-﻿using DanceJournal.Domain.Models;
-
-namespace DanceJournal.Services.BS_NotificationManagement.Contracts
+﻿namespace DanceJournal.Services.BS_NotificationManagement.Contracts
 {
     public class NotificationDTO
     {
@@ -11,6 +9,6 @@ namespace DanceJournal.Services.BS_NotificationManagement.Contracts
         public TimeOnly Time { get; set; } = new TimeOnly();
 
         public User Creator { get; set; } = new();
-        public Invitation? Invitation { get; set; }
+        public InvitationDTO? Invitation { get; set; }
     }
 }
