@@ -208,7 +208,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
             return result;
         }
 
-        public async Task<bool> SendInvitation(string body, int lessonId, List<int> recipientsIds, CurrentAuthUser currentAuthUser)
+        public async Task<bool> SendInvitation(InvitationCreationDTO invitationCreationDTO, CurrentAuthUser currentAuthUser)
         {
             bool result = false;
             try
@@ -219,7 +219,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     //TODO: Implement logging
                     return result;
                 }
-                Lesson? lesson = await _notificationRepository.GetLesson(lessonId);
+                Lesson? lesson = await _notificationRepository.GetLesson(invitationCreationDTO.LessonId);
                 if (lesson is null)
                 {
                     //TODO: Implement logging
@@ -229,7 +229,8 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 Invitation invitation = new()
                 {
                     CreatorId = user.Id,
-                    LessonId = lessonId,
+                    LessonId = invitationCreationDTO.LessonId,
+                    SatisfactionLimit = invitationCreationDTO.UserLimit,
                     IsSatisfied = false,
                 };
 
@@ -242,7 +243,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
 
                 Notification notification = new()
                 {
-                    Body = body,
+                    Body = invitationCreationDTO.InvitationBody,
                     CreatorId = user.Id
                 };
                 int notificationId = await _notificationRepository.AddNotification(notification);
@@ -253,7 +254,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 }
 
                 List<(InvitationStatus, int)> statusesToAdd = new();
-                foreach (var recipientId in recipientsIds)
+                foreach (var recipientId in invitationCreationDTO.RecipientIds)
                 {
                     InvitationStatus invitationStatus = new()
                     {
@@ -362,9 +363,18 @@ namespace DanceJournal.Services.BS_NotificationManagement
             {
                 List<InvitationStatus> invitationStatuses =
                     await _notificationRepository.GetInvitationStatusesByInvitaionId(invitationId);
-                result = invitationStatuses
-                    .Where(x => x.InvitationId.Equals(invitationId))
-                    .All(x => x.IsAccepted);
+                Invitation? invitation = invitationStatuses.Select(x => x.Invitation).FirstOrDefault();
+                if (invitation != null)
+                {
+                    int userLimits = invitation.SatisfactionLimit;
+                    int acceptedInvitations = invitationStatuses
+                        .Where(x => x.IsAccepted)
+                        .Count();
+                    if (acceptedInvitations >= userLimits)
+                    {
+                        result = true;
+                    }
+                }
             }
             catch (Exception ex)
             {

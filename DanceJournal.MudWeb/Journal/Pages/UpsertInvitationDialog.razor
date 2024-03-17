@@ -10,19 +10,22 @@
                     <MudSelect T="Lesson"
                                Label="Выберите урок"
                                AnchorOrigin="Origin.BottomCenter"
+                               ToStringFunc="LessonToString"
                                @bind-Value="@UpsertInvitationVM.SelectedLesson">
                         @foreach (Lesson item in UpsertInvitationVM.Lessons)
                         {
-                            <MudSelectItem T="Lesson" Value="item">@item.Id</MudSelectItem>
+                            <MudSelectItem T="Lesson" Value="item">Начало: @item.Start Тип: @item.LessonType.Name Тренер: @item.User.Surname @item.User.FirstName</MudSelectItem>
                         }
                     </MudSelect>
                     <MudSelect T="User"
+                               MultiSelection=true 
                                Label="Выберите получателей приглашения"
+                               ToStringFunc="UserToString"
                                AnchorOrigin="Origin.BottomCenter"
-                               @bind-Value="@UpsertInvitationVM.SelectedUser">
+                               @bind-Values="@UpsertInvitationVM.SelectedUsers">
                         @foreach (User item in UpsertInvitationVM.Recipients)
                         {
-                            <MudSelectItem T="User" Value="item">@item.Surname</MudSelectItem>
+                            <MudSelectItem T="User" Value="item">@item.Surname @item.FirstName</MudSelectItem>
                         }
                     </MudSelect>
                     <MudTextField @bind-Value="UpsertInvitationVM.UserLimit"

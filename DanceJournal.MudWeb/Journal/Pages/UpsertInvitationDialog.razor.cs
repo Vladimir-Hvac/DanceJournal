@@ -1,5 +1,6 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
 using DanceJournal.Services.BS_NotificationManagement;
+using DanceJournal.Services.BS_NotificationManagement.Contracts;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -34,8 +35,6 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         private async void OnLessonSelected(object? sender, EventArgs e)
         {
-            UpsertInvitationVM.Lessons = new();
-
             if (UpsertInvitationVM.SelectedLesson != null)
             {
                 List<User> recipients = await NotificationService.ProvideRecipients(UpsertInvitationVM.SelectedLesson.Id);
@@ -45,7 +44,23 @@ namespace DanceJournal.MudWeb.Journal.Pages
         private async Task Submit()
         {
             bool succeed = true;
-            //Logic of submitting
+
+            InvitationCreationDTO invitation = new()
+            {
+                InvitationBody = UpsertInvitationVM.InvitationBody,
+                RecipientIds = UpsertInvitationVM.Recipients.Select(x => x.Id).ToList(),
+                UserLimit = UpsertInvitationVM.UserLimit
+            };
+
+            if (UpsertInvitationVM.SelectedLesson is null || UpsertInvitationVM.CurrentAuthUser is null)
+            {
+                //User informing
+                return;
+            }
+            invitation.LessonId = UpsertInvitationVM.SelectedLesson.Id;
+
+            succeed = await NotificationService.SendInvitation(invitation, UpsertInvitationVM.CurrentAuthUser);
+
             MudDialog.Close(DialogResult.Ok(succeed));
         }
 
@@ -54,5 +69,24 @@ namespace DanceJournal.MudWeb.Journal.Pages
             //Logic of cancellation
             MudDialog.Cancel();
         }
+
+        private readonly Func<Lesson, string> LessonToString =
+            x =>
+            {
+                if (x is null)
+                {
+                    return string.Empty;
+                }
+                return $"Начало: {x.Start} Тип: {x.LessonType.Name} Тренер: {x.User.Surname} {x.User.FirstName}";
+            };
+        private readonly Func<User, string> UserToString =
+            x =>
+            {
+                if (x is null)
+                {
+                    return string.Empty;
+                }
+                return $"{x.Surname} {x.FirstName}";
+            };
     }
 }
