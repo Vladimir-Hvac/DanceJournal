@@ -1,0 +1,43 @@
+﻿@using DanceJournal.Domain.Models;
+@using DanceJournal.Services.BS_NotificationManagement.Contracts;
+
+@if (_render)
+{
+    <MudDialog>
+        <DialogContent>
+            <MudItem xs="12">
+                <MudForm>
+                    <MudSelect T="Lesson"
+                               Label="Выберите урок"
+                               AnchorOrigin="Origin.BottomCenter"
+                               @bind-Value="@UpsertInvitationVM.SelectedLesson">
+                        @foreach (Lesson item in UpsertInvitationVM.Lessons)
+                        {
+                            <MudSelectItem T="Lesson" Value="item">@item.Id</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudSelect T="User"
+                               Label="Выберите получателей приглашения"
+                               AnchorOrigin="Origin.BottomCenter"
+                               @bind-Value="@UpsertInvitationVM.SelectedUser">
+                        @foreach (User item in UpsertInvitationVM.Recipients)
+                        {
+                            <MudSelectItem T="User" Value="item">@item.Surname</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudTextField @bind-Value="UpsertInvitationVM.UserLimit"
+                                  Label="Введите лимит принятых приглашений"
+                                  Variant="Variant.Text"
+                                  InputType="InputType.Number"></MudTextField>
+                    <MudTextField @bind-Value="UpsertInvitationVM.InvitationBody"
+                                  Label="Описание приглашения"
+                                  Variant="Variant.Text"></MudTextField>
+                </MudForm>
+            </MudItem>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancel</MudButton>
+            <MudButton Color="Color.Primary" OnClick="Submit">OK</MudButton>
+        </DialogActions>
+    </MudDialog>
+}
