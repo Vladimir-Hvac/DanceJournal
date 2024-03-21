@@ -1,6 +1,7 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using static MudBlazor.CategoryTypes;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
@@ -15,38 +16,67 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Inject]
         public IDialogService DialogService { get; set; }
 
-        private IEnumerable<LessonType>? LessonTypes;
+        private List<LessonType>? LessonTypes;
         private string _searchString;
-        private bool _isCellEditMode;
-        private bool _readOnly;
 
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = await LessonPlanning.GetAllLessonsTypesAsync();
+            var lessonTypes = await LessonPlanning.GetAllLessonsTypesAsync();
+            LessonTypes = lessonTypes.ToList();
         }
 
-        private Func<LessonType, bool> _quickFilter =>
-            x =>
-            {
-                if (string.IsNullOrWhiteSpace(_searchString))
-                    return true;
+        private bool FilterFunc1(LessonType element) => FilterFunc(element, _searchString);
 
-                if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-                    return true;
-
-                //if (x.Type.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-                //    return true;
-
-                if ($"{x.Price}".Contains(_searchString))
-                    return true;
-
-                return false;
+        private bool FilterFunc(LessonType element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Price.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Type.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
+        }
+        private async Task UpdateAsync(LessonType lessonType)
+        {
+            var parameters = new DialogParameters<LessonTypesDialog>() 
+            { 
+                {x=>x.LessonType,lessonType }
             };
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            string title = lessonType.Name is null ? "Новый тип" : "Редактировать"; 
+            var dialog = DialogService.Show<LessonTypesDialog>(title, parameters,options);
+            var result = await dialog.Result;
 
-        //private void UpdateLessonTypes(LessonType lessonType)
-        //{
-        //    var options = new DialogOptions { CloseOnEscapeKey = true };
-        //    DialogService.Show<LessonTypesDialog>("Simple Dialog", options);
-        //}
+            if (!result.Cancelled)
+            {
+                lessonType = (LessonType)result.Data;
+                var oldLessonType = LessonTypes.FirstOrDefault(x => x.Id.Equals(lessonType.Id));
+                if (oldLessonType is null)
+                {
+                    LessonTypes.Add(lessonType);
+                    LessonPlanning.CreateLessonTypeAsync(lessonType);
+                }
+                else
+                {
+                    LessonTypes.Remove(oldLessonType);
+                    LessonTypes.Add(lessonType);
+                    LessonPlanning.UpdateLessonTypeAsync(lessonType);
+                }
+            }
+        }
+        private async Task CopyAsync(LessonType lessonType) 
+        {
+            lessonType.Id=default;
+            LessonTypes?.Add(lessonType);
+            await LessonPlanning.UpdateLessonTypeAsync(lessonType);
+        }
+        private async Task RemoveAsync(LessonType lessonType)
+        {
+            LessonTypes?.Remove(lessonType);
+            await LessonPlanning.DeleteLessonType(lessonType.Id);
+        }
     }
 }

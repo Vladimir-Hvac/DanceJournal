@@ -2,40 +2,44 @@
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
-        <MudItem xs="12" sm="9">
-
-            <MudDataGrid T="LessonType" Items="@LessonTypes" ReadOnly="@_readOnly"
-                         EditMode="@DataGridEditMode.Form"
-                         Filterable="true" QuickFilter="@_quickFilter"
-                         Dense="true">
+        <MudItem xs="12" sm="12">
+            <MudTable Items="LessonTypes"
+                    Filter="new Func<LessonType,bool>(FilterFunc1)"
+                    Bordered="true"
+                    Dense="false"
+                    FixedHeader="true">
                 <ToolBarContent>
                     <MudText Typo="Typo.h6">Типы занятий</MudText>
                     <MudSpacer />
-                    <MudSpacer />
-                    <MudTextField @bind-Value="_searchString" Placeholder="Поиск" 
-                        Adornment="Adornment.Start" Immediate="true"
-                        AdornmentIcon="@Icons.Material.Filled.Search" 
-                        IconSize="Size.Medium" Class="mt-0"></MudTextField>
-
-                    <MudButton Variant="Variant.Filled" 
-                        StartIcon="@Icons.Material.Filled.Add" 
-                        Color="Color.Primary">Добавить</MudButton>
+                    <MudTextField @bind-Value="_searchString" 
+                                Placeholder="Поиск" 
+                                Adornment="Adornment.Start" 
+                                AdornmentIcon="@Icons.Material.Filled.Search" 
+                                IconSize="Size.Medium" Class="mt-0" />
+                    <MudButton Color="Color.Primary" 
+                                StartIcon="@Icons.Material.Filled.Add" 
+                                IconSize="Size.Medium"
+                                OnClick="()=>UpdateAsync(new LessonType())">Добавить</MudButton>
                 </ToolBarContent>
-                <Columns>
-                    <PropertyColumn Property="x=>x.Name" Field="Name" />
-                    <PropertyColumn Property="x=>x.Price" Field="Price" />
-                    <PropertyColumn Property="x=>x.Type" Field="Type" />
-                    <TemplateColumn CellClass="d-flex justify-end">
-                        <CellTemplate >
-                            <MudStack Row >
-                                <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Filled.Edit"  />
-                                <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Filled.CopyAll" />
-                                <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Filled.Remove" />
-                            </MudStack>
-                        </CellTemplate>
-                    </TemplateColumn>
-                </Columns>
-            </MudDataGrid>
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel SortBy="new Func<LessonType, object>(x=>x.Name)">Наименование</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<LessonType, object>(x=>x.Price)">Цена, руб</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<LessonType, object>(x=>x.Type)">Тип занятия</MudTableSortLabel></MudTh>
+                    <MudTh></MudTh>
+
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Price">@context.Price</MudTd>
+                    <MudTd DataLabel="Type">@context.Type</MudTd>
+                    <MudTd Style="text-align:right">
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="()=>UpdateAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.CopyAll" OnClick="()=>CopyAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="()=>RemoveAsync(context)" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+
         </MudItem>
     </MudGrid>
 </MudContainer>
