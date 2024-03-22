@@ -1,0 +1,51 @@
+﻿@page "/lessons"
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="12">
+            <MudTable Items="Lessons"
+                      Filter="new Func<Lesson,bool>(FilterFunc1)"
+                      Bordered="true"
+                      Dense="false"
+                      FixedHeader="true">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6">Типы занятий</MudText>
+                    <MudSpacer />
+                    <MudTextField @bind-Value="_searchString"
+                                  Placeholder="Поиск"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium" Class="mt-0" />
+                    <MudButton Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.Add"
+                               IconSize="Size.Medium"
+                               OnClick="()=>UpdateAsync(new Lesson())">Добавить</MudButton>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Lesson, object>(x=>x.LessonType.Name)">Наименование</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Lesson, object>(x=>x.LessonType.Type)">Тип занятия</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Lesson, object>(x=>x.Room.Name)">Зал</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Lesson, object>(x=>x.User.FirstName)">Тренер</MudTableSortLabel></MudTh>
+                    <MudTh>Начало</MudTh>
+                    <MudTh>Окончание</MudTh>
+                    <MudTh></MudTh>
+
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Наименование">@context.LessonType.Name</MudTd>
+                    <MudTd DataLabel="Type">@context.LessonType.Type</MudTd>
+                    <MudTd DataLabel="Price">@context.Room.Name</MudTd>
+                    <MudTd DataLabel="Type">@context.User.FirstName</MudTd>
+                    <MudTd DataLabel="Type">@context.Start</MudTd>
+                    <MudTd DataLabel="Type">@context.Finish</MudTd>
+                    <MudTd Style="text-align:right">
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="()=>UpdateAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.CopyAll" OnClick="()=>CopyAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="()=>RemoveAsync(context)" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+
+        </MudItem>
+    </MudGrid>
+</MudContainer>
