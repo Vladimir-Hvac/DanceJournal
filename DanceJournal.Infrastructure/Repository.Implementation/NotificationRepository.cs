@@ -157,8 +157,12 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             Lesson? result = null;
             try
             {
-                result = await _dbContext.Lessons
-                           .FirstOrDefaultAsync(i => i.Id == lessonId);
+                result = await _dbContext.Lessons.Where(x => x.Id.Equals(lessonId))
+                                            .Include(x => x.LessonType)
+                                            .Include(x => x.Level)
+                                            .Include(x => x.Room)
+                                            .Include(x => x.User)
+                                            .FirstOrDefaultAsync();
             }
             catch (Exception)
             {
@@ -264,13 +268,19 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                     NotificationInvitation? notifInv = await _dbContext.NotificationInvitations.FirstOrDefaultAsync(i => i.NotificationId.Equals(notificationId));
                     if (notifInv != null)
                     {
-                        InvitationStatus? invitationStatus = await _dbContext.InvitationStatuses
-                                                                            .Where(i => i.InvitationId.Equals(notifInv.InvitationId)
-                                                                            && i.ReceiverId.Equals(receiverId))
-                                                                            .Include(x => x.Invitation)
-                                                                            .Include(x => x.Receiver)
-                                                                            .FirstOrDefaultAsync();
+                        InvitationStatus? invitationStatus = await GetInvitationStatus(notificationId, receiverId);
+
+                        if (notifInv.Invitation != null)
+                        {
+                            Lesson? lesson = await GetLesson(notifInv.Invitation.LessonId);
+                            notifInv.Invitation.Lesson = lesson;
+                        }
+
                         res = (foundNotificationStatus, invitationStatus);
+                    }
+                    else
+                    {
+                        res = (foundNotificationStatus, null);
                     }
                 }
             }
@@ -316,16 +326,18 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                         InvitationStatus? invitationStatus = invitationStatuses.FirstOrDefault(i => i.InvitationId.Equals(invId));
                         result.Add((notificationStatus, invitationStatus));
                     }
+                    else
+                    {
+                        result.Add((notificationStatus, null));
+                    }
                 }
             }
             catch (Exception ex)
             {
-
-                throw;
+                //TODO: Logging
             }
 
             return result;
         }
-
     }
 }
