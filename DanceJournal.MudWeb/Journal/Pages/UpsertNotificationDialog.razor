@@ -1,0 +1,32 @@
+﻿@using DanceJournal.Domain.Models;
+@using DanceJournal.Services.BS_NotificationManagement.Contracts;
+
+@if(_render)
+{
+    <MudDialog>
+        <DialogContent>
+            <MudItem xs="12">
+                <MudForm>
+                    <MudSelect T="User"
+                               MultiSelection=true
+                               Label="Выберите получателей уведомления"                              
+                               AnchorOrigin="Origin.BottomCenter"
+                               @bind-Value="@UpsertNotificationVM.SelectedUser"
+                               @bind-Values="@UpsertNotificationVM.SelectedUsers">
+                        @foreach (User item in UpsertNotificationVM.Recipients)
+                        {
+                            <MudSelectItem T="User" Value="item">@item.Surname @item.FirstName</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudTextField @bind-Value="UpsertNotificationVM.NotificationBody"
+                                  Label="Сообщение"
+                                  Variant="Variant.Text"></MudTextField>
+                </MudForm>
+            </MudItem>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancel</MudButton>
+            <MudButton Color="Color.Primary" OnClick="Submit">OK</MudButton>
+        </DialogActions>
+    </MudDialog>
+}

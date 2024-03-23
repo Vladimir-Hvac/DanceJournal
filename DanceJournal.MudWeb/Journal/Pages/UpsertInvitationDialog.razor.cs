@@ -37,7 +37,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
         {
             if (UpsertInvitationVM.SelectedLesson != null)
             {
-                List<User> recipients = await NotificationService.ProvideRecipients(UpsertInvitationVM.SelectedLesson.Id);
+                List<User> recipients = await NotificationService.ProvideRecipientsByLesson(UpsertInvitationVM.SelectedLesson.Id);
                 UpsertInvitationVM.Recipients = recipients;
             }
         }

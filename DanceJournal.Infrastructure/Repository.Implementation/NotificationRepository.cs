@@ -56,12 +56,32 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             }
             return result;
         }
+        public async Task<bool> AddNotificationStatuses(List<NotificationStatus> notificationStatuses)
+        {
+            bool result = false;
+            try
+            {
+                if (notificationStatuses.Count != 0)
+                {
+                    await _dbContext.AddRangeAsync(notificationStatuses);
+                    await _dbContext.SaveChangesAsync();
+                }
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                //TODO: Logging
+            }
+            return result;
+        }
 
         public async Task<int> AddNotification(Notification notification)
         {
             int result = -1;
             try
             {
+                notification.CreationTime = DateTime.Now;
+
                 await _dbContext.AddAsync(notification);
                 await _dbContext.SaveChangesAsync();
                 result = notification.Id;

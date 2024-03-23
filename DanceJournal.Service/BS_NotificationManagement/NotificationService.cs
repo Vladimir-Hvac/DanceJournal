@@ -180,7 +180,7 @@ namespace DanceJournal.Services.BS_NotificationManagement
 
         }
 
-        public async Task<List<User>> ProvideRecipients(int lessonId)
+        public async Task<List<User>> ProvideRecipientsByLesson(int lessonId)
         {
             List<User> result = new();
             try
@@ -275,7 +275,6 @@ namespace DanceJournal.Services.BS_NotificationManagement
             }
             return result;
         }
-
         private async Task<bool> HandleInvitation(int invitationId, int userId, bool goingToVisit)
         {
             bool result = false;
@@ -380,6 +379,63 @@ namespace DanceJournal.Services.BS_NotificationManagement
             {
                 //TODO: Logging
             }
+            return result;
+        }
+        public async Task<List<User>> ProvideRecipients()
+        {
+            List<User> users = new();
+            try
+            {
+                users = await _notificationRepository.GetAllUsers();
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
+            return users;
+        }
+
+        public async Task<bool> SendNotification(NotificationCreationDTO notificationCreationDTO, CurrentAuthUser currentAuthUser)
+        {
+            bool result = false;
+            try
+            {
+                User? user = await _notificationRepository.GetUser(currentAuthUser.UserEmail);
+                if (user is null)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
+                Notification notification = new()
+                {
+                    Body = notificationCreationDTO.NotificationBody,
+                    CreatorId = user.Id
+                };
+                int notificationId = await _notificationRepository.AddNotification(notification);
+                if (notificationId == -1)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
+
+                List<NotificationStatus> notificationStatuses = new();
+                foreach (var receipient in notificationCreationDTO.RecipientIds)
+                {
+                    NotificationStatus notificationStatus = new()
+                    {
+                        NotificationId = notificationId,
+                        ReceiverId = receipient
+                    };
+                    notificationStatuses.Add(notificationStatus);
+                }
+                result = await _notificationRepository.AddNotificationStatuses(notificationStatuses);
+
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
+
             return result;
         }
     }

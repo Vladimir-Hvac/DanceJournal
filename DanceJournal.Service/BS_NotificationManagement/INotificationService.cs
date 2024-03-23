@@ -13,7 +13,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
 
         //Методы для отправления приглашения на занятие
         Task<List<Lesson>> ProvideLessons(CurrentAuthUser currentAuthUser); //
-        Task<List<User>> ProvideRecipients(int lessonId); // Приглашаются люди с равным или большим уровнем, который указан в уровне урока
+        Task<List<User>> ProvideRecipientsByLesson(int lessonId); // Приглашаются люди с равным или большим уровнем, который указан в уровне урока
+        Task<List<User>> ProvideRecipients();
         Task<bool> SendInvitation(InvitationCreationDTO invitationCreationDTO, CurrentAuthUser currentAuthUser);
+        Task<bool> SendNotification(NotificationCreationDTO notificationCreationDTO, CurrentAuthUser currentAuthUser);
     }
 }
