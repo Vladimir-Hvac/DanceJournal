@@ -1,52 +1,40 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
+using DanceJournal.MudWeb.Journal.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using static MudBlazor.CategoryTypes;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
+
     partial class LessonTypesComponent
     {
-        [Inject]
-        public DataMapping _dataMapping { get; set; }
+        [Inject] public IManageService ManageService { get; set; }
+        [Inject] public ILessonPlanning LessonPlanning { get; set; }
 
-        [Inject]
-        public ILessonPlanning LessonPlanning { get; set; }
 
-        [Inject]
-        public IDialogService DialogService { get; set; }
-
-        private IEnumerable<LessonType>? LessonTypes;
         private string _searchString;
-        private bool _isCellEditMode;
-        private bool _readOnly;
 
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = await LessonPlanning.GetAllLessonsTypesAsync();
+            var test = await LessonPlanning.GetAllLessonsTypesAsync();
+            ManageService.LessonTypes = test.ToList();
         }
 
-        private Func<LessonType, bool> _quickFilter =>
-            x =>
-            {
-                if (string.IsNullOrWhiteSpace(_searchString))
-                    return true;
+        private bool FilterFunc1(LessonType element) => FilterFunc(element, _searchString);
 
-                if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-                    return true;
-
-                //if (x.Type.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-                //    return true;
-
-                if ($"{x.Price}".Contains(_searchString))
-                    return true;
-
-                return false;
-            };
-
-        //private void UpdateLessonTypes(LessonType lessonType)
-        //{
-        //    var options = new DialogOptions { CloseOnEscapeKey = true };
-        //    DialogService.Show<LessonTypesDialog>("Simple Dialog", options);
-        //}
+        private bool FilterFunc(LessonType element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Price.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Type.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
+        }
     }
+
 }

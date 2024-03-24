@@ -20,7 +20,7 @@ namespace DanceJournal.Services.BS_NotificationManagement.Gateways
 
         Task<bool> AddInvitationStatuses(List<(InvitationStatus, int notificationId)> invitationStatuses);
 
-
+        Task<bool> AddNotificationStatuses(List<NotificationStatus> notificationStatuses);
 
         Task<List<Lesson>> GetAllLessons();
         Task<Lesson?> GetLesson(int lessonId);

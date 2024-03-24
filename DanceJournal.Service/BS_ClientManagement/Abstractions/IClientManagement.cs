@@ -7,5 +7,7 @@
         Task<User> CreateClientAsync(User user,CancellationToken cancellationToken);
         Task<User> UpdateClientAsync(User user,CancellationToken cancellationToken);
         Task<bool> DeleteClientAsync(int userId, CancellationToken cancellationToken);
+        Task<List<User>> GetAllStaffAsync( CancellationToken cancellationToken);
+        Task<User> ChangeLevelUserAsync(int userId, int levelId, CancellationToken cancellationToken);
     }
 }

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.MudWeb", "Danc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanceJournal.Domain", "DanceJournal.Domain\DanceJournal.Domain.csproj", "{B38B2C76-615A-483A-A12A-A64451BE6787}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceJournal.MailClient", "DanceJournal.MailClient\DanceJournal.MailClient.csproj", "{693F6BD5-DE8A-4053-8715-BDF6EBB83AF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B38B2C76-615A-483A-A12A-A64451BE6787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B38B2C76-615A-483A-A12A-A64451BE6787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B38B2C76-615A-483A-A12A-A64451BE6787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{693F6BD5-DE8A-4053-8715-BDF6EBB83AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{693F6BD5-DE8A-4053-8715-BDF6EBB83AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{693F6BD5-DE8A-4053-8715-BDF6EBB83AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{693F6BD5-DE8A-4053-8715-BDF6EBB83AF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

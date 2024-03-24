@@ -105,6 +105,18 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 //TODO: inform user or something
                 return;
             }
+            string title = "Создать уведомление";
+            UpsertNotificationVM upsertNotificationVM =
+                new() { CurrentAuthUser = _currentAuthUser };
+            DialogParameters parameters =
+                new() { { nameof(UpsertNotificationVM), upsertNotificationVM } };
+            var dialog = await DialogService.ShowAsync<UpsertNotificationDialog>(
+                title,
+                parameters,
+                _dialogOptions
+            );
+
+            //Add update 
         }
     }
 }
