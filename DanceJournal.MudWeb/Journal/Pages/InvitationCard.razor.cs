@@ -34,12 +34,12 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 options.ShowCloseIcon = true;
                 options.VisibleStateDuration = 5000; // 5 seconds
             };
-
             _currentAuthUser = new CurrentAuthUser()
             {
                 UserName = "",
                 UserEmail = "DevZen@test.ru",
             };
+
 
             _notification = await NotificationService.ReadNotification(NotificationId, _currentAuthUser);
             if (_notification is null)

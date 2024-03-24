@@ -22,7 +22,7 @@ namespace DanceJournal.MudWeb.Journal.Models
         }
 
         public List<User> Recipients { get; set; } = new();
-        public User? SelectedUser { get; set; }
+        public IEnumerable<User> SelectedUsers { get; set; } = Enumerable.Empty<User>();
 
         public int UserLimit { get; set; }
 

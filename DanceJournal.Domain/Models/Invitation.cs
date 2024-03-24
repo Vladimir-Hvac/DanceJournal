@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public int CreatorId { get; set; }
         public int LessonId { get; set; }
+        public int SatisfactionLimit { get; set; }
         public bool IsSatisfied { get; set; }
         public DateTime CreationTime { get; set; } = new();
 
