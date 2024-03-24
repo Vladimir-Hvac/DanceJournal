@@ -1,39 +1,51 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace DanceJournal.MudWeb.Journal.Pages
 {
     public partial class LessonTypesDialog
     {
-        private string _name;
-        private string _type;
-        private int _price;
-        private string _selectedType;
-        private List<LessonType>? LessonTypes;
-        private CancellationToken _cancellationToken;
+        private string _name = string.Empty;
+        private string _type = "Групповое";
+        private double _price;
 
-        [Inject]
-        private ILessonPlanning _lessonPlanning { get; set; }
-
+        [CascadingParameter]
+        MudDialogInstance MudDialog { get; set; }
+        [Parameter]
+        public LessonType? LessonType { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            LessonTypes = _lessonPlanning.GetAllLessonsTypesAsync().Result.ToList();
+            if (LessonType?.Name is not null) 
+            {
+                _name = LessonType.Name;
+                _type = LessonType.Type;
+                _price = LessonType.Price;
+            }
         }
 
         private void Submit()
         {
-            LessonType lessonType = new LessonType()
+            if (LessonType?.Name is null)
             {
-                Name = _name,
-                Type = _type,
-                Price = _price
-            };
-            LessonTypes?.Add(lessonType);
-            _name = string.Empty;
-            _type = string.Empty;
-            _price = 0;
+                LessonType = new LessonType()
+                {
+                    Name = _name,
+                    Type = _type,
+                    Price = _price
+                };
+            }
+            else
+            {
+                LessonType.Name = _name;
+                LessonType.Type = _type;
+                LessonType.Price = _price;  
+            }
+
+            MudDialog.Close(DialogResult.Ok(LessonType));
+
         }
 
-        private void Cancel() { }
+        private void Cancel() => MudDialog.Cancel();
     }
 }

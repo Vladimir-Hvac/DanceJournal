@@ -1,0 +1,29 @@
+﻿<MudDialog>
+	<DialogContent>
+        <MudForm>
+            <MudSelect @bind-Value="_selectedTypeName" Label="Тип занятия" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var item in LessonTypes.DistinctBy(x => x.Type))
+                {
+                    <MudSelectItem T="string" Value="@item.Type">@item.Type</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect @bind-Value="_selectedName" Label="Название занятия" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var item in LessonTypes.Where(e=>e.Type.Equals(_selectedTypeName)))
+                {
+                    <MudSelectItem T="string" Value="@item.Name">@item.Name</MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudTextField Label="Цена, руб" @bind-Value="@_price" />
+            <MudSelect @bind-Value="_type" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense">
+                <MudSelectItem Value="@("Групповое")">Групповое</MudSelectItem>
+                <MudSelectItem Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
+            </MudSelect>
+        </MudForm>
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancel">Cancel</MudButton>
+		<MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+	</DialogActions>
+</MudDialog>
+

@@ -87,7 +87,7 @@ public class DanceJournalDbContext : DbContext
 
         modelBuilder
             .Entity<NotificationStatus>()
-            .HasNoKey();
+            .HasKey(x => new { x.NotificationId, x.ReceiverId });
 
         modelBuilder
             .Entity<NotificationStatus>()
@@ -103,7 +103,7 @@ public class DanceJournalDbContext : DbContext
 
         modelBuilder
             .Entity<InvitationStatus>()
-            .HasNoKey();
+            .HasKey(x => new { x.InvitationId, x.ReceiverId });
 
         modelBuilder
             .Entity<InvitationStatus>()

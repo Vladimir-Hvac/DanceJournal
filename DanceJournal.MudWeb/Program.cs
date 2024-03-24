@@ -1,10 +1,13 @@
 using DanceJournal.Infrastructure.Repository.Implementation;
 using DanceJournal.MudWeb.Data;
 using DanceJournal.MudWeb.Journal.Models;
+using DanceJournal.MudWeb.Journal.Services;
+using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using DanceJournal.Services.BS_LessonsPlanning;
 using DanceJournal.Services.BS_LessonsPlanning.Interfaces;
 using DanceJournal.Services.BS_NotificationManagement;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
+using DanceJournal.Services.ClientManagementService;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using MudBlazor.Services;
 
@@ -21,8 +24,11 @@ builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<ILessonPlanningRepository, LessonPlanningRepository>();
 builder.Services.AddScoped<ILessonPlanning, BS_LessonsPlanning>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IClientManagementRepository, ClientRepository>();
+builder.Services.AddScoped<IClientManagement, ClientManagementService>();
 builder.Services.AddScoped<DataMapping>();
 builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Singleton);
+builder.Services.AddScoped<IManageService, ManageService>();
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

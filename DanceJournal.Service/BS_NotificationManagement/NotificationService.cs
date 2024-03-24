@@ -39,6 +39,31 @@ namespace DanceJournal.Services.BS_NotificationManagement
             return result;
         }
 
+        public async Task<List<NotificationDTO>> GetReadNotifications(CurrentAuthUser currentAuthUser)
+        {
+            List<NotificationDTO> result = new();
+            try
+            {
+                User? user = await _notificationRepository.GetUser(currentAuthUser.UserEmail);
+                if (user is null)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
+
+
+                List<(NotificationStatus, InvitationStatus?)> notificInvStatuses = await _notificationRepository.GetReadNotificationStatusesByReceiver(user.Id);
+
+                result.AddRange(NotificationMapper.MapNotificationDTOs(notificInvStatuses));
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement logging
+            }
+
+            return result;
+        }
+
         public async Task<NotificationDTO?> ReadNotification(int notificationId, CurrentAuthUser currentAuthUser)
         {
             NotificationDTO? result = null;
@@ -60,10 +85,12 @@ namespace DanceJournal.Services.BS_NotificationManagement
                 }
 
                 NotificationStatus notificationStatus = notInv.Value.Item1;
-                notificationStatus.IsRead = true;
 
-                bool updateResult = await _notificationRepository.UpdateNotificationStatus(notificationStatus);
+                //Temporary
+                //notificationStatus.IsRead = true;
+                //bool updateResult = await _notificationRepository.UpdateNotificationStatus(notificationStatus);
 
+                bool updateResult = true;
                 if (!updateResult)
                 {
                     //TODO: Implement logging
@@ -267,7 +294,17 @@ namespace DanceJournal.Services.BS_NotificationManagement
             if (foundInvitationStatus.Invitation != null
                 && !foundInvitationStatus.Invitation.IsSatisfied)
             {
-                foundInvitationStatus.IsAccepted = isVisit;
+                if (isVisit)
+                {
+                    foundInvitationStatus.IsAccepted = true;
+                    foundInvitationStatus.IsDeclined = false;
+                }
+                else
+                {
+                    foundInvitationStatus.IsAccepted = false;
+                    foundInvitationStatus.IsDeclined = true;
+                }
+
                 result = await _notificationRepository.UpdateInvitationStatus(
                     foundInvitationStatus
                 );

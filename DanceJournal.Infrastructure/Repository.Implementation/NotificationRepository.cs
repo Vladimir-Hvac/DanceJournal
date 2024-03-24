@@ -122,7 +122,10 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             try
             {
                 result = await _dbContext.InvitationStatuses
-                           .FirstOrDefaultAsync(i => i.InvitationId.Equals(invitationId) && i.ReceiverId.Equals(receiverId));
+                            .Where(i => i.InvitationId.Equals(invitationId) && i.ReceiverId.Equals(receiverId))
+                            .Include(x => x.Invitation)
+                            .Include(x => x.Receiver)
+                            .FirstOrDefaultAsync();
             }
             catch (Exception)
             {
@@ -138,6 +141,8 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             {
                 result = await _dbContext.InvitationStatuses
                            .Where(i => i.InvitationId.Equals(invitationId))
+                           .Include(x => x.Invitation)
+                           .Include(x => x.Receiver)
                            .ToListAsync();
             }
             catch (Exception)
@@ -215,7 +220,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                     result = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //TODO: Logging
             }
@@ -249,14 +254,22 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             try
             {
                 NotificationStatus? foundNotificationStatus = await _dbContext.NotificationStatuses
-                                                .FirstOrDefaultAsync(i => i.NotificationId.Equals(notificationId)
-                                                && i.ReceiverId.Equals(receiverId));
+                                .Where(i => i.NotificationId.Equals(notificationId)
+                                && i.ReceiverId.Equals(receiverId))
+                                .Include(x => x.Notification)
+                                .Include(x => x.Receiver)
+                                .FirstOrDefaultAsync();
                 if (foundNotificationStatus != null)
                 {
                     NotificationInvitation? notifInv = await _dbContext.NotificationInvitations.FirstOrDefaultAsync(i => i.NotificationId.Equals(notificationId));
                     if (notifInv != null)
                     {
-                        InvitationStatus? invitationStatus = await _dbContext.InvitationStatuses.FirstOrDefaultAsync(i => i.InvitationId.Equals(notifInv.InvitationId));
+                        InvitationStatus? invitationStatus = await _dbContext.InvitationStatuses
+                                                                            .Where(i => i.InvitationId.Equals(notifInv.InvitationId)
+                                                                            && i.ReceiverId.Equals(receiverId))
+                                                                            .Include(x => x.Invitation)
+                                                                            .Include(x => x.Receiver)
+                                                                            .FirstOrDefaultAsync();
                         res = (foundNotificationStatus, invitationStatus);
                     }
                 }
@@ -270,11 +283,21 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
         }
         public async Task<List<(NotificationStatus, InvitationStatus?)>> GetNotReadNotificationStatusesByReceiver(int receiverId)
         {
+            List<(NotificationStatus, InvitationStatus?)> result = await GetNotificationStatusesByReceiver(receiverId, false);
+            return result;
+        }
+        public async Task<List<(NotificationStatus, InvitationStatus?)>> GetReadNotificationStatusesByReceiver(int receiverId)
+        {
+            List<(NotificationStatus, InvitationStatus?)> result = await GetNotificationStatusesByReceiver(receiverId, true);
+            return result;
+        }
+        private async Task<List<(NotificationStatus, InvitationStatus?)>> GetNotificationStatusesByReceiver(int receiverId, bool isRead)
+        {
             List<(NotificationStatus, InvitationStatus?)> result = new();
             try
             {
                 List<NotificationStatus> notificationStatuses = await _dbContext.NotificationStatuses
-                                                                                .Where(n => n.ReceiverId.Equals(receiverId))
+                                                                                .Where(n => n.ReceiverId.Equals(receiverId) && n.IsRead == isRead)
                                                                                 .Include(x => x.Notification)
                                                                                 .Include(x => x.Receiver)
                                                                                 .ToListAsync();
@@ -303,5 +326,6 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
 
             return result;
         }
+
     }
 }
