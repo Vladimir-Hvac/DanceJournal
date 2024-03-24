@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DanceJournal.MudWeb.Journal.Services;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace DanceJournal.MudWeb.Journal.Pages
@@ -8,20 +9,18 @@ namespace DanceJournal.MudWeb.Journal.Pages
         private string _name = string.Empty;
         private string _type = "Групповое";
         private double _price;
+        private string _selectedTypeName;
+
 
         [CascadingParameter]
         MudDialogInstance MudDialog { get; set; }
+
         [Parameter]
         public Lesson? Lesson { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
 
-            //if (Lesson?.Name is not null)
-            //{
-            //    _name = Lesson.Name;
-            //    _type = Lesson.Type;
-            //    _price = Lesson.Price;
-            //}
         }
 
         private void Submit()

@@ -3,7 +3,7 @@
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs="12" sm="12">
-            <MudTable Items="Lessons"
+            <MudTable Items="@ManageService.Lessons"
                       Filter="new Func<Lesson,bool>(FilterFunc1)"
                       Bordered="true"
                       Dense="false"
@@ -19,7 +19,7 @@
                     <MudButton Color="Color.Primary"
                                StartIcon="@Icons.Material.Filled.Add"
                                IconSize="Size.Medium"
-                               OnClick="()=>UpdateAsync(new Lesson())">Добавить</MudButton>
+                               OnClick="()=>ManageService.AddAsync(new Lesson())">Добавить</MudButton>
                 </ToolBarContent>
                 <HeaderContent>
                     <MudTh><MudTableSortLabel SortBy="new Func<Lesson, object>(x=>x.LessonType.Name)">Наименование</MudTableSortLabel></MudTh>
@@ -39,9 +39,9 @@
                     <MudTd DataLabel="Type">@context.Start</MudTd>
                     <MudTd DataLabel="Type">@context.Finish</MudTd>
                     <MudTd Style="text-align:right">
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="()=>UpdateAsync(context)" />
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.CopyAll" OnClick="()=>CopyAsync(context)" />
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="()=>RemoveAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="()=>ManageService.UpdateAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.CopyAll" OnClick="()=>ManageService.CopyAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="()=>ManageService.RemoveAsync(context)" />
                     </MudTd>
                 </RowTemplate>
             </MudTable>

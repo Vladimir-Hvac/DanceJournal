@@ -8,6 +8,8 @@ namespace DanceJournal.MudWeb.Journal.Services
     public interface IManageService
     {
         List<LessonType> LessonTypes { get; set; }
+        List<Lesson> Lessons { get; set; }
+        List<Room> Rooms { get; set; }
 
         public Task UpdateAsync(object entity);
         public Task AddAsync(object entity);
@@ -20,9 +22,9 @@ namespace DanceJournal.MudWeb.Journal.Services
         private IDialogService _dialogService;
         private ILessonPlanning _lessonPlanning;
 
-        public List<Lesson> Lessons { get; private set; } = new List<Lesson>();
-        public List<LessonType> LessonTypes { get; set; } = new List<LessonType>();
-        public List<Room> Rooms { get; private set; } = new List<Room>();
+        public List<Lesson> Lessons { get; set; }
+        public List<LessonType> LessonTypes { get; set; }
+        public List<Room> Rooms { get; set; }
         public ManageService(IDbTypeManage lessonTypesManage,  IDialogService dialogService, ILessonPlanning lessonPlanning)
         {
             _lessonTypesManage = lessonTypesManage;
@@ -51,11 +53,16 @@ namespace DanceJournal.MudWeb.Journal.Services
             if (result.Canceled) return;
             switch (entity)
             {
-                case LessonType _:
+                case LessonType resultEntity:
 
-                    LessonType resultEntity = (LessonType)result.Data;
+                    resultEntity = (LessonType)result.Data;
                     LessonTypes.Add(resultEntity);
                     await _lessonPlanning.CreateLessonTypeAsync(resultEntity);
+                    break;
+                case Lesson resultEntity:
+                    resultEntity = (Lesson)result.Data;
+                    Lessons.Add(resultEntity);
+                    await _lessonPlanning.CreateLessonAsync(resultEntity);
                     break;
                 default:
                     break;
@@ -76,9 +83,18 @@ namespace DanceJournal.MudWeb.Journal.Services
             }
         }
 
-        public Task RemoveAsync(object entity)
+        public async Task RemoveAsync(object entity)
         {
-            throw new NotImplementedException();
+            switch (entity)
+            {
+                case LessonType entityAsType:
+                    LessonTypes.Remove(entityAsType);
+                    await _lessonPlanning.DeleteLessonType(entityAsType.Id);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         private async Task<DialogResult> OpenDialog(string title, object entity)

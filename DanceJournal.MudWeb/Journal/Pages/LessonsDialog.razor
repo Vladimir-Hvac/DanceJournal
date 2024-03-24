@@ -1,17 +1,22 @@
 ﻿<MudDialog>
-    <DialogContent>
-        <MudForm>
-            <MudTextField Label="Наименование занятия" @bind-Value="@_name" />
-            <MudTextField Label="Цена, руб" @bind-Value="@_price" />
-            <MudSelect @bind-Value="_type" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense">
-                <MudSelectItem Value="@("Групповое")">Групповое</MudSelectItem>
-                <MudSelectItem Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
+	<DialogContent>
+		<MudForm>
+            <MudSelect T="LessonType" Label="Тип занятия" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var item in ManageService.LessonTypes.Distinct())
+                {
+                    <MudSelectItem T="string" Value="@_selectedTypeName">@item.Type</MudSelectItem>
+                }
             </MudSelect>
-        </MudForm>
-    </DialogContent>
-    <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
-    </DialogActions>
+			<MudTextField Label="Цена, руб" @bind-Value="@_price" />
+			<MudSelect @bind-Value="_type" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense">
+				<MudSelectItem Value="@("Групповое")">Групповое</MudSelectItem>
+				<MudSelectItem Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
+			</MudSelect>
+		</MudForm>
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancel">Cancel</MudButton>
+		<MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+	</DialogActions>
 </MudDialog>
 
