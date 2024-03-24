@@ -32,25 +32,35 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             bool result = false;
             try
             {
-                List<NotificationInvitation> notifInv = new();
+                //List<NotificationInvitation> notifInv = new();
 
-                foreach (var invStat in invitationStatuses)
+                //foreach (var invStat in invitationStatuses)
+                //{
+                //    NotificationInvitation notificationInvitation = new()
+                //    {
+                //        InvitationId = invStat.Item1.InvitationId,
+                //        NotificationId = invStat.notificationId
+                //    };
+                //    notifInv.Add(notificationInvitation);
+                //}
+
+                NotificationInvitation? notifInv = invitationStatuses.Select(x =>
+                                                new NotificationInvitation()
+                                                {
+                                                    InvitationId = x.Item1.InvitationId,
+                                                    NotificationId = x.notificationId
+                                                }).FirstOrDefault();
+
+                if (notifInv != null)
                 {
-                    NotificationInvitation notificationInvitation = new()
-                    {
-                        InvitationId = invStat.Item1.InvitationId,
-                        NotificationId = invStat.notificationId
-                    };
-                    notifInv.Add(notificationInvitation);
+                    await _dbContext.AddRangeAsync(invitationStatuses.Select(x => x.Item1));
+                    await _dbContext.AddRangeAsync(notifInv);
+
+                    await _dbContext.SaveChangesAsync();
+                    result = true;
                 }
-
-                await _dbContext.AddRangeAsync(invitationStatuses.Select(x => x.Item1));
-                await _dbContext.AddRangeAsync(notifInv);
-
-                await _dbContext.SaveChangesAsync();
-                result = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //TODO: Logging
             }
@@ -288,7 +298,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                     NotificationInvitation? notifInv = await _dbContext.NotificationInvitations.FirstOrDefaultAsync(i => i.NotificationId.Equals(notificationId));
                     if (notifInv != null)
                     {
-                        InvitationStatus? invitationStatus = await GetInvitationStatus(notificationId, receiverId);
+                        InvitationStatus? invitationStatus = await GetInvitationStatus(notifInv.InvitationId, receiverId);
 
                         if (notifInv.Invitation != null)
                         {
@@ -304,7 +314,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 //TODO: Logging
             }
@@ -332,7 +342,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                                                                                 .Include(x => x.Receiver)
                                                                                 .ToListAsync();
                 List<InvitationStatus> invitationStatuses = await _dbContext.InvitationStatuses
-                                                                            .Where(i => i.InvitationId.Equals(receiverId))
+                                                                            .Where(i => i.ReceiverId.Equals(receiverId))
                                                                             .Include(x => x.Invitation)
                                                                             .Include(x => x.Receiver)
                                                                             .ToListAsync();

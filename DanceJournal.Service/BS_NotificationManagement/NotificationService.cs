@@ -253,6 +253,24 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     return result;
                 }
 
+                List<NotificationStatus> notificationStatuses = new();
+                foreach (var receipient in invitationCreationDTO.RecipientIds)
+                {
+                    NotificationStatus notificationStatus = new()
+                    {
+                        NotificationId = notificationId,
+                        ReceiverId = receipient
+                    };
+                    notificationStatuses.Add(notificationStatus);
+                }
+                result = await _notificationRepository.AddNotificationStatuses(notificationStatuses);
+
+                if (!result)
+                {
+                    //TODO: Implement logging
+                    return result;
+                }
+
                 List<(InvitationStatus, int)> statusesToAdd = new();
                 foreach (var recipientId in invitationCreationDTO.RecipientIds)
                 {
