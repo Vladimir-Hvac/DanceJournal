@@ -88,11 +88,9 @@ namespace DanceJournal.Services.BS_NotificationManagement
 
                 NotificationStatus notificationStatus = notInv.Value.Item1;
 
-                //Temporary
-                //notificationStatus.IsRead = true;
-                //bool updateResult = await _notificationRepository.UpdateNotificationStatus(notificationStatus);
+                notificationStatus.IsRead = true;
+                bool updateResult = await _notificationRepository.UpdateNotificationStatus(notificationStatus);
 
-                bool updateResult = true;
                 if (!updateResult)
                 {
                     //TODO: Implement logging
