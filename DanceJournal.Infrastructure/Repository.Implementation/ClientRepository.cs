@@ -12,7 +12,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
         }
         public async Task<User> GetEntityOrDefault(int userId, CancellationToken cancellationToken)
         {
-            var client = await _dbContext.Users.Where(item => item.RoleId == 3 & item.Id == userId).FirstAsync(cancellationToken);
+            var client = await _dbContext.Users.Where(item=>item.Id == userId).FirstAsync(cancellationToken);
             if (client == null)
             {
                 throw new Exception("По переданному id не найден пользователь");

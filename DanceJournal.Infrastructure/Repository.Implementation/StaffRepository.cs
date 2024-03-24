@@ -1,4 +1,4 @@
-﻿using DanceJournal.Services.BS_StaffManagement.Abstractions;
+﻿using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
