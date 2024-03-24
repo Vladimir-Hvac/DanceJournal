@@ -1,5 +1,4 @@
 using DanceJournal.Infrastructure.Repository.Implementation;
-using DanceJournal.MudWeb.Data;
 using DanceJournal.MudWeb.Journal.Models;
 using DanceJournal.MudWeb.Journal.Services;
 using DanceJournal.Services.BS_ClientManagement.Abstractions;
@@ -25,6 +24,7 @@ builder.Services.AddScoped<ILessonPlanningRepository, LessonPlanningRepository>(
 builder.Services.AddScoped<ILessonPlanning, BS_LessonsPlanning>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IClientManagementRepository, ClientRepository>();
+builder.Services.AddScoped<IStaffManagentRepository, StaffRepository>();
 builder.Services.AddScoped<IClientManagement, ClientManagementService>();
 builder.Services.AddScoped<DataMapping>();
 builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Singleton);

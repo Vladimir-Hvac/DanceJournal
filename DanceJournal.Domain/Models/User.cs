@@ -14,7 +14,7 @@ public class User
     public string PhoneNumber { get; set; }
     public int LevelId { get; set; }
     public int RoleId { get; set; }
-    public int? SubscriptionId { get; set; }
+    public int SubscriptionId { get; set; }
     public double Salary { get; set; }
 
     [ForeignKey("RoleId")]

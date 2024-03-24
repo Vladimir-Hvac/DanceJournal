@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 
-print("Вот тут у вас упадет с ошибкой - удали эту строку,  но вначале прочитай ниже")
+//print("Вот тут у вас упадет с ошибкой - удали эту строку,  но вначале прочитай ниже")
 
-// Изменения!
-// Изменил модель с Типом абонемента - добавил поле IsActive
-// Изменил модель пользователя, сделал поле подписки необязательным(чтобы при удалении подписки выставить челу null)
-// Если я правильно понял 1 подписка = 1 человек, если всё так - то норм, если нет - кое что подправлю
-// Миграцию не делал
-// P.S. Пару запятых потерял(и пару дефисов), потом найду-верну
+//// Изменения!
+//// Изменил модель с Типом абонемента - добавил поле IsActive
+//// Изменил модель пользователя, сделал поле подписки необязательным(чтобы при удалении подписки выставить челу null)
+//// Если я правильно понял 1 подписка = 1 человек, если всё так - то норм, если нет - кое что подправлю
+//// Миграцию не делал
+//// P.S. Пару запятых потерял(и пару дефисов), потом найду-верну
 
 namespace DanceJournal.Infrastructure.Repository.Implementation
 {
@@ -67,7 +67,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
 
             if (userWithThisSubs != null)
             {
-                userWithThisSubs.SubscriptionId = null;
+                userWithThisSubs.SubscriptionId = default;
                 _dbContext.Users.Update(userWithThisSubs).State = EntityState.Modified;
 
             }
