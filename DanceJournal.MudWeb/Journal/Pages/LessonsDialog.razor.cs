@@ -10,6 +10,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
         private string _type = "Групповое";
         private double _price;
         private string _selectedTypeName;
+        private string _selectedName;
 
 
         [CascadingParameter]
@@ -17,11 +18,14 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         [Parameter]
         public Lesson? Lesson { get; set; }
+        [Parameter]
+        public List<User>? Users { get; set; }
+        [Parameter]
+        public List<Room>? Rooms { get; set; }
+        [Parameter]
+        public List<LessonType>? LessonTypes { get; set; }
 
-        protected override async Task OnInitializedAsync()
-        {
 
-        }
 
         private void Submit()
         {

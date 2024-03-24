@@ -1,5 +1,6 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
 using DanceJournal.MudWeb.Journal.Services;
+using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -7,11 +8,15 @@ namespace DanceJournal.MudWeb.Journal.Pages
 {
 	public partial class LessonsComponent
 	{
-
-		[Inject]
+		private CancellationToken _cancellationToken;
+        [Inject]
+        public DataMapping DataMapping { get; set; }
+        [Inject]
 		public ILessonPlanning LessonPlanning { get; set; }
+        [Inject]
+        public IClientManagement ClientManagement { get; set; }
 
-		[Inject]
+        [Inject]
 		public IManageService ManageService { get; set; }
 
 		private string _searchString;
@@ -19,13 +24,14 @@ namespace DanceJournal.MudWeb.Journal.Pages
 		protected override async Task OnInitializedAsync()
 		{
 			var lessons = await LessonPlanning.GetAllLessonsAsync();
-			ManageService.Lessons = lessons.ToList();
+			//var lessons = DataMapping.LessonsDTO;
+            ManageService.Lessons = lessons.ToList();
             var lessonTypes = await LessonPlanning.GetAllLessonsTypesAsync();
             ManageService.LessonTypes = lessonTypes.ToList();
             var rooms = await LessonPlanning.GetAllRoomsAsync();
             ManageService.Rooms = rooms.ToList();
-            var users = await LessonPlanning.();
-            ManageService.Rooms = rooms.ToList().Where(e=>e.);
+            var users = await ClientManagement.GetAllClientsAsync(_cancellationToken);
+            ManageService.Users = users.ToList();
 
         }
 
