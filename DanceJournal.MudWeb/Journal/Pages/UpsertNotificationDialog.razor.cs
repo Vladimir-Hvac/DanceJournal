@@ -41,9 +41,6 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 RecipientIds = UpsertNotificationVM.SelectedUsers.Select(x => x.Id).ToList()
             };
 
-            //Temporary
-            notificationCreationDTO.RecipientIds = new() { 2 };
-
             if (UpsertNotificationVM.CurrentAuthUser is null)
             {
                 //User informing

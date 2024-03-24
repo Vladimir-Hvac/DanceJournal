@@ -11,11 +11,11 @@
                                MultiSelection=true
                                Label="Выберите получателей уведомления"                              
                                AnchorOrigin="Origin.BottomCenter"
-                               @bind-Value="@UpsertNotificationVM.SelectedUser"
-                               @bind-Values="@UpsertNotificationVM.SelectedUsers">
+                               ToStringFunc="UserToString"
+                               @bind-SelectedValues="UpsertNotificationVM.SelectedUsers">
                         @foreach (User item in UpsertNotificationVM.Recipients)
                         {
-                            <MudSelectItem T="User" Value="item">@item.Surname @item.FirstName</MudSelectItem>
+                            <MudSelectItem T="User" Value="@item">@item.Surname @item.FirstName</MudSelectItem>
                         }
                     </MudSelect>
                     <MudTextField @bind-Value="UpsertNotificationVM.NotificationBody"

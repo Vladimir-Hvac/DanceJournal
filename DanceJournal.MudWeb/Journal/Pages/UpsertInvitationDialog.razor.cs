@@ -48,7 +48,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
             InvitationCreationDTO invitation = new()
             {
                 InvitationBody = UpsertInvitationVM.InvitationBody,
-                RecipientIds = UpsertInvitationVM.Recipients.Select(x => x.Id).ToList(),
+                RecipientIds = UpsertInvitationVM.SelectedUsers.Select(x => x.Id).ToList(),
                 UserLimit = UpsertInvitationVM.UserLimit
             };
 

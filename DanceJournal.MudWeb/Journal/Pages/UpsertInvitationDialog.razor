@@ -22,7 +22,7 @@
                                Label="Выберите получателей приглашения"
                                ToStringFunc="UserToString"
                                AnchorOrigin="Origin.BottomCenter"
-                               @bind-Values="@UpsertInvitationVM.SelectedUsers">
+                               @bind-SelectedValues="@UpsertInvitationVM.SelectedUsers">
                         @foreach (User item in UpsertInvitationVM.Recipients)
                         {
                             <MudSelectItem T="User" Value="item">@item.Surname @item.FirstName</MudSelectItem>

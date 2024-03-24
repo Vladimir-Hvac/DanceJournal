@@ -7,7 +7,7 @@ namespace DanceJournal.MudWeb.Journal.Models
         public CurrentAuthUser? CurrentAuthUser { get; set; }
         public List<User> Recipients { get; set; } = new();
         public string NotificationBody { get; set; } = string.Empty;
-        public List<User> SelectedUsers { get; set; } = new();
+        public IEnumerable<User> SelectedUsers { get; set; } = Enumerable.Empty<User>();
         public User SelectedUser { get; set; }
     }
 }
