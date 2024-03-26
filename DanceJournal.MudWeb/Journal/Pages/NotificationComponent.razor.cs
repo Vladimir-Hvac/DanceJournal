@@ -97,6 +97,11 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 parameters,
                 _dialogOptions
             );
+            var result = await dialog.Result;
+            if (!result.Canceled)
+            {
+                await LoadNotReadNotifications();
+            }
         }
         private async void OnCreateNotificationClick()
         {
@@ -116,7 +121,20 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 _dialogOptions
             );
 
-            //Add update 
+            var result = await dialog.Result;
+            if (!result.Canceled)
+            {
+                await LoadNotReadNotifications();
+            }
+        }
+        private async Task LoadNotReadNotifications()
+        {
+            if (_currentAuthUser is null)
+            {
+                return;
+            }
+            _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
+            await InvokeAsync(StateHasChanged);
         }
     }
 }
