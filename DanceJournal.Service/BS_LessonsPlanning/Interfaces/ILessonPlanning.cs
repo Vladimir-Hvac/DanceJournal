@@ -25,4 +25,6 @@ public interface ILessonPlanning
     public Task<IEnumerable<LessonUser>> GetAllLessonUsersByUserAsync(int userId);
     public Task<IEnumerable<LessonUser>> GetAllLessonUsersByLessonAsync(int lessonId);
     public Task<LessonUser> GetLessonUserAsync(int userId, int lessonId);
+
+    public Task<IEnumerable<Level>> GetAllLevelsAsync();
 }

@@ -23,7 +23,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
         }
         public async Task<List<User>> GetAllEntity( CancellationToken cancellationToken)
         {
-            var clients = await _dbContext.Users.Where(item => item.RoleId == 1).ToListAsync(cancellationToken);
+            var clients = await _dbContext.Users.ToListAsync(cancellationToken);
             return clients;
         }
         public async Task<User> CreateEntity(User user,CancellationToken cancellationToken)

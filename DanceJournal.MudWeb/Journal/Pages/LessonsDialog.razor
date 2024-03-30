@@ -1,25 +1,40 @@
 ﻿<MudDialog>
 	<DialogContent>
-        <MudForm>
-            <MudSelect @bind-Value="_selectedTypeName" Label="Тип занятия" AnchorOrigin="Origin.BottomCenter">
-                @foreach (var item in LessonTypes.DistinctBy(x => x.Type))
-                {
-                    <MudSelectItem T="string" Value="@item.Type">@item.Type</MudSelectItem>
-                }
-            </MudSelect>
-            <MudSelect @bind-Value="_selectedName" Label="Название занятия" AnchorOrigin="Origin.BottomCenter">
-                @foreach (var item in LessonTypes.Where(e=>e.Type.Equals(_selectedTypeName)))
-                {
-                    <MudSelectItem T="string" Value="@item.Name">@item.Name</MudSelectItem>
-                }
-            </MudSelect>
+		<MudForm>
+			<MudSelect @bind-Value="_selectedTypeName" Label="Тип занятия" AnchorOrigin="Origin.BottomCenter">
+				@foreach (var item in LessonTypes.DistinctBy(x => x.Type))
+				{
+					<MudSelectItem T="string" Value="@item.Type">@item.Type</MudSelectItem>
+				}
+			</MudSelect>
+			<MudSelect @bind-Value="_selectedLessonType" Label="Название занятия" AnchorOrigin="Origin.BottomCenter">
+				@foreach (var item in LessonTypes.Where(e => e.Type.Equals(_selectedTypeName)))
+				{
+					<MudSelectItem T="LessonType" Value="@item">@item.Name</MudSelectItem>
+				}
+			</MudSelect>
+			<MudSelect @bind-Value="_selectedRoom" Label="Зал" AnchorOrigin="Origin.BottomCenter">
+				@foreach (var item in Rooms)
+				{
+					<MudSelectItem T="Room" Value="@item">@item.Name</MudSelectItem>
+				}
+			</MudSelect>
+			<MudSelect @bind-Value="_selectedTrainer" Label="Тренер" AnchorOrigin="Origin.BottomCenter">
+				@foreach (var item in Users.Where(e => e.Role.Id.Equals(2)))
+				{
+					<MudSelectItem T="User" Value="item">@item.FirstName @item.SecondName</MudSelectItem>
+				}
+			</MudSelect>
+			<MudButtonGroup>
+				<MudDatePicker Label="Дата начала" @bind-Date="@_startDate" DisableToolbar="true"/>
+				<MudTimePicker Label="Время начала" @bind-Time="@_startTime" />
+			</MudButtonGroup>
+			<MudButtonGroup>
+				<MudDatePicker Label="Дата окончания" @bind-Date="@_endDate" DisableToolbar="true"/>
+				<MudTimePicker Label="Время окончания" @bind-Time="@_endTime" />
+			</MudButtonGroup>
 
-            <MudTextField Label="Цена, руб" @bind-Value="@_price" />
-            <MudSelect @bind-Value="_type" Required RequiredError="You must select a Type!!!" Margin="@Margin.Dense">
-                <MudSelectItem Value="@("Групповое")">Групповое</MudSelectItem>
-                <MudSelectItem Value="@("Индивидуальное")">Индивидуальное</MudSelectItem>
-            </MudSelect>
-        </MudForm>
+		</MudForm>
 	</DialogContent>
 	<DialogActions>
 		<MudButton OnClick="Cancel">Cancel</MudButton>

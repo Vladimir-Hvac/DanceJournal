@@ -9,30 +9,20 @@ namespace DanceJournal.MudWeb.Journal.Pages
 	public partial class LessonsComponent
 	{
 		private CancellationToken _cancellationToken;
-        [Inject]
-        public DataMapping DataMapping { get; set; }
-        [Inject]
-		public ILessonPlanning LessonPlanning { get; set; }
-        [Inject]
-        public IClientManagement ClientManagement { get; set; }
 
         [Inject]
 		public IManageService ManageService { get; set; }
+
 
 		private string _searchString;
 
 		protected override async Task OnInitializedAsync()
 		{
-			var lessons = await LessonPlanning.GetAllLessonsAsync();
-			//var lessons = DataMapping.LessonsDTO;
-            ManageService.Lessons = lessons.ToList();
-            var lessonTypes = await LessonPlanning.GetAllLessonsTypesAsync();
-            ManageService.LessonTypes = lessonTypes.ToList();
-            var rooms = await LessonPlanning.GetAllRoomsAsync();
-            ManageService.Rooms = rooms.ToList();
-            var users = await ClientManagement.GetAllClientsAsync(_cancellationToken);
-            ManageService.Users = users.ToList();
-
+			ManageService.Lessons = await ManageService.GetLessonsAsync();
+			ManageService.LessonTypes = await ManageService.GetLessonTypesAsync();
+			ManageService.Rooms = await ManageService.GetRoomsAsync();
+			ManageService.Users = await ManageService.GetUsersAsync();
+			ManageService.Levels = await ManageService.GetLevelsAsync();
         }
 
         private bool FilterFunc1(Lesson element) => FilterFunc(element, _searchString);
@@ -43,11 +33,19 @@ namespace DanceJournal.MudWeb.Journal.Pages
 				return true;
 			if (element.LessonType.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 				return true;
-			if (element.LessonType.Price.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
-				return true;
 			if (element.LessonType.Type.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 				return true;
-			return false;
+			if (element.Room.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+				return true;
+            if (element.User.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Level.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Start.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Finish.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
 		}
 	}
 }

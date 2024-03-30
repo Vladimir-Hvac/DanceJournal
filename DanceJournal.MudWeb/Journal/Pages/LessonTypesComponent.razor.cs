@@ -10,15 +10,13 @@ namespace DanceJournal.MudWeb.Journal.Pages
     partial class LessonTypesComponent
     {
         [Inject] public IManageService ManageService { get; set; }
-        [Inject] public ILessonPlanning LessonPlanning { get; set; }
 
 
         private string _searchString;
 
         protected override async Task OnInitializedAsync()
         {
-            var test = await LessonPlanning.GetAllLessonsTypesAsync();
-            ManageService.LessonTypes = test.ToList();
+            ManageService.LessonTypes = await ManageService.GetLessonTypesAsync(); 
         }
 
         private bool FilterFunc1(LessonType element) => FilterFunc(element, _searchString);
