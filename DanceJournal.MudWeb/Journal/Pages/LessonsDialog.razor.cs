@@ -32,15 +32,18 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            _selectedTypeName = Lesson.LessonType.Type;
-            _selectedLevel = Lesson.Level;
-            _selectedLessonType = Lesson.LessonType;
-            _selectedRoom = Lesson.Room;
-            _selectedTrainer = Lesson.User;
-            _startDate = Lesson.Start.Date;
-            _startTime = Lesson.Start.TimeOfDay;
-            _endDate = Lesson.Finish.Date;
-            _endTime = Lesson.Finish.TimeOfDay;
+            if (Lesson.Id>0)
+            {
+                _selectedTypeName = Lesson.LessonType.Type;
+                _selectedLevel = Lesson.Level;
+                _selectedLessonType = Lesson.LessonType;
+                _selectedRoom = Lesson.Room;
+                _selectedTrainer = Lesson.User;
+                _startDate = Lesson.Start.Date;
+                _startTime = Lesson.Start.TimeOfDay;
+                _endDate = Lesson.Finish.Date;
+                _endTime = Lesson.Finish.TimeOfDay;
+            }
         }
         private void Submit()
         {
