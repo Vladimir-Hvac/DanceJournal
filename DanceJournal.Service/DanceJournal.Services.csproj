@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -12,5 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DanceJournal.Domain\DanceJournal.Domain.csproj" />
+	  <ProjectReference Include="..\DanceJournal.Contracts\DanceJournal.Contracts.csproj" />
   </ItemGroup>
 </Project>
