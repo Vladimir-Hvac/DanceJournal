@@ -16,10 +16,17 @@
         </MudDrawerHeader>
             <MudCard>
                 <MudCardContent>
+                    <MudText Typo="Typo.body1">Тип занятия: @_selectedLesson.LessonType.Type</MudText>
                     <MudText Typo="Typo.body1">Занятие: @_selectedLesson.LessonType.Name</MudText>
-                    <MudText Typo="Typo.body1">Стоимость: @_selectedLesson.LessonType.Price руб.</MudText>
+                    @if (_selectedLesson.LessonType.Type.Equals("Индивидуальное"))
+                    {
+                        <MudText Typo="Typo.body1">Стоимость: @_selectedLesson.LessonType.Price руб.</MudText>
+                    }
                     <MudText Typo="Typo.body1">Зал: @_selectedLesson.Room.Name</MudText>
                     <MudText Typo="Typo.body1">Уровень: @_selectedLesson.Level.Title</MudText>
+                    <MudText Typo="Typo.body1">Тренер: @_selectedLesson.User.FirstName @_selectedLesson.User.SecondName</MudText>
+                    <MudText Typo="Typo.body1">Начало: @_selectedLesson.Start.ToString()</MudText>
+                    <MudText Typo="Typo.body1">Окончание: @_selectedLesson.Finish.ToString()</MudText>
                 </MudCardContent>
             </MudCard>
             <MudDrawerContainer>

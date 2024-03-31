@@ -47,22 +47,25 @@ namespace DanceJournal.MudWeb.Journal.Pages
         }
         private void Submit()
         {
-            if (Lesson.Id == 0)
-            {
-                _startDate.Value.AddHours(_startTime.Value.Hours);
-                _startDate.Value.AddMinutes(_startTime.Value.Minutes);
-                _endDate.Value.AddHours(_endTime.Value.Hours);
-                _endDate.Value.AddMinutes(_endTime.Value.Minutes);
+            var start = new DateTime(_startDate.Value.Year,
+                _startDate.Value.Month,
+                _startDate.Value.Day,
+                _startTime.Value.Hours,
+                _startTime.Value.Minutes, 00);
+            var end = new DateTime(_endDate.Value.Year,
+                _endDate.Value.Month,
+                _endDate.Value.Day,
+                _endTime.Value.Hours,
+                _endTime.Value.Minutes, 00);
 
-                Lesson.Finish = _endDate ?? DateTime.Now;
-                Lesson.LessonType = _selectedLessonType;
-                Lesson.LevelId = 1;
-                Lesson.Room = _selectedRoom;
-                Lesson.Start = _startDate?? DateTime.Now;
-                Lesson.User = _selectedTrainer;
+            Lesson.Finish = end;
+            Lesson.LessonType = _selectedLessonType;
+            Lesson.LevelId = 1;
+            Lesson.Room = _selectedRoom;
+            Lesson.Start = start;
+            Lesson.User = _selectedTrainer;
 
-            }
-            
+
             MudDialog.Close(DialogResult.Ok(Lesson));
 
         }

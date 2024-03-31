@@ -1,4 +1,5 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
+using DanceJournal.MudWeb.Journal.Services;
 using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using Microsoft.AspNetCore.Components;
 
@@ -7,15 +8,17 @@ namespace DanceJournal.MudWeb.Journal.Pages
     partial class UsersDataComponent
     {
         [Inject]
-        public IClientManagement ClientManagement { get; set; }
+        public IManageService ManageService { get; set; }
+        private bool render = false;
 
-        private List<User>? _users;
 
         protected override async Task OnInitializedAsync()
         {
-            //_users = _dataMapping.UsersDTO;
-            _users = await ClientManagement.GetAllClientsAsync(new CancellationToken());
-            DateOnly startDay = new DateOnly(2023, 8, 17);
+
+            ManageService.Roles = await ManageService.GetRoles();
+            ManageService.Users = await ManageService.GetUsersAsync();
+            ManageService.Subscription = await ManageService.GetAllSubscription();
+            render = true;
         }
     }
 }

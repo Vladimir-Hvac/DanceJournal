@@ -1,4 +1,5 @@
 ﻿using DanceJournal.MudWeb.Journal.Pages;
+using DanceJournal.Services.BS_AbonementManagement.Abstractions;
 using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using MudBlazor;
 
@@ -11,37 +12,49 @@ namespace DanceJournal.MudWeb.Journal.Services
         public List<Room> Rooms { get; set; }
         public List<User> Users { get; set; }
         public List<Level> Levels { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<Subscription> Subscription { get; set; }
 
         public Task<List<Lesson>> GetLessonsAsync();
         public Task<List<LessonType>> GetLessonTypesAsync();
         public Task<List<Room>> GetRoomsAsync();
         public Task<List<User>> GetUsersAsync();
         public Task<List<Level>> GetLevelsAsync();
+        public Task<List<Role>> GetRoles();
+        public Task<List<Subscription>> GetAllSubscription();
 
         public Task UpdateAsync(object entity);
         public Task AddAsync(object entity);
         public Task CopyAsync(object entity);
         public Task RemoveAsync(object entity);
+
+        public Task SubscribeToLesson(int lessonId, int userId);
     }
     public class ManageService : IManageService
     {
         private IDialogService _dialogService;
         private ILessonPlanning _lessonPlanning;
         private IClientManagement _clientManagement;
+        private IAbonementService _abonementService;
 
         public List<Lesson> Lessons { get; set; }
         public List<LessonType> LessonTypes { get; set; }
         public List<Room> Rooms { get; set; }
         public List<User> Users { get; set; }
         public List<Level> Levels { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<Subscription> Subscription { get; set; }
+
 
         public ManageService(IDialogService dialogService,
             ILessonPlanning lessonPlanning,
-            IClientManagement clientManagement)
+            IClientManagement clientManagement,
+            IAbonementService abonementService)
         {
             _dialogService = dialogService;
             _lessonPlanning = lessonPlanning;
             _clientManagement = clientManagement;
+            _abonementService = abonementService;
 
         }
 
@@ -255,6 +268,25 @@ namespace DanceJournal.MudWeb.Journal.Services
             var test = await _lessonPlanning.GetAllLevelsAsync();
             levels = test.ToList();
             return levels;
+        }
+        public async Task SubscribeToLesson(int lessonId,int userId)
+        {
+            var lessonUser = new LessonUser() { IsVisit = true, LessonId = lessonId,UserId = userId };
+            await _lessonPlanning.CreateLessonUserAsync(lessonUser);
+        }
+        public async Task<List<Role>> GetRoles()
+        {
+            List<Role> roles = new List<Role>();
+            var test = await _clientManagement.GetAllRolesAsync();
+            roles = test.ToList();
+            return roles;
+        }
+        public async Task<List<Subscription>> GetAllSubscription()
+        {
+            List<Subscription> subscription = new List<Subscription>();
+            var test = await _abonementService.GetAllAbonementsAsync(new CancellationToken());
+            subscription = test.ToList();
+            return subscription;
         }
 
     }

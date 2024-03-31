@@ -20,6 +20,11 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             var staffUsers = await _dbContext.Users.Where(item=> item.RoleId == 3).ToListAsync(cancellationToken);
             return staffUsers;
         }
+        public async Task<List<Role>> GetAllRoles()
+        {
+            var roles = await _dbContext.Roles.ToListAsync();
+            return roles;
+        }
         public async Task<User> GetEntityOrDefault(int userId, CancellationToken cancellationToken) 
         {
             var user = await _dbContext.Users.Where(item => item.RoleId == 3 & item.Id == userId).FirstOrDefaultAsync(cancellationToken);

@@ -20,7 +20,7 @@
 				}
 			</MudSelect>
 			<MudSelect @bind-Value="_selectedTrainer" Label="Тренер" AnchorOrigin="Origin.BottomCenter">
-				@foreach (var item in Users.Where(e => e.Role.Id.Equals(2)))
+				@foreach (var item in Users.Where(e => e.RoleId.Equals(2)))
 				{
 					<MudSelectItem T="User" Value="item">@item.FirstName @item.SecondName</MudSelectItem>
 				}
