@@ -1,24 +1,26 @@
 ﻿@page "/users"
-<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
-    <MudGrid>
-        <MudItem xs="12" sm="12">
-            <MudTable T="User" Items="@_users">
-                <HeaderContent>
-                    <MudTh>Id</MudTh>
-                    <MudTd>Surname</MudTd>
-                    <MudTd>FirstName</MudTd>
-                    <MudTd>SecondName</MudTd>
-                    <MudTd>BirthDate</MudTd>
-                    <MudTh>Gender</MudTh>
-                    <MudTh>Email</MudTh>
-                    <MudTh>Phone Number</MudTh>
-                    <MudTh>Level</MudTh>
-                    <MudTh>Role</MudTh>
-                    <MudTh>Subscription</MudTh>
-                    <MudTh>Salary</MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd>@context.Id</MudTd>
+@if (render)
+{
+    <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+        <MudGrid>
+            <MudItem xs="12" sm="12">
+                <MudTable T="User" Items="@ManageService.Users">
+                    <HeaderContent>
+                        <MudTh>Id</MudTh>
+                        <MudTd>Surname</MudTd>
+                        <MudTd>FirstName</MudTd>
+                        <MudTd>SecondName</MudTd>
+                        <MudTd>BirthDate</MudTd>
+                        <MudTh>Gender</MudTh>
+                        <MudTh>Email</MudTh>
+                        <MudTh>Phone Number</MudTh>
+                        <MudTh>Level</MudTh>
+                        <MudTh>Role</MudTh>
+                        <MudTh>Subscription</MudTh>
+                        <MudTh>Salary</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd>@context.Id</MudTd>
                         <MudTd>@context.Surname</MudTd>
                         <MudTd>@context.FirstName</MudTd>
                         <MudTd>@context.SecondName</MudTd>
@@ -36,3 +38,5 @@
             </MudItem>
         </MudGrid>
     </MudContainer>
+
+}

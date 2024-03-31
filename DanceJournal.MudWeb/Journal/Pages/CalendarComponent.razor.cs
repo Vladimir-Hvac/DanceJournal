@@ -1,4 +1,5 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
+using DanceJournal.MudWeb.Journal.Services;
 using Heron.MudCalendar;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -13,21 +14,24 @@ namespace DanceJournal.MudWeb.Journal.Pages
         private List<CalendarItem> _allEvents = new List<CalendarItem>();
         private List<CalendarItem> _myEvents = new List<CalendarItem>();
 
-        [Inject]
-        public DataMapping _dataMapping { get; set; }
-        public List<Lesson> Lessons { get; set; }
+        [Inject] IManageService ManageService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Lessons = _dataMapping.LessonsDTO;
-            _allEvents = GetEvents(Lessons);
-            _myEvents = GetEvents(Lessons.Where(e => e.UserId == 1).ToList());
+            ManageService.Lessons = await ManageService.GetLessonsAsync();
+            ManageService.LessonTypes = await ManageService.GetLessonTypesAsync();
+            ManageService.Rooms = await ManageService.GetRoomsAsync();
+            ManageService.Users = await ManageService.GetUsersAsync();
+            ManageService.Levels = await ManageService.GetLevelsAsync();
+
+            _allEvents = GetEvents(ManageService.Lessons);
+            _myEvents = GetEvents(ManageService.Lessons.Where(e => e.UserId == 1).ToList());
         }
 
         private void OnClick(CalendarItem caledarItem)
         {
             int index = _allEvents.IndexOf(caledarItem);
-            _selectedLesson = Lessons[index];
+            _selectedLesson = ManageService.Lessons[index];
             _showEvents = !_showEvents;
             _anchor = Anchor.End;
         }
@@ -41,13 +45,16 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 {
                     Start = lesson.Start,
                     End = lesson.Finish,
-                    Text = _dataMapping.GetLessonTypeName(lesson.LessonTypeId),
+                    Text = ManageService.LessonTypes.FirstOrDefault(e=>e.Id.Equals(lesson.LessonTypeId)).Name,
                 };
                 events.Add(calendarItem);
             }
             return events;
         }
 
-        private void Subscribe() { }
+        private void Subscribe()
+        {
+            //ManageService.SubscribeToLesson(_selectedLesson.Id, _currentUser.Id);
+        }
     }
 }

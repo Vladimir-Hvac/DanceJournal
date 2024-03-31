@@ -37,10 +37,15 @@ namespace DanceJournal.Services.ClientManagementService
         {
             return await _repositoryStaff.GetAllEntity(cancellationToken);
         }
+        public async Task<List<Role>> GetAllRolesAsync()
+        {
+            return await _repositoryClient.GetAllRoles();
+        }
         public async Task<User> ChangeLevelUserAsync(int userId, int levelId, CancellationToken cancellationToken)
         {
             return await _repositoryStaff.UpdateLevelEntity(userId, levelId, cancellationToken);
         }
+
 
     }
 }

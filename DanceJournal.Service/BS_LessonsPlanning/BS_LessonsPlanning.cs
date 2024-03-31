@@ -154,5 +154,10 @@ namespace DanceJournal.Services.BS_LessonsPlanning
         {
             return await _repository.GetLessonUserAsync(userId,lessonId);
         }
+
+        public async Task<IEnumerable<Level>> GetAllLevelsAsync()
+        {
+            return await _repository.GetAllLevels();
+        }
     }
 }
