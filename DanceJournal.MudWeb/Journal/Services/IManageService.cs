@@ -14,6 +14,7 @@ namespace DanceJournal.MudWeb.Journal.Services
         public List<Level> Levels { get; set; }
         public List<Role> Roles { get; set; }
         public List<Subscription> Subscription { get; set; }
+        public List<SubscriptionType> SubscriptionType { get; set; }
 
         public Task<List<Lesson>> GetLessonsAsync();
         public Task<List<LessonType>> GetLessonTypesAsync();
@@ -22,6 +23,7 @@ namespace DanceJournal.MudWeb.Journal.Services
         public Task<List<Level>> GetLevelsAsync();
         public Task<List<Role>> GetRoles();
         public Task<List<Subscription>> GetAllSubscription();
+        public Task<List<SubscriptionType>> GetAllSubscriptionType();
 
         public Task UpdateAsync(object entity);
         public Task AddAsync(object entity);
@@ -44,6 +46,7 @@ namespace DanceJournal.MudWeb.Journal.Services
         public List<Level> Levels { get; set; }
         public List<Role> Roles { get; set; }
         public List<Subscription> Subscription { get; set; }
+        public List<SubscriptionType> SubscriptionType { get; set; }
 
 
         public ManageService(IDialogService dialogService,
@@ -289,5 +292,12 @@ namespace DanceJournal.MudWeb.Journal.Services
             return subscription;
         }
 
+        public async Task<List<SubscriptionType>> GetAllSubscriptionType()
+        {
+            List<SubscriptionType> subscriptionType = new List<SubscriptionType>();
+            var test = await _abonementService.GetAllTypeAbonementsAsync(new CancellationToken());
+            subscriptionType = test.ToList();
+            return subscriptionType;
+        }
     }
 }

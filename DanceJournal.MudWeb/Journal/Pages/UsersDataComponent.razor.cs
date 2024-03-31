@@ -16,8 +16,10 @@ namespace DanceJournal.MudWeb.Journal.Pages
         {
 
             ManageService.Roles = await ManageService.GetRoles();
-            ManageService.Users = await ManageService.GetUsersAsync();
+            ManageService.Levels = await ManageService.GetLevelsAsync();
+            ManageService.SubscriptionType = await ManageService.GetAllSubscriptionType();
             ManageService.Subscription = await ManageService.GetAllSubscription();
+            ManageService.Users = await ManageService.GetUsersAsync();
             render = true;
         }
     }

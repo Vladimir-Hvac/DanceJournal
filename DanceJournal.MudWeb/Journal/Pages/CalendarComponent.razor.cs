@@ -24,6 +24,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
             ManageService.Users = await ManageService.GetUsersAsync();
             ManageService.Levels = await ManageService.GetLevelsAsync();
 
+
             _allEvents = GetEvents(ManageService.Lessons);
             _myEvents = GetEvents(ManageService.Lessons.Where(e => e.UserId == 1).ToList());
         }
