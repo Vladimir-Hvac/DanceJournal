@@ -32,18 +32,6 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             bool result = false;
             try
             {
-                //List<NotificationInvitation> notifInv = new();
-
-                //foreach (var invStat in invitationStatuses)
-                //{
-                //    NotificationInvitation notificationInvitation = new()
-                //    {
-                //        InvitationId = invStat.Item1.InvitationId,
-                //        NotificationId = invStat.notificationId
-                //    };
-                //    notifInv.Add(notificationInvitation);
-                //}
-
                 NotificationInvitation? notifInv = invitationStatuses.Select(x =>
                                                 new NotificationInvitation()
                                                 {
@@ -122,7 +110,10 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             List<User> result = new();
             try
             {
-                result = await _dbContext.Users.ToListAsync();
+                result = await _dbContext.Users
+                            .Include(x => x.Role)
+                            .Include(x => x.Level)
+                            .Include(x => x.Subscription).ToListAsync();
             }
             catch (Exception)
             {
@@ -207,6 +198,9 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
             try
             {
                 result = await _dbContext.Users
+                            .Include(x => x.Role)
+                            .Include(x => x.Level)
+                            .Include(x => x.Subscription)
                            .FirstOrDefaultAsync(i => i.Email.Equals(userEmail));
             }
             catch (Exception)
