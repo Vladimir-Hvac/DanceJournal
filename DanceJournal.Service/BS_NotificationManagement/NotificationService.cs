@@ -1,4 +1,5 @@
-﻿using DanceJournal.Domain.Models;
+﻿using DanceJournal.Contracts.MessageContracts;
+using DanceJournal.Domain.Models;
 using DanceJournal.Services.BS_NotificationManagement.Contracts;
 using DanceJournal.Services.BS_NotificationManagement.Gateways;
 using DanceJournal.Services.BS_NotificationManagement.Mapping;
@@ -9,11 +10,13 @@ namespace DanceJournal.Services.BS_NotificationManagement
     {
         private readonly INotificationRepository _notificationRepository;
         private readonly ILessonPlanning _lessonPlanning;
+        private readonly IBrokerService _brokerService;
 
-        public NotificationService(INotificationRepository notificationRepository, ILessonPlanning lessonPlanning)
+        public NotificationService(INotificationRepository notificationRepository, ILessonPlanning lessonPlanning, IBrokerService brokerService)
         {
             _notificationRepository = notificationRepository;
             _lessonPlanning = lessonPlanning;
+            _brokerService = brokerService;
         }
 
         public async Task<List<NotificationDTO>> GetNotReadNotifications(CurrentAuthUser currentAuthUser)
@@ -444,7 +447,12 @@ namespace DanceJournal.Services.BS_NotificationManagement
                     };
                     notificationStatuses.Add(notificationStatus);
                 }
+
                 result = await _notificationRepository.AddNotificationStatuses(notificationStatuses);
+                if (result)
+                {
+                    _brokerService.PublishNotificationMessage(BuildMessage(user, notificationCreationDTO));
+                }
 
             }
             catch (Exception ex)
@@ -453,6 +461,23 @@ namespace DanceJournal.Services.BS_NotificationManagement
             }
 
             return result;
+        }
+
+        private NotificationMessageDTO BuildMessage(User sender, NotificationCreationDTO notificationCreationDTO)
+        {
+            string recievers = string.Empty;
+            int i = 0;
+            foreach (var receipient in notificationCreationDTO.RecipientIds)
+            {
+                i++;
+                recievers += receipient.ToString();
+                if (notificationCreationDTO.RecipientIds.Count > i)
+                {
+                    recievers += ",";
+                }
+            }
+            return new NotificationMessageDTO()
+            { Message = $"User: Id{sender.Id} sent the notification to Users: Ids {recievers}.\nMessage: {notificationCreationDTO.NotificationBody}" };
         }
     }
 }

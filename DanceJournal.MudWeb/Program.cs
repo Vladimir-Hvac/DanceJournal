@@ -1,3 +1,4 @@
+using DanceJournal.Infrastructure.RabbitService;
 using DanceJournal.Infrastructure.Repository.Implementation;
 using DanceJournal.MudWeb.Journal.Models;
 using DanceJournal.MudWeb.Journal.Services;
@@ -19,6 +20,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 builder.Services.AddDbContext<DanceJournalDbContext>(ServiceLifetime.Scoped);
+builder.Services.AddScoped<IBrokerService, RabbitAccess>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<ILessonPlanningRepository, LessonPlanningRepository>();
 builder.Services.AddScoped<ILessonPlanning, BS_LessonsPlanning>();
