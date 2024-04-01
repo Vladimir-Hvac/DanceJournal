@@ -31,6 +31,8 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         private bool _render;
 
+        private string _title = "Новые";
+
         protected override async Task OnInitializedAsync()
         {
             _currentAuthUser = new CurrentAuthUser()
@@ -64,6 +66,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
             _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
             _selectedNotification = null;
             _isReadingMode = false;
+            _title = "Новые";
             await InvokeAsync(StateHasChanged);
         }
         private async void OnArchivedNotificationsClick()
@@ -76,6 +79,7 @@ namespace DanceJournal.MudWeb.Journal.Pages
             _notifications = await NotificationService.GetReadNotifications(_currentAuthUser);
             _selectedNotification = null;
             _isReadingMode = false;
+            _title = "Архив";
             await InvokeAsync(StateHasChanged);
         }
         private async void OnCreateInvitationClick()
