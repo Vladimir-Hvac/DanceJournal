@@ -3,6 +3,10 @@ using DanceJournal.Contracts.MessageContracts;
 using DanceJournal.MailClient;
 using DanceJournal.MailClient.Adapters;
 
+object locker = new();
+MailClient mailClient = new();
+
+
 Console.WriteLine("The MailClient started.");
 
 string brokerConnectionString = $"amqps://sjpgbhvs:V9cPualIQSXQKEcIHVPuNNknz5V0Y3dE@goose.rmq2.cloudamqp.com/sjpgbhvs";
@@ -12,5 +16,15 @@ mailClientBrokerService.Subscribe();
 Console.ReadLine();
 void HandleMessage(NotificationMessageDTO message)
 {
-    Console.WriteLine($"The MailClient recieved the message: {message.Message}");
+    Thread myThread = new Thread(new ParameterizedThreadStart(Print));
+    myThread.Start(message);
+}
+
+
+void Print(object? message)
+{
+    lock (locker)
+    {
+        mailClient.Execute(message);
+    }
 }
