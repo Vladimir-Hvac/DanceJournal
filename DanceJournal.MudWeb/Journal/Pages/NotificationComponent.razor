@@ -32,7 +32,14 @@
                     @if(!_isReadingMode)
                     {                    
                         <MudStack Spacing="10">
-                            <MudText Typo="Typo.h4">@_title</MudText>
+                            <MudGrid>
+                                <MudItem xs="10">
+                                    <MudText Typo="Typo.h4">@_title</MudText>
+                                </MudItem>
+                                    <MudItem xs="2" Class="d-flex justify-end">
+                                    <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnUpdateClick">Обновить</MudButton>
+                                </MudItem>
+                            </MudGrid>
                             @foreach (var notification in _notifications)
                             {
                                 <MudLink OnClick="@(() => OnNotificationClick(notification))">
@@ -49,8 +56,8 @@
                                                 </MudItem>
                                                 @if (notification.Invitation != null)
                                                 {
-                                                    <MudItem xs="1" Class="d-flex justify-center">
-                                                    <MudIcon Icon="@Icons.Material.Filled.InsertInvitation"></MudIcon>
+                                                    <MudItem xs="1" Class="d-flex justify-end">
+                                                        <MudIcon Icon="@Icons.Material.Filled.InsertInvitation"></MudIcon>
                                                     </MudItem>
                                                 }
                                         </MudGrid>
