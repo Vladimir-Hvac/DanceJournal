@@ -35,6 +35,7 @@ builder.Services.AddScoped<IAbonementService, AbonementService>();
 builder.Services.AddScoped<IManageService, ManageService>();
 
 var app = builder.Build();
+app.Use(async (HttpContext ctx, RequestDelegate next) => { await next.Invoke(ctx); Console.WriteLine(ctx.Request.Path); }) ;
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Configure the HTTP request pipeline.

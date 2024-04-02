@@ -1,42 +1,65 @@
 ﻿@page "/users"
-@if (render)
-{
-    <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
-        <MudGrid>
-            <MudItem xs="12" sm="12">
-                <MudTable T="User" Items="@ManageService.Users">
-                    <HeaderContent>
-                        <MudTh>Id</MudTh>
-                        <MudTd>Surname</MudTd>
-                        <MudTd>FirstName</MudTd>
-                        <MudTd>SecondName</MudTd>
-                        <MudTd>BirthDate</MudTd>
-                        <MudTh>Gender</MudTh>
-                        <MudTh>Email</MudTh>
-                        <MudTh>Phone Number</MudTh>
-                        <MudTh>Level</MudTh>
-                        <MudTh>Role</MudTh>
-                        <MudTh>Subscription</MudTh>
-                        <MudTh>Salary</MudTh>
-                    </HeaderContent>
-                    <RowTemplate>
-                        <MudTd>@context.Id</MudTd>
-                        <MudTd>@context.Surname</MudTd>
-                        <MudTd>@context.FirstName</MudTd>
-                        <MudTd>@context.SecondName</MudTd>
-                        <MudTd>@context.BirthDate</MudTd>
-                        <MudTd>@context.Gender</MudTd>
-                        <MudTd>@context.Email</MudTd>
-                        <MudTd>@context.PhoneNumber</MudTd>
-                        <MudTd>@context.Level.Title</MudTd>
-                        <MudTd>@context.Role.Name</MudTd>
-                        <MudTd>@context.Subscription.SubscriptionType.Name</MudTd>
-                        <MudTd>@context.Salary</MudTd>
-                    </RowTemplate>
-                </MudTable>
 
-            </MudItem>
-        </MudGrid>
-    </MudContainer>
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="12">
+            <MudTable Items="@ManageService.Users"
+                      Filter="new Func<User,bool>(FilterFunc1)"
+                      Bordered="true"
+                      Dense="false"
+                      FixedHeader="true">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6">Пользователи</MudText>
+                    <MudSpacer />
+                    <MudTextField @bind-Value="_searchString"
+                                  Placeholder="Поиск"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium" Class="mt-0" />
+                    <MudButton Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.Add"
+                               IconSize="Size.Medium"
+                               OnClick="()=>ManageService.AddAsync(new User())">Добавить</MudButton>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Surname)">Тип занятия</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.FirstName)">Зал</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.SecondName)">Тренер</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.BirthDate)">Уровень</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Gender)">Начало</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Email)">Окончание</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.PhoneNumber)">Окончание</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Level.Title)">Окончание</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Role.Name)">Окончание</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Subscription.SubscriptionType.Name)">Окончание</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Salary)">Окончание</MudTableSortLabel></MudTh>
+                    <MudTh></MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Наименование">@context.Id</MudTd>
+                    <MudTd DataLabel="Type">@context.Surname</MudTd>
+                    <MudTd DataLabel="Price">@context.FirstName</MudTd>
+                    <MudTd DataLabel="Type">@context.SecondName </MudTd>
+                    <MudTd DataLabel="Type">@context.Level.Title</MudTd>
+                    <MudTd DataLabel="Type">@context.BirthDate</MudTd>
+                    <MudTd DataLabel="Type">@context.Gender</MudTd>
+                    <MudTd DataLabel="Type">@context.Email</MudTd>
+                    <MudTd DataLabel="Type">@context.PhoneNumber</MudTd>
+                    <MudTd DataLabel="Type">@context.Level.Title</MudTd>
+                    <MudTd DataLabel="Type">@context.Role.Name</MudTd>
+                    <MudTd DataLabel="Type">@context.Subscription.SubscriptionType.Name</MudTd>
+                    <MudTd DataLabel="Type">@context.Salary</MudTd>
+                    <MudTd Style="text-align:right">
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="()=>ManageService.UpdateAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.CopyAll" OnClick="()=>ManageService.CopyAsync(context)" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="()=>ManageService.RemoveAsync(context)" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
 
-}
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
