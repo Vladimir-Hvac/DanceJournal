@@ -30,8 +30,16 @@
                 </MudItem>
                 <MudItem xs="10">
                     @if(!_isReadingMode)
-                    {
+                    {                    
                         <MudStack Spacing="10">
+                            <MudGrid>
+                                <MudItem xs="10">
+                                    <MudText Typo="Typo.h4">@_title</MudText>
+                                </MudItem>
+                                    <MudItem xs="2" Class="d-flex justify-end">
+                                    <MudButton Variant="Variant.Outlined" Color="Color.Primary" Style="font-size:  11px;" OnClick="OnUpdateClick">Обновить</MudButton>
+                                </MudItem>
+                            </MudGrid>
                             @foreach (var notification in _notifications)
                             {
                                 <MudLink OnClick="@(() => OnNotificationClick(notification))">
@@ -43,10 +51,16 @@
                                                 <MudItem xs="6">
                                                     <MudText Align="Align.Right">@notification.Time</MudText>
                                                 </MudItem>
-                                                <MudItem xs="12">
+                                                <MudItem xs="11">
                                                     <MudText>@notification.Body</MudText>
                                                 </MudItem>
-                                            </MudGrid>
+                                                @if (notification.Invitation != null)
+                                                {
+                                                    <MudItem xs="1" Class="d-flex justify-end">
+                                                        <MudIcon Icon="@Icons.Material.Filled.InsertInvitation"></MudIcon>
+                                                    </MudItem>
+                                                }
+                                        </MudGrid>
                                         </MudPaper>
                                     </MudLink>
                             }
