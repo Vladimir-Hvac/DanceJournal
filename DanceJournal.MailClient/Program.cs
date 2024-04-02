@@ -16,12 +16,12 @@ mailClientBrokerService.Subscribe();
 Console.ReadLine();
 void HandleMessage(NotificationMessageDTO message)
 {
-    Thread myThread = new Thread(new ParameterizedThreadStart(Print));
+    Thread myThread = new Thread(new ParameterizedThreadStart(Handle));
     myThread.Start(message);
 }
 
 
-void Print(object? message)
+void Handle(object? message)
 {
     lock (locker)
     {
