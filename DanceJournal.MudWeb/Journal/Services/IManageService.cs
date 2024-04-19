@@ -1,4 +1,5 @@
 ﻿using DanceJournal.MudWeb.Journal.Pages;
+using DanceJournal.Services.BS_AbonementManagement.Abstractions;
 using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using MudBlazor;
 
@@ -6,33 +7,63 @@ namespace DanceJournal.MudWeb.Journal.Services
 {
     public interface IManageService
     {
-        List<LessonType> LessonTypes { get; set; }
-        List<Lesson> Lessons { get; set; }
-        List<Room> Rooms { get; set; }
-        List<User> Users { get; set; }
+        public List<Lesson> Lessons { get; set; }
+        public List<LessonType> LessonTypes { get; set; }
+        public List<Room> Rooms { get; set; }
+        public List<User> Users { get; set; }
+        public List<Level> Levels { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
+        public List<SubscriptionType> SubscriptionTypes { get; set; }
+        public List<LessonUser> LessonUsers { get; set; }
+
+        public Task<List<Lesson>> GetLessonsAsync();
+        public Task<List<LessonType>> GetLessonTypesAsync();
+        public Task<List<Room>> GetRoomsAsync();
+        public Task<List<User>> GetUsersAsync();
+        public Task<List<Level>> GetLevelsAsync();
+        public Task<List<Role>> GetRoles();
+        public Task<List<Subscription>> GetAllSubscription();
+        public Task<List<SubscriptionType>> GetAllSubscriptionType();
+        public Task<List<LessonUser>> GetLessonUsers();
 
         public Task UpdateAsync(object entity);
         public Task AddAsync(object entity);
         public Task CopyAsync(object entity);
         public Task RemoveAsync(object entity);
+
+        public Task SubscribeToLesson(int lessonId, int userId);
+        public Task<User> GetCurrentUser();
     }
     public class ManageService : IManageService
     {
         private IDialogService _dialogService;
         private ILessonPlanning _lessonPlanning;
         private IClientManagement _clientManagement;
+        private IAbonementService _abonementService;
 
         public List<Lesson> Lessons { get; set; }
         public List<LessonType> LessonTypes { get; set; }
         public List<Room> Rooms { get; set; }
         public List<User> Users { get; set; }
-        public ManageService(IDialogService dialogService, ILessonPlanning lessonPlanning, IClientManagement clientManagement)
+        public List<Level> Levels { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
+        public List<SubscriptionType> SubscriptionTypes { get; set; }
+        public List<LessonUser> LessonUsers { get; set; }
+
+        public ManageService(IDialogService dialogService,
+            ILessonPlanning lessonPlanning,
+            IClientManagement clientManagement,
+            IAbonementService abonementService)
         {
             _dialogService = dialogService;
             _lessonPlanning = lessonPlanning;
             _clientManagement = clientManagement;
+            _abonementService = abonementService;
 
         }
+
 
         public async Task UpdateAsync(object entity)
         {
@@ -114,6 +145,7 @@ namespace DanceJournal.MudWeb.Journal.Services
             var dialog = _dialogService.Show(dialogType, title, parameters, options);
             return await dialog.Result;
         }
+
         private async Task<DialogResult> OpenDialog(string title, object entity, DialogParameters parameters)
         {
             Type dialogType = GetDialogType(entity);
@@ -136,6 +168,7 @@ namespace DanceJournal.MudWeb.Journal.Services
                     return null;
             }
         }
+
         private async Task AddLessonTypesAsync(object entity)
         {
             var result = await OpenDialog("Добавить", entity);
@@ -145,6 +178,7 @@ namespace DanceJournal.MudWeb.Journal.Services
             await _lessonPlanning.CreateLessonTypeAsync(resultEntity);
 
         }
+
         private async Task UpdateLessonTypesAsync(object entity)
         {
             var result = await OpenDialog("Редактировать", entity);
@@ -159,6 +193,7 @@ namespace DanceJournal.MudWeb.Journal.Services
             await _lessonPlanning.UpdateLessonTypeAsync(resultEntity);
 
         }
+
         private async Task AddLessonsAsync(object entity)
         {
             var parameters = new DialogParameters()
@@ -167,8 +202,9 @@ namespace DanceJournal.MudWeb.Journal.Services
                 {nameof(this.LessonTypes),LessonTypes },
                 {nameof(this.Rooms),Rooms },
                 {nameof(this.Users),Users },
+                {nameof(this.Levels),Levels },
             };
-            var result = await OpenDialog("Редактировать", entity, parameters);
+            var result = await OpenDialog("Добавить", entity, parameters);
             if (result.Canceled) return;
 
             Lesson resultEntity = (Lesson)result.Data;
@@ -185,6 +221,7 @@ namespace DanceJournal.MudWeb.Journal.Services
                 {nameof(this.LessonTypes),LessonTypes },
                 {nameof(this.Rooms),Rooms },
                 {nameof(this.Users),Users },
+                {nameof(this.Levels),Levels },
             };
             var result = await OpenDialog("Редактировать", entity, parameters);
             if (result.Canceled) return;
@@ -197,6 +234,86 @@ namespace DanceJournal.MudWeb.Journal.Services
             Lessons.Add(resultEntity);
             await _lessonPlanning.UpdateLessonAsync(resultEntity);
 
+        }
+
+        public async Task<List<Lesson>> GetLessonsAsync()
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            var test = await _lessonPlanning.GetAllLessonsAsync();
+            lessons = test.ToList();
+            return lessons;
+        }
+
+        public async Task<List<LessonType>> GetLessonTypesAsync()
+        {
+            List<LessonType> lessonTypes = new List<LessonType>();
+            var test = await _lessonPlanning.GetAllLessonsTypesAsync();
+            lessonTypes = test.ToList();
+            return lessonTypes;
+        }
+
+        public async Task<List<Room>> GetRoomsAsync()
+        {
+            List<Room> rooms = new List<Room>();
+            var test = await _lessonPlanning.GetAllRoomsAsync();
+            rooms = test.ToList();
+            return rooms;
+        }
+
+        public async Task<List<User>> GetUsersAsync()
+        {
+            List<User> users = new List<User>();
+            var test = await _clientManagement.GetAllClientsAsync(new CancellationToken());
+            users = test.ToList();
+            return users;
+        }
+
+        public async Task<List<Level>> GetLevelsAsync()
+        {
+            List<Level> levels = new List<Level>();
+            var test = await _lessonPlanning.GetAllLevelsAsync();
+            levels = test.ToList();
+            return levels;
+        }
+        public async Task SubscribeToLesson(int lessonId,int userId)
+        {
+            var lessonUser = new LessonUser() { IsVisit = true, LessonId = lessonId,UserId = userId };
+            await _lessonPlanning.CreateLessonUserAsync(lessonUser);
+            
+        }
+        public async Task<List<Role>> GetRoles()
+        {
+            List<Role> roles = new List<Role>();
+            var test = await _clientManagement.GetAllRolesAsync();
+            roles = test.ToList();
+            return roles;
+        }
+        public async Task<List<Subscription>> GetAllSubscription()
+        {
+            List<Subscription> subscription = new List<Subscription>();
+            var test = await _abonementService.GetAllAbonementsAsync(new CancellationToken());
+            subscription = test.ToList();
+            return subscription;
+        }
+
+        public async Task<List<SubscriptionType>> GetAllSubscriptionType()
+        {
+            List<SubscriptionType> subscriptionType = new List<SubscriptionType>();
+            var test = await _abonementService.GetAllTypeAbonementsAsync(new CancellationToken());
+            subscriptionType = test.ToList();
+            return subscriptionType;
+        }
+
+        public async Task<User> GetCurrentUser()
+        {
+            return Users.First();
+        }
+
+        public async Task<List<LessonUser>> GetLessonUsers()
+        {
+            var test = await _lessonPlanning.GetAllLessonsUsersAsync();
+
+            return test.ToList();
         }
     }
 }

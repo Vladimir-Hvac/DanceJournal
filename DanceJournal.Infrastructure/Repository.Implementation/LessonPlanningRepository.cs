@@ -248,5 +248,18 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
         }
 
         #endregion
+
+        #region Levels
+
+        public async Task<IEnumerable<Level>> GetAllLevels()
+        {
+            var levels = await _dbContext.Levels.ToListAsync();
+            if (levels == null)
+                throw new Exception("Ошибка при получении всех записей посещения уроков.");
+            else
+                return levels;
+        }
+
+        #endregion
     }
 }

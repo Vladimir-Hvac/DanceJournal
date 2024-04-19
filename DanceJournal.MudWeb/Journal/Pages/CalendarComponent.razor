@@ -2,10 +2,10 @@
 
 <MudTabs>
     <MudTabPanel Text="Все занятия">
-        <MudCalendar Items="_allEvents" ItemClicked="OnClick"  Use24HourClock="true" />
+        <MudCalendar Items="_allEvents" ItemClicked="AllEventsClick"  Use24HourClock="true" />
     </MudTabPanel>
     <MudTabPanel Text="Мои занятия">
-        <MudCalendar Items="_myEvents" ItemClicked="OnClick" Use24HourClock="true" />
+        <MudCalendar Items="_myEvents" ItemClicked="MyEventsClick" Use24HourClock="true" />
     </MudTabPanel>
 </MudTabs>
 @if (_showEvents)
@@ -16,14 +16,21 @@
         </MudDrawerHeader>
             <MudCard>
                 <MudCardContent>
+                    <MudText Typo="Typo.body1">Тип занятия: @_selectedLesson.LessonType.Type</MudText>
                     <MudText Typo="Typo.body1">Занятие: @_selectedLesson.LessonType.Name</MudText>
-                    <MudText Typo="Typo.body1">Стоимость: @_selectedLesson.LessonType.Price руб.</MudText>
+                    @if (_selectedLesson.LessonType.Type.Equals("Индивидуальное"))
+                    {
+                        <MudText Typo="Typo.body1">Стоимость: @_selectedLesson.LessonType.Price руб.</MudText>
+                    }
                     <MudText Typo="Typo.body1">Зал: @_selectedLesson.Room.Name</MudText>
                     <MudText Typo="Typo.body1">Уровень: @_selectedLesson.Level.Title</MudText>
+                    <MudText Typo="Typo.body1">Тренер: @_selectedLesson.User.FirstName @_selectedLesson.User.SecondName</MudText>
+                    <MudText Typo="Typo.body1">Начало: @_selectedLesson.Start.ToString()</MudText>
+                    <MudText Typo="Typo.body1">Окончание: @_selectedLesson.Finish.ToString()</MudText>
                 </MudCardContent>
             </MudCard>
             <MudDrawerContainer>
-                <MudButton Color="Color.Primary" OnClick="Subscribe">Записаться</MudButton>
+                <MudButton Color="Color.Primary" Disabled="@_isEnable" OnClick="Subscribe">@_subscribeButtonName</MudButton>
             </MudDrawerContainer>
         </MudDrawer>
 }

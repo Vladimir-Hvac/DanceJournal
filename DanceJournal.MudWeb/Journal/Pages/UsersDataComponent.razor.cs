@@ -1,4 +1,5 @@
 ﻿using DanceJournal.MudWeb.Journal.Models;
+using DanceJournal.MudWeb.Journal.Services;
 using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using Microsoft.AspNetCore.Components;
 
@@ -6,27 +7,53 @@ namespace DanceJournal.MudWeb.Journal.Pages
 {
     partial class UsersDataComponent
     {
-        [Inject]
-        public DataMapping _dataMapping { get; set; }
-        [Inject]
-        public IClientManagement ClientManagement { get; set; }
+        private string _searchString;
+        private bool render = false;
 
-        private List<User>? _users;
+        [Inject]
+        public IManageService ManageService { get; set; }
+
 
         protected override async Task OnInitializedAsync()
         {
-            //_users = _dataMapping.UsersDTO;
-            _users = await ClientManagement.GetAllClientsAsync(new CancellationToken());
-            foreach (var user in _users)
-            {
-                user.Level = _dataMapping.GetLevel(user.LevelId);
-                user.Subscription = _dataMapping.GetSubscription(user.SubscriptionId);
-                user.Role = _dataMapping.GetRole(user.RoleId);
-                user.Subscription.SubscriptionType = _dataMapping.GetSubscriptionType(
-                    user.Subscription.SubscriptionTypeId
-                );
-            }
-            DateOnly startDay = new DateOnly(2023, 8, 17);
+
+            ManageService.Roles = await ManageService.GetRoles();
+            ManageService.Levels = await ManageService.GetLevelsAsync();
+            ManageService.SubscriptionTypes = await ManageService.GetAllSubscriptionType();
+            ManageService.Subscriptions = await ManageService.GetAllSubscription();
+            ManageService.Users = await ManageService.GetUsersAsync();
         }
+
+        private bool FilterFunc1(User element) => FilterFunc(element, _searchString);
+
+        private bool FilterFunc(User element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Id.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.BirthDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Email.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Gender.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Level.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.PhoneNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Role.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Salary.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Subscription.SubscriptionType.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
+        }
+
     }
 }

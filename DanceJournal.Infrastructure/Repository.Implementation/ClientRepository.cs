@@ -1,9 +1,10 @@
-﻿using DanceJournal.Services.BS_ClientManagement.Abstractions;
+﻿using System.Threading;
+using DanceJournal.Services.BS_ClientManagement.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DanceJournal.Infrastructure.Repository.Implementation
 {
-    public class ClientRepository: IClientManagementRepository
+    public class ClientRepository : IClientManagementRepository
     {
         private DanceJournalDbContext _dbContext;
         public ClientRepository(DanceJournalDbContext dbContext)
@@ -23,7 +24,7 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
         }
         public async Task<List<User>> GetAllEntity( CancellationToken cancellationToken)
         {
-            var clients = await _dbContext.Users.Where(item => item.RoleId == 1).ToListAsync(cancellationToken);
+            var clients = await _dbContext.Users.ToListAsync(cancellationToken);
             return clients;
         }
         public async Task<User> CreateEntity(User user,CancellationToken cancellationToken)
@@ -66,6 +67,12 @@ namespace DanceJournal.Infrastructure.Repository.Implementation
                 throw new Exception("Не удалось обновить пользователя", ex);
             }
 
+        }
+
+        public async Task<List<Role>> GetAllRoles()
+        {
+            var roles = await _dbContext.Roles.ToListAsync();
+            return roles;
         }
     }
 }

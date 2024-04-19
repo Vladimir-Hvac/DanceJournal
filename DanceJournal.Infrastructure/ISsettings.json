@@ -1,7 +1,8 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=ep-lucky-smoke-a2crehr4.eu-central-1.aws.neon.tech;Port=5432;Database=DanceJournal;Username=Vladimir-Hvac;Password=m9e4lQMCbonX;"
+    "DefaultConnection": "Host=ep-lucky-smoke-a2crehr4.eu-central-1.aws.neon.tech;Port=5432;Database=DanceJournal;Username=Vladimir-Hvac;Password=m9e4lQMCbonX;",
     //"DefaultConnection": "Host=localhost;Port=5432;Database=dance;Username=michael.jackson;Password=12!Annie@are@you@okay!12;"
+    "RabbitConnection": "amqps://sjpgbhvs:V9cPualIQSXQKEcIHVPuNNknz5V0Y3dE@goose.rmq2.cloudamqp.com/sjpgbhvs"
   },
 
 

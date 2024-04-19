@@ -14,6 +14,8 @@ namespace DanceJournal.MudWeb.Journal.Pages
 
         [Inject]
         public IDialogService DialogService { get; set; }
+        [Inject]
+        public ISnackbar Snackbar { get; set; }
 
         [Parameter]
         public int NotificationId { get; set; }
@@ -29,10 +31,22 @@ namespace DanceJournal.MudWeb.Journal.Pages
         private readonly DialogOptions _dialogOptions =
             new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
 
+        private Action<SnackbarOptions> _snackbarOptions;
+
         private bool _render;
+
+        private string _title = "Новые";
+
+        private int _tabId = 0;
 
         protected override async Task OnInitializedAsync()
         {
+            _snackbarOptions = options =>
+            {
+                options.SnackbarVariant = Variant.Filled;
+                options.ShowCloseIcon = true;
+                options.VisibleStateDuration = 5000; // 5 seconds
+            };
             _currentAuthUser = new CurrentAuthUser()
             {
                 UserName = "",
@@ -64,6 +78,8 @@ namespace DanceJournal.MudWeb.Journal.Pages
             _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
             _selectedNotification = null;
             _isReadingMode = false;
+            _title = "Новые";
+            _tabId = 0;
             await InvokeAsync(StateHasChanged);
         }
         private async void OnArchivedNotificationsClick()
@@ -76,6 +92,8 @@ namespace DanceJournal.MudWeb.Journal.Pages
             _notifications = await NotificationService.GetReadNotifications(_currentAuthUser);
             _selectedNotification = null;
             _isReadingMode = false;
+            _title = "Архив";
+            _tabId = 1;
             await InvokeAsync(StateHasChanged);
         }
         private async void OnCreateInvitationClick()
@@ -97,6 +115,16 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 parameters,
                 _dialogOptions
             );
+            var result = await dialog.Result;
+            if (!result.Canceled)
+            {
+                Snackbar.Add("Приглашение успешно создано", Severity.Success, _snackbarOptions);
+                await LoadNotReadNotifications();
+            }
+            else
+            {
+                Snackbar.Add("Произошел сбой при создании приглашения", Severity.Error, _snackbarOptions);
+            }
         }
         private async void OnCreateNotificationClick()
         {
@@ -116,7 +144,37 @@ namespace DanceJournal.MudWeb.Journal.Pages
                 _dialogOptions
             );
 
-            //Add update 
+            var result = await dialog.Result;
+            if (!result.Canceled)
+            {
+                Snackbar.Add("Уведомление успешно создано", Severity.Success, _snackbarOptions);
+                await LoadNotReadNotifications();
+            }
+            else
+            {
+                Snackbar.Add("Произошел сбой при создании уведомления", Severity.Error, _snackbarOptions);
+            }
+        }
+        private async Task LoadNotReadNotifications()
+        {
+            if (_currentAuthUser is null)
+            {
+                return;
+            }
+            _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private async void OnUpdateClick()
+        {
+            if (_tabId == 0)
+            {
+                _notifications = await NotificationService.GetNotReadNotifications(_currentAuthUser);
+            }
+            else
+            {
+                _notifications = await NotificationService.GetReadNotifications(_currentAuthUser);
+            }
         }
     }
 }

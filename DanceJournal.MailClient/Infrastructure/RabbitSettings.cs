@@ -1,4 +1,4 @@
-﻿namespace DanceJournal.Infrastructure.RabbitService
+﻿namespace DanceJournal.MailClient.Infrastructure
 {
     public class RabbitSettings
     {

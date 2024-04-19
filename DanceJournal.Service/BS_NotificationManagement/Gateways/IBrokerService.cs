@@ -1,10 +1,9 @@
-﻿using DanceJournal.Services.BS_NotificationManagement.Contracts;
+﻿using DanceJournal.Contracts.MessageContracts;
 
 namespace DanceJournal.Services.BS_NotificationManagement.Gateways
 {
     public interface IBrokerService
     {
-        void Subscribe();
         void PublishNotificationMessage(NotificationMessageDTO notificationMessageDTO);
     }
 }
