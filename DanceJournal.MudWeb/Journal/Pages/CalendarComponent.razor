@@ -2,10 +2,10 @@
 
 <MudTabs>
     <MudTabPanel Text="Все занятия">
-        <MudCalendar Items="_allEvents" ItemClicked="OnClick"  Use24HourClock="true" />
+        <MudCalendar Items="_allEvents" ItemClicked="AllEventsClick"  Use24HourClock="true" />
     </MudTabPanel>
     <MudTabPanel Text="Мои занятия">
-        <MudCalendar Items="_myEvents" ItemClicked="OnClick" Use24HourClock="true" />
+        <MudCalendar Items="_myEvents" ItemClicked="MyEventsClick" Use24HourClock="true" />
     </MudTabPanel>
 </MudTabs>
 @if (_showEvents)
@@ -30,7 +30,7 @@
                 </MudCardContent>
             </MudCard>
             <MudDrawerContainer>
-                <MudButton Color="Color.Primary" OnClick="Subscribe">Записаться</MudButton>
+                <MudButton Color="Color.Primary" Disabled="@_isEnable" OnClick="Subscribe">@_subscribeButtonName</MudButton>
             </MudDrawerContainer>
         </MudDrawer>
 }

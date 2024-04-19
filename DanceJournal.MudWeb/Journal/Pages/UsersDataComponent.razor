@@ -23,33 +23,32 @@
                 </ToolBarContent>
                 <HeaderContent>
                     <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Surname)">Тип занятия</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.FirstName)">Зал</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.SecondName)">Тренер</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.BirthDate)">Уровень</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Gender)">Начало</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Email)">Окончание</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.PhoneNumber)">Окончание</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Level.Title)">Окончание</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Role.Name)">Окончание</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Subscription.SubscriptionType.Name)">Окончание</MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Salary)">Окончание</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Surname)">Фамилия</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.FirstName)">Имя</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.SecondName)">Отчество</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.BirthDate)">Дата рождения</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Gender)">Пол</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Email)">Email</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.PhoneNumber)">Телефон</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Level.Title)">Уровень</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Role.Name)">Роль</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Subscription.SubscriptionType.Name)">Абонимент</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Salary)">ЗП</MudTableSortLabel></MudTh>
                     <MudTh></MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Наименование">@context.Id</MudTd>
-                    <MudTd DataLabel="Type">@context.Surname</MudTd>
-                    <MudTd DataLabel="Price">@context.FirstName</MudTd>
-                    <MudTd DataLabel="Type">@context.SecondName </MudTd>
-                    <MudTd DataLabel="Type">@context.Level.Title</MudTd>
-                    <MudTd DataLabel="Type">@context.BirthDate</MudTd>
-                    <MudTd DataLabel="Type">@context.Gender</MudTd>
-                    <MudTd DataLabel="Type">@context.Email</MudTd>
-                    <MudTd DataLabel="Type">@context.PhoneNumber</MudTd>
-                    <MudTd DataLabel="Type">@context.Level.Title</MudTd>
-                    <MudTd DataLabel="Type">@context.Role.Name</MudTd>
-                    <MudTd DataLabel="Type">@context.Subscription.SubscriptionType.Name</MudTd>
-                    <MudTd DataLabel="Type">@context.Salary</MudTd>
+                    <MudTd DataLabel="Id">@context.Id</MudTd>
+                    <MudTd DataLabel="Фамилия">@context.Surname</MudTd>
+                    <MudTd DataLabel="Имя">@context.FirstName</MudTd>
+                    <MudTd DataLabel="Отчество">@context.SecondName </MudTd>
+                    <MudTd DataLabel="Дата рождения">@context.BirthDate</MudTd>
+                    <MudTd DataLabel="Пол">@context.Gender</MudTd>
+                    <MudTd DataLabel="Email">@context.Email</MudTd>
+                    <MudTd DataLabel="Телефон">@context.PhoneNumber</MudTd>
+                    <MudTd DataLabel="Уровень">@context.Level.Title</MudTd>
+                    <MudTd DataLabel="Роль">@context.Role.Name</MudTd>
+                    <MudTd DataLabel="Абонимент">@context.Subscription.SubscriptionType.Name</MudTd>
+                    <MudTd DataLabel="ЗП (персонал)">@context.Salary</MudTd>
                     <MudTd Style="text-align:right">
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="()=>ManageService.UpdateAsync(context)" />
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.CopyAll" OnClick="()=>ManageService.CopyAsync(context)" />

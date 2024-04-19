@@ -10,7 +10,6 @@ namespace DanceJournal.MudWeb.Journal.Pages
         [Inject] IManageService ManageService { get; set; }
         protected override async Task OnInitializedAsync()
         {
-
         }
 
         private void HandleValidSubmit() { }

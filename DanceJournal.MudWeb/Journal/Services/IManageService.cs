@@ -13,8 +13,9 @@ namespace DanceJournal.MudWeb.Journal.Services
         public List<User> Users { get; set; }
         public List<Level> Levels { get; set; }
         public List<Role> Roles { get; set; }
-        public List<Subscription> Subscription { get; set; }
-        public List<SubscriptionType> SubscriptionType { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
+        public List<SubscriptionType> SubscriptionTypes { get; set; }
+        public List<LessonUser> LessonUsers { get; set; }
 
         public Task<List<Lesson>> GetLessonsAsync();
         public Task<List<LessonType>> GetLessonTypesAsync();
@@ -24,6 +25,7 @@ namespace DanceJournal.MudWeb.Journal.Services
         public Task<List<Role>> GetRoles();
         public Task<List<Subscription>> GetAllSubscription();
         public Task<List<SubscriptionType>> GetAllSubscriptionType();
+        public Task<List<LessonUser>> GetLessonUsers();
 
         public Task UpdateAsync(object entity);
         public Task AddAsync(object entity);
@@ -31,6 +33,7 @@ namespace DanceJournal.MudWeb.Journal.Services
         public Task RemoveAsync(object entity);
 
         public Task SubscribeToLesson(int lessonId, int userId);
+        public Task<User> GetCurrentUser();
     }
     public class ManageService : IManageService
     {
@@ -45,9 +48,9 @@ namespace DanceJournal.MudWeb.Journal.Services
         public List<User> Users { get; set; }
         public List<Level> Levels { get; set; }
         public List<Role> Roles { get; set; }
-        public List<Subscription> Subscription { get; set; }
-        public List<SubscriptionType> SubscriptionType { get; set; }
-
+        public List<Subscription> Subscriptions { get; set; }
+        public List<SubscriptionType> SubscriptionTypes { get; set; }
+        public List<LessonUser> LessonUsers { get; set; }
 
         public ManageService(IDialogService dialogService,
             ILessonPlanning lessonPlanning,
@@ -276,6 +279,7 @@ namespace DanceJournal.MudWeb.Journal.Services
         {
             var lessonUser = new LessonUser() { IsVisit = true, LessonId = lessonId,UserId = userId };
             await _lessonPlanning.CreateLessonUserAsync(lessonUser);
+            
         }
         public async Task<List<Role>> GetRoles()
         {
@@ -298,6 +302,18 @@ namespace DanceJournal.MudWeb.Journal.Services
             var test = await _abonementService.GetAllTypeAbonementsAsync(new CancellationToken());
             subscriptionType = test.ToList();
             return subscriptionType;
+        }
+
+        public async Task<User> GetCurrentUser()
+        {
+            return Users.First();
+        }
+
+        public async Task<List<LessonUser>> GetLessonUsers()
+        {
+            var test = await _lessonPlanning.GetAllLessonsUsersAsync();
+
+            return test.ToList();
         }
     }
 }
